@@ -1,0 +1,70 @@
+.homepage {
+    text-align: center;
+    padding: 50px;
+    color: #fff;
+}
+.homepage p:hover  {
+    filter: 
+        drop-shadow(0 0 4px violet) 
+        drop-shadow(0 0 8px indigo) 
+        drop-shadow(0 0 10px blue) 
+        drop-shadow(0 0 12px green) 
+        drop-shadow(0 0 14px yellow) 
+        drop-shadow(0 0 16px orange) 
+        drop-shadow(0 0 18px red);
+}
+
+.homepage p {
+    color: rgb(255, 254, 254);
+    font-size: 4em;
+    margin-bottom: 40px;
+    border: 4px solid green;
+    border-radius: 50px;
+    background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
+    padding: 7px;
+    text-shadow: 
+    -1px -1px 0 black,  
+     1px -1px 0 black,
+    -1px  1px 0 black,
+     1px  1px 0 black;
+
+}
+
+#rainbow {
+    background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+    -webkit-background-clip: text; /* Ensures the gradient is clipped to the text */
+    -webkit-text-fill-color: transparent; /* Makes the inside of the text transparent, showing the gradient */
+    text-fill-color: transparent; /* For non-webkit browsers */
+    display: inline-block;
+    
+
+}
+
+.homepage h1 {
+    font-size: 8rem;
+    margin-bottom: 30px;
+    padding-bottom: 95px;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    padding: 20px; /* Padding inside the h1 to give space around the text */
+    display: inline-block; /* Keeps the background contained to the text width */
+    border-radius: 10px; /* Optional: Adds rounded corners */
+}
+
+#rainbow2 {
+    background-color: rgb(254, 254, 254); /* Semi-transparent black background */
+    padding-top: 95px;
+    border-radius: 15px;
+    padding-right: 95px;
+    padding-left: 95px;
+    padding-bottom: 5px;
+    font-family: 'Segoe UI';
+    box-shadow: 15px 15px 10px ;
+    border: 3px solid black;
+
+
+}
+
+h2 {
+    color: black;
+    font-size: 60px;
+}
