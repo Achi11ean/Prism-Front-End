@@ -1,0 +1,102 @@
+/* General form container styling */
+.create-event-container {
+    background-color: rgba(107, 41, 0, 0.8); /* Background with transparency */
+    padding: 40px;
+    max-width: 1500px; /* Width of the form container */
+    margin: 50px auto; /* Center the form on the page */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    color: #fff; /* Text color for labels */
+}
+
+/* Form header styling */
+.create-event-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5rem; /* Large title */
+    color: #fff; /* White color for form header */
+}
+
+/* Label styling */
+.create-event-container label {
+    display: block;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+/* Input and textarea field styling */
+.create-event-container input[type="text"],
+.create-event-container input[type="date"],
+.create-event-container input[type="time"],
+.create-event-container textarea {
+    width: 100%; /* Make inputs longer */
+    padding: 12px;
+    font-size: 2em;
+    margin-bottom: 20px;
+    border: 3px solid #ddd;
+    border-radius: 20px;
+    box-sizing: border-box;
+    
+}
+
+/* Dropdown (select) styling */
+.create-event-container select {
+    width: 100%; /* Make dropdown longer */
+    padding: 15px;
+    font-size: 2em;
+    margin-bottom: 20px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* Button styling */
+.create-event-container button {
+    display: block;
+    width: 1200px; /* Make button longer */
+    padding: 15px;
+    background-color: #05fc3b;
+    color: rgb(0, 0, 0);
+    border: 6px solid black;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 2rem;
+    margin-top: 20px;
+}
+
+/* Button hover effect */
+.create-event-container button:hover {
+    background-color: #d6da0b;
+    color: #000;
+}
+
+/* Input, textarea, and select focus effect */
+.create-event-container input:focus,
+.create-event-container textarea:focus,
+.create-event-container select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Description textarea (make it taller) */
+.create-event-container textarea {
+    height: 150px; /* Make description box taller */
+    font-size: 1.5em; /* Adjust font size for textarea */
+}
+
+/* Make the form responsive */
+@media (max-width: 600px) {
+    .create-event-container {
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    .create-event-container h2 {
+        font-size: 2rem;
+    }
+
+    .create-event-container button {
+        font-size: 1.2rem;
+    }
+}

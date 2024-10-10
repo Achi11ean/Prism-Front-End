@@ -32,9 +32,8 @@
 
 #rainbow {
     background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
-    -webkit-background-clip: text; /* Ensures the gradient is clipped to the text */
+    background-clip: text; /* Ensures the gradient is clipped to the text */
     -webkit-text-fill-color: transparent; /* Makes the inside of the text transparent, showing the gradient */
-    text-fill-color: transparent; /* For non-webkit browsers */
     display: inline-block;
     
 

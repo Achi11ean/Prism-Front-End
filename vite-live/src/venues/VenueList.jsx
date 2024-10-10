@@ -1,11 +1,183 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './VenueList.css';
 
 function VenueList() {
-    return (
-        <div>
-            <h1>Venue List</h1>
-        </div>
-    );
+  const [venues, setVenues] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [editingVenueId, setEditingVenueId] = useState(null);  // Track the venue being edited
+  const [editFormData, setEditFormData] = useState({
+    name: '',
+    organizer: '',
+    email: '',
+    earnings: '',
+  });
+const [errorMessage, setErrorMessage] = useState(''); // This line defines the error message state
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const url = searchTerm
+      ? `http://127.0.0.1:5001/venues/search?name=${searchTerm}`
+      : 'http://127.0.0.1:5001/venues';
+  
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch venues');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.length === 0) {
+          setErrorMessage('No venues found matching your search.');
+        } else {
+          setErrorMessage(''); // Clear error message if venues are found
+          setVenues(data); // Update the venues list
+        }
+      })
+      .catch((error) => {
+        setErrorMessage('No Matching Criteria.');
+        console.error('Error fetching venues:', error);
+      });
+  }, [searchTerm]);
+  // Handle the edit button click to edit a venue
+  const handleEditClick = (venue) => {
+    setEditingVenueId(venue.id);
+    setEditFormData({
+      name: venue.name,
+      organizer: venue.organizer,
+      email: venue.email,
+      earnings: venue.earnings,
+    });
+  };
+
+  // Handle input changes for editing
+  const handleEditChange = (e) => {
+    const { name, value } = e.target;
+    setEditFormData({ ...editFormData, [name]: value });
+  };
+
+  // Save the updated venue data
+  const handleSaveClick = (venueId) => {
+    fetch(`http://127.0.0.1:5001/venues/${venueId}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(editFormData),
+    })
+      .then((response) => response.json())
+      .then((updatedVenue) => {
+        setVenues(venues.map((venue) => (venue.id === venueId ? updatedVenue : venue)));
+        setEditingVenueId(null);
+      })
+      .catch((error) => console.error('Error updating venue:', error));
+  };
+
+  // Handle canceling the edit
+  const handleCancelClick = () => {
+    setEditingVenueId(null);
+  };
+
+  // Handle deleting a venue
+  const handleDeleteClick = (venueId) => {
+    fetch(`http://127.0.0.1:5001/venues/${venueId}`, {
+      method: 'DELETE',
+    })
+      .then(() => {
+        setVenues(venues.filter((venue) => venue.id !== venueId));
+      })
+      .catch((error) => console.error('Error deleting venue:', error));
+  };
+
+  return (
+    <div className="venue-list-container">
+      <h2>Venue List</h2>
+
+      {/* Create button */}
+      <button className="Create" onClick={() => navigate("/create-venue")}>Create New Venue</button>
+
+      {/* Search input */}
+      <input
+        type="text"
+        placeholder="Search by name"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+    {errorMessage && <p className="error-message" style={{ color: 'black', fontSize: '2em', backgroundColor: "white" }}>{errorMessage}</p>} {/* Error message display */}
+
+      <table border="1" cellPadding="10" className="venue-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Organizer</th>
+            <th>Email</th>
+            <th>Earnings</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {venues.map((venue) => (
+            <tr key={venue.id}>
+              {editingVenueId === venue.id ? (
+                <>
+                  <td>{venue.id}</td>
+                  <td>
+                    <input
+                      type="text"
+                      name="name"
+                      value={editFormData.name}
+                      onChange={handleEditChange}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      name="organizer"
+                      value={editFormData.organizer}
+                      onChange={handleEditChange}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      name="email"
+                      value={editFormData.email}
+                      onChange={handleEditChange}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      name="earnings"
+                      value={editFormData.earnings}
+                      onChange={handleEditChange}
+                    />
+                  </td>
+                  <td>
+                    <button className="Saveme" onClick={() => handleSaveClick(venue.id)}>Save</button>
+                    <button className="Cancelme" onClick={handleCancelClick}>Cancel</button>
+                  </td>
+                </>
+              ) : (
+                <>
+                  <td>{venue.id}</td>
+                  <td>{venue.name}</td>
+                  <td>{venue.organizer}</td>
+                  <td>{venue.email}</td>
+                  <td>{venue.earnings}</td>
+                  <td>
+                    <button className="editbutton"onClick={() => handleEditClick(venue)}>Edit</button>
+                    <button className="deletebutton" onClick={() => handleDeleteClick(venue.id)}>Delete</button>
+                  </td>
+                </>
+              )}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 }
 
 export default VenueList;
