@@ -171,6 +171,7 @@ function EventList() {
             <th>Location</th>
             <th>Description</th>
             <th>Venue</th>
+            <th>Event Type</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -259,6 +260,8 @@ function EventList() {
                   <td>{event.location}</td>
                   <td>{event.description}</td>
                   <td>{event.venue.name}</td>
+                  <td>{event.event_type}</td>  
+
                   <td>
                     <button
                       className="editbutton"

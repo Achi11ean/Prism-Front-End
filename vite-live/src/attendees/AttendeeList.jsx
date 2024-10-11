@@ -5,20 +5,26 @@ import './AttendeeList.css';
 function AttendeeList() {
   const [attendees, setAttendees] = useState([]);
   const [events, setEvents] = useState([]); // For holding the list of events
+  const [eventTypes, setEventTypes] = useState([]); // For holding the event types
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
   const [editingId, setEditingId] = useState(null);
   const [editData, setEditData] = useState({
     first_name: '',
     last_name: '',
     email: '',
     favorite_event_ids: [], // For storing selected favorite events during editing
+    favorite_event_types: [], // For storing selected favorite event types during editing
   });
+  const [searchTerm, setSearchTerm] = useState(''); // State for the search input
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch attendees
-    fetch("http://localhost:5001/attendees")
+    const url = searchTerm
+      ? `http://localhost:5001/attendees/search?name=${searchTerm}`
+      : 'http://localhost:5001/attendees';
+
+    fetch(url)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch attendees");
@@ -26,12 +32,18 @@ function AttendeeList() {
         return response.json();
       })
       .then((data) => {
-        setAttendees(data);
+        if (data.length === 0) {
+          setErrorMessage('No attendees found matching your search.');
+        } else {
+          setErrorMessage(''); // Clear error message if attendees are found
+          setAttendees(data); // Update the attendees list
+        }
         setLoading(false);
       })
       .catch((error) => {
-        setError(error.message);
+        setErrorMessage('No Matching Criteria.');
         setLoading(false);
+        console.error('Error fetching attendees:', error);
       });
 
     // Fetch available events for favorite events selection
@@ -39,22 +51,29 @@ function AttendeeList() {
       .then((response) => response.json())
       .then((data) => setEvents(data))
       .catch((error) => console.error("Error fetching events:", error));
-  }, []);
+
+    // Fetch event types for favorite event types selection
+    fetch("http://localhost:5001/event-types")
+      .then((response) => response.json())
+      .then((data) => setEventTypes(data))
+      .catch((error) => console.error("Error fetching event types:", error));
+  }, [searchTerm]); // Depend on searchTerm
 
   const handleDelete = (id) => {
-    if (window.confirm("Are you sure you want to delete this attendee?")) {
-      fetch(`http://localhost:5001/attendees/${id}`, {
-        method: "DELETE",
+    fetch(`http://localhost:5001/attendees/${id}`, {
+      method: 'DELETE',
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to delete attendee");
+        }
+        setAttendees((prevAttendees) => 
+          prevAttendees.filter((attendee) => attendee.id !== id)
+        );
       })
-        .then((response) => {
-          if (response.ok) {
-            setAttendees(attendees.filter((attendee) => attendee.id !== id));
-          } else {
-            alert("Failed to delete the attendee.");
-          }
-        })
-        .catch((error) => console.error("Error deleting attendee:", error));
-    }
+      .catch((error) => {
+        console.error('Error deleting attendee:', error);
+      });
   };
 
   const handleEdit = (attendee) => {
@@ -66,6 +85,7 @@ function AttendeeList() {
       favorite_event_ids: attendee.favorite_events
         ? attendee.favorite_events.map((event) => event.id)
         : [],
+      favorite_event_types: attendee.favorite_event_types || [], // Handle event types
     });
   };
 
@@ -84,66 +104,74 @@ function AttendeeList() {
     }));
   };
 
+  const handleEventTypeSelection = (e) => {
+    const selectedEventType = e.target.value;
+    setEditData((prevState) => ({
+      ...prevState,
+      favorite_event_types: prevState.favorite_event_types.includes(selectedEventType)
+        ? prevState.favorite_event_types.filter((type) => type !== selectedEventType)
+        : [...prevState.favorite_event_types, selectedEventType],
+    }));
+  };
+
   const handleSave = (id) => {
-    // Create an updated attendee object from the edit data
     const updatedAttendee = {
       first_name: editData.first_name,
       last_name: editData.last_name,
       email: editData.email,
-      favorite_event_ids: editData.favorite_event_ids, // Ensure this captures the selected favorite events
+      favorite_event_ids: editData.favorite_event_ids,
+      favorite_event_types: editData.favorite_event_types, // Include favorite event types
     };
-
-    // Optimistically update the UI before the API call
-    setAttendees((prevAttendees) =>
-      prevAttendees.map((attendee) =>
-        attendee.id === id ? { ...attendee, ...updatedAttendee } : attendee
-      )
-    );
-
-    // Make the API call to save the updated attendee
+  
     fetch(`http://localhost:5001/attendees/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(updatedAttendee), // Send updated data
+      body: JSON.stringify(updatedAttendee),
     })
-    .then((response) => {
+      .then((response) => {
         if (!response.ok) {
-            throw new Error("Failed to save attendee");
+          throw new Error("Failed to save attendee");
         }
-        return response.json(); // Get the updated attendee data from the response
-    })
-    .then((data) => {
-        // If the API returns the updated attendee data, use it to update the local state
+        return response.json();
+      })
+      .then((data) => {
         setAttendees((prevAttendees) =>
           prevAttendees.map((attendee) =>
-            attendee.id === id ? { ...data } : attendee // Update with the response data
+            attendee.id === id ? { ...data } : attendee
           )
         );
-        setEditingId(null); // Reset editing state
-    })
-    .catch((error) => {
+        setEditingId(null);  // Reset the editing state after successful save
+      })
+      .catch((error) => {
         console.error("Error saving attendee:", error);
-        // Optionally, you might want to revert the optimistic update here if needed
-    });
-};
-
+      });
+  };
+  
   const handleCancel = () => {
     setEditingId(null);
+  };
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value); // Update search term
   };
 
   if (loading) {
     return <p>Loading attendees...</p>;
   }
 
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
-
   return (
     <div className="attendee-list-container">
       <h1>Attendees List</h1>
+      <input 
+        type="text" 
+        placeholder="Search attendees by name..." 
+        value={searchTerm}
+        onChange={handleSearchChange} // Update on input change
+      />
+      {errorMessage && <p>{errorMessage}</p>} {/* Display error message */}
       <button className="Create" onClick={() => navigate("/create-attendee")}>
         Create New Attendee
       </button>
@@ -158,6 +186,7 @@ function AttendeeList() {
               <th>Last Name</th>
               <th>Email</th>
               <th>Favorite Events</th>
+              <th>Favorite Event Types</th> {/* Add this line for the new column */}
               <th>Actions</th>
             </tr>
           </thead>
@@ -201,7 +230,6 @@ function AttendeeList() {
                     attendee.email
                   )}
                 </td>
-                {/* Displaying favorite events */}
                 <td>
                   {editingId === attendee.id ? (
                     <select
@@ -224,6 +252,32 @@ function AttendeeList() {
                         ))
                       ) : (
                         <li>No favorite events</li>
+                      )}
+                    </ul>
+                  )}
+                </td>
+                <td>
+                  {editingId === attendee.id ? (
+                    <select
+                      className="selecteventtypes"
+                      multiple
+                      value={editData.favorite_event_types}
+                      onChange={handleEventTypeSelection}
+                    >
+                      {eventTypes.map((eventType, index) => (
+                        <option key={index} value={eventType}>
+                          {eventType}
+                        </option>
+                      ))}
+                    </select>
+                  ) : (
+                    <ul>
+                      {attendee.favorite_event_types && attendee.favorite_event_types.length > 0 ? (
+                        attendee.favorite_event_types.map((type, index) => (
+                          <li key={index}>{type}</li>
+                        ))
+                      ) : (
+                        <li>No favorite event types</li>
                       )}
                     </ul>
                   )}

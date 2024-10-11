@@ -85,9 +85,9 @@
     padding: 10px; /* Padding inside the select box */
     border: 2px solid #007BFF; /* Blue border */
     border-radius: 8px; /* Rounded corners */
-    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
-    color: #333; /* Text color */
-    font-size: 40px; /* Font size */
+    background-color: rgba(255, 0, 0, 0.9); /* Slightly transparent white background */
+    color: #000000; /* Text color */
+    font-size: 20px; /* Font size */
     font-family: Arial, sans-serif; /* Font family */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     outline: none; /* Remove default outline */

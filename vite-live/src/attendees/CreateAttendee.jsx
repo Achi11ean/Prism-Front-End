@@ -1,23 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CreateAttendee.css';  // Import your CSS file
+
 function CreateAttendee() {
   const [newAttendee, setNewAttendee] = useState({
     first_name: '',
     last_name: '',
     email: '',
     preferred_event_type: '',
-    favorite_event_ids: [],  // For storing selected favorite events
+    favorite_event_types: [],  // For storing selected favorite event types
   });
-  const [events, setEvents] = useState([]);  // For holding the list of events
+  const [eventTypes, setEventTypes] = useState([]);  // For holding the list of event types
   const navigate = useNavigate();
 
-  // Fetch available events on component load
+  // Fetch available event types on component load
   useEffect(() => {
-    fetch('http://localhost:5001/events')
+    fetch('http://localhost:5001/event-types')
       .then((response) => response.json())
-      .then((data) => setEvents(data))
-      .catch((error) => console.error('Error fetching events:', error));
+      .then((data) => setEventTypes(data))  // Assuming backend returns event types as an array
+      .catch((error) => console.error('Error fetching event types:', error));
   }, []);
 
   const handleInputChange = (e) => {
@@ -25,13 +26,13 @@ function CreateAttendee() {
     setNewAttendee({ ...newAttendee, [name]: value });
   };
 
-  const handleEventSelection = (e) => {
-    const selectedEventId = parseInt(e.target.value);
+  const handleEventTypeSelection = (e) => {
+    const selectedEventType = e.target.value;
     setNewAttendee((prevState) => ({
       ...prevState,
-      favorite_event_ids: prevState.favorite_event_ids.includes(selectedEventId)
-        ? prevState.favorite_event_ids.filter((id) => id !== selectedEventId)
-        : [...prevState.favorite_event_ids, selectedEventId],
+      favorite_event_types: prevState.favorite_event_types.includes(selectedEventType)
+        ? prevState.favorite_event_types.filter((type) => type !== selectedEventType)
+        : [...prevState.favorite_event_types, selectedEventType],
     }));
   };
 
@@ -78,19 +79,13 @@ function CreateAttendee() {
           onChange={handleInputChange}
           required
         />
-        <input
-          type="text"
-          name="preferred_event_type"
-          placeholder="Preferred Event Type"
-          value={newAttendee.preferred_event_type}
-          onChange={handleInputChange}
-        />
+
         <div>
-          <label>Favorite Events:</label>
-          <select className="selectevent" multiple value={newAttendee.favorite_event_ids} onChange={handleEventSelection}>
-            {events.map((event) => (
-              <option key={event.id} value={event.id}>
-                {event.name}
+          <label>Favorite Event Types:</label>
+          <select className="select-event-type" multiple value={newAttendee.favorite_event_types} onChange={handleEventTypeSelection}>
+            {eventTypes.map((eventType) => (
+              <option key={eventType} value={eventType}>
+                {eventType}
               </option>
             ))}
           </select>
