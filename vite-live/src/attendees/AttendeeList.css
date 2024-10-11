@@ -1,0 +1,173 @@
+/* Style for the container around the attendee list */
+.attendee-list-container {
+    background-color: rgba(107, 41, 0, 0.8); /* Background with transparency for better readability */
+    padding: 20px;
+    max-width: 4000px; /* Max width for the attendee list container */
+    margin: 40px auto; /* Center the container horizontally with some margin at the top */
+    border-radius: 8px; /* Rounded corners for a nicer look */
+    box-shadow: 20px 18px 20px rgba(239, 236, 236, 0.895); /* Add a subtle shadow */
+}
+
+/* Header for the attendee list */
+.attendee-list-container h2 {
+    text-align: center; /* Center the header */
+    margin-bottom: 20px; /* Space between header and content */
+}
+
+/* Style for the table */
+.attendee-table {
+    width: 100%; /* Ensure the table takes up full width of its container */
+    border-collapse: collapse; /* Collapse borders to avoid double lines */
+}
+
+.attendee-table th, .attendee-table td {
+    border: 1px solid #000; /* Border for table cells */
+    padding: 10px; /* Padding inside cells for better readability */
+    text-align: left; /* Align text to the left */
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background for readability */
+    color:#000;
+    font-size: 35px;
+}
+
+/* Input field for search */
+.attendee-list-container input {
+    padding: 8px; /* Padding inside the input */
+    font-size: 40px; /* Font size */
+    text-align: center;
+    border: 1px solid #f00000; /* Light border */
+    border-radius: 4px; /* Rounded corners */
+    margin-bottom: 20px; /* Space below the input */
+    width: 100%; /* Full width input field */
+    box-sizing: border-box; /* Ensure padding doesn’t affect the width */
+}
+
+/* Styling for the Edit button */
+.editbutton {
+    background-color: #4CAF50; /* Green background for edit */
+    color: white; /* White text */
+    padding: 10px 15px; /* Padding around the button */
+    font-size: 25px; /* Font size */
+    border: none; /* Remove borders */
+    border-radius: 20px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin-right: 10px; /* Space between buttons */
+}
+
+.editbutton:hover {
+    background-color: #00ff11; /* Darker green on hover */
+}
+
+/* Styling for the Delete button */
+.deletebutton {
+    background-color: #f44336; /* Red background for delete */
+    color: white; /* White text */
+    padding: 10px 15px;
+    font-size: 25px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.deletebutton:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+}
+
+/* Styling for the Create button */
+.Create {
+    display: inline-block;
+    background-color: #008CBA; /* Light blue background */
+    color: white; /* White text */
+    padding: 12px 25px; /* Padding for the button */
+    font-size: 40px; /* Slightly larger font size */
+    border: none; /* Remove borders */
+    border-radius: 12px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor to indicate it's clickable */
+    margin-bottom: 20px; /* Space below the button */
+    transition: background-color 0.3s ease; /* Smooth background color change */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+/* Hover effect for the Create button */
+.Create:hover {
+    background-color: #005f73; /* Darker blue on hover */
+    color: #e0f7fa; /* Light cyan text on hover */
+}
+
+/* Optional focus effect */
+.Create:focus {
+    outline: none; /* Remove default browser outline */
+    background-color: #004e66; /* Even darker shade when focused */
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.5); /* Stronger shadow on focus */
+}
+
+/* Styling for Save button */
+.Saveme {
+    background-color: #ff69b4;  /* Cute pink background */
+    color: black;               /* Black text */
+    border: none;               /* Remove borders */
+    padding: 10px 20px;         /* Padding for a nice button size */
+    border-radius: 25px;        /* Rounded corners for a cute effect */
+    font-size: 20px;            /* Larger text */
+    font-weight: bold;          /* Bold text */
+    cursor: pointer;            /* Pointer cursor on hover */
+    transition: background-color 0.3s ease;  /* Smooth hover transition */
+}
+
+.Saveme:hover {
+    background-color: #ff85c2;  /* Slightly lighter pink on hover */
+}
+
+/* Cute styling for the Cancel button */
+.Cancelme {
+    background-color: #ffa07a;  /* Light salmon background */
+    color: black;               /* Black text */
+    border: none;               /* Remove borders */
+    padding: 10px 20px;         /* Padding for a nice button size */
+    border-radius: 25px;        /* Rounded corners for a cute effect */
+    font-size: 20px;            /* Larger text */
+    font-weight: bold;          /* Bold text */
+    cursor: pointer;            /* Pointer cursor on hover */
+    transition: background-color 0.3s ease;  /* Smooth hover transition */
+}
+
+.Cancelme:hover {
+    background-color: #ffb494;  /* Slightly lighter salmon on hover */
+}
+
+.selectevent {
+    width: 100%; /* Full width */
+    height: 150px; /* Height to allow multiple selections */
+    padding: 10px; /* Padding inside the select box */
+    border: 2px solid #007BFF; /* Blue border */
+    border-radius: 8px; /* Rounded corners */
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
+    color: #333; /* Text color */
+    font-size: 16px; /* Font size */
+    font-family: Arial, sans-serif; /* Font family */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    outline: none; /* Remove default outline */
+    transition: border-color 0.3s ease; /* Smooth border color transition */
+}
+
+/* Change border color on focus */
+.selectevent:focus {
+    border-color: #0056b3; /* Darker blue when focused */
+}
+
+/* Style for options */
+.selectevent option {
+    padding: 8px; /* Padding for each option */
+    background-color: rgba(255, 255, 255, 0.8); /* Light background for options */
+    color: #333; /* Text color for options */
+}
+
+/* Change background color on hover */
+.selectevent option:hover {
+    background-color: rgba(0, 123, 255, 0.1); /* Light blue background on hover */
+}
+
+/* Change background color when selected */
+.selectevent option:checked {
+    background-color: rgba(0, 123, 255, 0.3); /* Light blue background when selected */
+    color: #007BFF; /* Change text color when selected */
+}

@@ -4,8 +4,12 @@ import HomePage from './homepageNavBar/HomePage';
 import NavBar from './homepageNavBar/NavBar';
 import VenueList from './venues/VenueList';  
 import CreateVenue from './venues/CreateVenue';  
-import EventList from './events/EventList';  // Import the EventList component
-import CreateEvent from './events/CreateEvent';  // Import the CreateEvent component
+import EventList from './events/EventList';  
+import CreateEvent from './events/CreateEvent';
+
+// Import Attendee components
+import AttendeeList from './attendees/AttendeeList';  // Import AttendeeList component
+import CreateAttendee from './attendees/CreateAttendee';  // Import CreateAttendee component
 
 import './App.css'
 
@@ -19,8 +23,12 @@ function App() {
         <Route path="/create-venue" element={<CreateVenue />} />
         
         {/* Event-related routes */}
-        <Route path="/events" element={<EventList />} />  {/* Route for EventList */}
-        <Route path="/create-event" element={<CreateEvent />} />  {/* Route for CreateEvent */}
+        <Route path="/events" element={<EventList />} />  
+        <Route path="/create-event" element={<CreateEvent />} />  
+        
+        {/* Attendee-related routes */}
+        <Route path="/attendees" element={<AttendeeList />} />  {/* Route for AttendeeList */}
+        <Route path="/create-attendee" element={<CreateAttendee />} />  {/* Route for CreateAttendee */}
       </Routes>
     </div>
   )

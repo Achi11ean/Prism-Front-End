@@ -1,0 +1,118 @@
+/* General form container styling */
+.create-attendee-container {
+    background-color: rgba(107, 41, 0, 0.8); /* Background with transparency */
+    padding: 40px;
+    max-width: 1000px; /* Width of the form container */
+    margin: 50px auto; /* Center the form on the page */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    color: #fff; /* Text color for labels */
+}
+
+/* Form header styling */
+.create-attendee-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5rem; /* Large title */
+    color: #fff; /* White color for form header */
+}
+
+/* Label styling */
+.create-attendee-container label {
+    display: block; /* Block layout to force a new line */
+    font-size: 2em; /* Font size for labels */
+    margin-bottom: 10px; /* Space between label and input */
+}
+
+/* Input field styling */
+.create-attendee-container input[type="text"],
+.create-attendee-container input[type="email"],
+.create-attendee-container input[type="number"] {
+    width: 100%; /* Full width inputs */
+    padding-right: 9em;
+    padding-top:1em;
+    font-size:2em; /* Font size for input text */
+    margin-bottom: 20px; /* Space between inputs */
+    border: 2px solid #ddd; /* Light border */
+    border-radius: 8px; /* Rounded input corners */
+    box-sizing: border-box;
+}
+
+/* Button styling */
+.create-attendee-container button {
+    display: block;
+    width: 1000px; /* Full width button */
+    padding: 15px;
+    background-color: #05fc3b; /* Button color */
+    color: rgb(0, 0, 0); /* Text color */
+    border: 6px solid black;
+    border-radius: 15px; /* Rounded corners */
+    cursor: pointer;
+    font-size: 2rem; /* Button font size */
+    margin-top: 20px;
+}
+
+/* Button hover effect */
+.create-attendee-container button:hover {
+    background-color: #d6da0b; /* Change button color on hover */
+    color: #000;
+}
+
+/* Add focus effect on input fields */
+.create-attendee-container input:focus {
+    border-color: #ffffff; /* Highlight border on focus */
+    outline: none;
+}
+
+/* Make the form responsive */
+@media (max-width: 600px) {
+    .create-attendee-container {
+      padding: 20px; 
+      max-width: 100%; 
+    }
+
+    .create-attendee-container h2 {
+      font-size: 2rem; /* Smaller font size on small screens */
+    }
+
+    .create-attendee-container button {
+      font-size: 1.2rem; /* Adjust button size */
+    }
+}
+.selectevent {
+    width: 100%; /* Full width */
+    height: 150px; /* Height to allow multiple selections */
+    padding: 10px; /* Padding inside the select box */
+    border: 2px solid #007BFF; /* Blue border */
+    border-radius: 8px; /* Rounded corners */
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
+    color: #333; /* Text color */
+    font-size: 40px; /* Font size */
+    font-family: Arial, sans-serif; /* Font family */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    outline: none; /* Remove default outline */
+    transition: border-color 0.3s ease; /* Smooth border color transition */
+}
+
+/* Change border color on focus */
+.selectevent:focus {
+    border-color: #0056b3; /* Darker blue when focused */
+}
+
+/* Style for options */
+.selectevent option {
+    padding: 8px; /* Padding for each option */
+    background-color: rgba(255, 255, 255, 0.8); /* Light background for options */
+    color: #333; /* Text color for options */
+}
+
+/* Change background color on hover */
+.selectevent option:hover {
+    background-color: rgba(0, 123, 255, 0.1); /* Light blue background on hover */
+}
+
+/* Change background color when selected */
+.selectevent option:checked {
+    background-color: rgba(0, 123, 255, 0.3); /* Light blue background when selected */
+    color: #007BFF; /* Change text color when selected */
+}
