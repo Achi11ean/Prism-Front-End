@@ -1,0 +1,94 @@
+/* General form container styling */
+.create-artist-container {
+    background-color: rgba(107, 41, 0, 0.8); /* Background with transparency */
+    padding: 40px;
+    max-width: 1500px; /* Width of the form container */
+    margin: 50px auto; /* Center the form on the page */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    color: #fff; /* Text color for labels */
+}
+
+/* Form header styling */
+.create-artist-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5rem; /* Large title */
+    color: #fff; /* White color for form header */
+}
+
+/* Label styling */
+.create-artist-container label {
+    display: block;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+/* Input and textarea field styling */
+.create-artist-container input[type="text"],
+.create-artist-container input[type="number"],
+.create-artist-container textarea {
+    width: 100%; /* Make inputs longer */
+    padding: 12px;
+    font-size: 2em;
+    margin-bottom: 20px;
+    border: 3px solid #ddd;
+    border-radius: 20px;
+    box-sizing: border-box;
+}
+
+/* Dropdown (select) styling */
+.create-artist-container select {
+    width: 100%; /* Make dropdown longer */
+    padding: 15px;
+    font-size: 2em;
+    margin-bottom: 20px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* Button styling */
+.create-artist-container button {
+    display: block;
+    width: 1200px; /* Make button longer */
+    padding: 15px;
+    background-color: #05fc3b;
+    color: rgb(0, 0, 0);
+    border: 6px solid black;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 2rem;
+    margin-top: 20px;
+}
+
+/* Button hover effect */
+.create-artist-container button:hover {
+    background-color: #d6da0b;
+    color: #000;
+}
+
+/* Input, textarea, and select focus effect */
+.create-artist-container input:focus,
+.create-artist-container textarea:focus,
+.create-artist-container select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Make the form responsive */
+@media (max-width: 600px) {
+    .create-artist-container {
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    .create-artist-container h2 {
+        font-size: 2rem;
+    }
+
+    .create-artist-container button {
+        font-size: 1.2rem;
+    }
+}

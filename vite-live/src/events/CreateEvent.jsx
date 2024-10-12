@@ -4,30 +4,41 @@ import './CreateEvent.css';
 
 function CreateEvent() {
   const [venues, setVenues] = useState([]);
-  const [eventTypes, setEventTypes] = useState([]); // New state for event types
+  const [eventTypes, setEventTypes] = useState([]);
+  const [artists, setArtists] = useState([]);
   const [formData, setFormData] = useState({
-    name: '',
     date: '',
     time: '',
+    venue_id: '',
+    name: '',
     location: '',
     description: '',
-    venue_id: '',
-    event_type: '', // Add event_type to form data
+    event_type: '',
+    artist_ids: [], // Add artist_ids for multiple artist selections
   });
+
   const navigate = useNavigate();
 
-  // Fetch available venues and event types from the backend
+  // Fetch available venues, event types, and artists from the backend
   useEffect(() => {
     fetch('http://127.0.0.1:5001/venues')
       .then((response) => response.json())
       .then((data) => setVenues(data))
       .catch((error) => console.error('Error fetching venues:', error));
 
-    // Assuming you have an endpoint for event types
-    fetch('http://127.0.0.1:5001/event-types') // Modify this line according to your backend
+    fetch('http://127.0.0.1:5001/event-types')
       .then((response) => response.json())
-      .then((data) => setEventTypes(data))
+      .then((data) => {
+        // Log the data to see what you get
+        console.log('Event Types:', data);
+        setEventTypes(data); // Ensure this sets the eventTypes correctly
+      })
       .catch((error) => console.error('Error fetching event types:', error));
+
+    fetch('http://127.0.0.1:5001/artists') // Fetch artists for the artist selection
+      .then((response) => response.json())
+      .then((data) => setArtists(data))
+      .catch((error) => console.error('Error fetching artists:', error));
   }, []);
 
   // Handle form submission
@@ -56,20 +67,22 @@ function CreateEvent() {
     setFormData({ ...formData, [name]: value });
   };
 
+  // Handle multiple artist selection
+  const handleArtistChange = (e) => {
+    const options = e.target.options;
+    const selectedArtists = [];
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].selected) {
+        selectedArtists.push(options[i].value);
+      }
+    }
+    setFormData({ ...formData, artist_ids: selectedArtists });
+  };
+
   return (
     <div className="create-event-container">
       <h2>Create Event</h2>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="eventName">Event Name</label>
-        <input
-          type="text"
-          id="eventName"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
-
         <label htmlFor="eventDate">Date</label>
         <input
           type="date"
@@ -86,6 +99,32 @@ function CreateEvent() {
           id="eventTime"
           name="time"
           value={formData.time}
+          onChange={handleChange}
+          required
+        />
+
+        <label htmlFor="venueSelect">Venue</label>
+        <select
+          id="venueSelect"
+          name="venue_id"
+          value={formData.venue_id}
+          onChange={handleChange}
+          required
+        >
+          <option value="" disabled>Select a Venue</option>
+          {venues.map((venue) => (
+            <option key={venue.id} value={venue.id}>
+              {venue.name}
+            </option>
+          ))}
+        </select>
+
+        <label htmlFor="eventName">Event Name</label>
+        <input
+          type="text"
+          id="eventName"
+          name="name"
+          value={formData.name}
           onChange={handleChange}
           required
         />
@@ -109,22 +148,6 @@ function CreateEvent() {
           required
         ></textarea>
 
-        <label htmlFor="venueSelect">Venue</label>
-        <select
-          id="venueSelect"
-          name="venue_id"
-          value={formData.venue_id}
-          onChange={handleChange}
-          required
-        >
-          <option value="" disabled>Select a Venue</option>
-          {venues.map((venue) => (
-            <option key={venue.id} value={venue.id}>
-              {venue.name}
-            </option>
-          ))}
-        </select>
-
         <label htmlFor="eventTypeSelect">Event Type</label>
         <select
           id="eventTypeSelect"
@@ -134,26 +157,23 @@ function CreateEvent() {
           required
         >
           <option value="" disabled>Select an Event Type</option>
-          <option value="">Select Event Type</option>
-          <option value="Drag Shows">Drag Shows</option>
-          <option value="Live Lip Syncing">Live Lip Syncing</option>
-          <option value="Live Singing">Live Singing</option>
-          <option value="Comedy Nights">Comedy Nights</option>
-          <option value="Open Mic">Open Mic</option>
-          <option value="Karaoke">Karaoke</option>
-          <option value="DJ Sets">DJ Sets</option>
-          <option value="Dance Performances">Dance Performances</option>
-          <option value="Themed Parties">Themed Parties</option>
-          <option value="Fundraising Events">Fundraising Events</option>
-          <option value="Talent Show">Talent Show</option>
-          <option value="Variety Show">Variety Show</option>
-          <option value="Music Festival">Music Festival</option>
-          <option value="Art Exhibitions">Art Exhibitions</option>
-          <option value="Spoken Word Performances">Spoken Word Performances</option>
-          <option value="Fashion Shows">Fashion Shows</option>
-          {eventTypes.map((eventType) => (
-            <option key={eventType.id} value={eventType.name}>
-              {eventType.name}
+          {eventTypes.map((eventType, index) => (
+            <option key={index} value={eventType}> {/* Change this line to use a unique identifier */}
+              {eventType}
+            </option>
+          ))}
+        </select>
+        <label htmlFor="artistSelect">Artists</label>
+        <select
+          id="artistSelect"
+          name="artist_ids"
+          multiple // Allow multiple selections
+          value={formData.artist_ids}
+          onChange={handleArtistChange}
+        >
+          {artists.map((artist) => (
+            <option key={artist.id} value={artist.id}>
+              {artist.name}
             </option>
           ))}
         </select>

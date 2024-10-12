@@ -4,9 +4,9 @@ import "./EventList.css";
 
 function EventList() {
   const [events, setEvents] = useState([]);
-  const [venues, setVenues] = useState([]); // Define venues state
+  const [venues, setVenues] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [editingEventId, setEditingEventId] = useState(null); // Track the event being edited
+  const [editingEventId, setEditingEventId] = useState(null);
   const [editFormData, setEditFormData] = useState({
     name: "",
     date: "",
@@ -14,6 +14,8 @@ function EventList() {
     location: "",
     description: "",
     venue_id: "",
+    event_type: "", // Add event_type to form data for editing
+    artist_ids: [], // Add artist_ids for multiple artist selections
   });
   const [errorMessage, setErrorMessage] = useState("");
   const formatTimeTo12Hour = (time24) => {
@@ -22,7 +24,6 @@ function EventList() {
     const hours12 = +hours % 12 || 12; // Convert to 12-hour format
     return `${hours12}:${minutes} ${period}`;
   };
-
   const navigate = useNavigate();
 
   // Fetch events from the backend
@@ -50,6 +51,7 @@ function EventList() {
         console.error("Error fetching events:", error);
       });
   }, [searchTerm]);
+
   // Fetch venues for dropdown selection during editing
   useEffect(() => {
     fetch("http://127.0.0.1:5001/venues")
@@ -60,28 +62,16 @@ function EventList() {
 
   // Handle the edit button click to edit an event
   const handleEditClick = (event) => {
-    let formattedDate = event.date;
-
-    // Check if event.date is valid and can be converted to a Date object
-    if (event.date) {
-      const parsedDate = new Date(event.date);
-
-      if (!isNaN(parsedDate.getTime())) {
-        // Check if it's a valid date
-        formattedDate = parsedDate.toISOString().split("T")[0]; // Format as YYYY-MM-DD
-      } else {
-        console.error("Invalid date format for event:", event.date);
-      }
-    }
-
     setEditingEventId(event.id);
     setEditFormData({
       name: event.name,
-      date: formattedDate, // Use the correctly formatted date
+      date: event.date.split('T')[0], // Format as YYYY-MM-DD
       time: event.time,
       location: event.location,
       description: event.description,
       venue_id: event.venue.id,
+      event_type: event.event_type, // Include event_type in edit form
+      artist_ids: event.artists.map(artist => artist.id), // Preselect artists
     });
   };
 
@@ -93,30 +83,20 @@ function EventList() {
 
   // Save the updated event data
   const handleSaveClick = (eventId) => {
-    // Ask for confirmation before saving
     const isConfirmed = window.confirm("Please verify the date before saving.");
     if (isConfirmed) {
-      // Format the date properly before sending it to the backend
-      const formattedDate = new Date(editFormData.date)
-        .toISOString()
-        .split("T")[0]; // Ensure date is in YYYY-MM-DD format
-      // Create a new object for the updated data to send
       const updatedFormData = {
         ...editFormData,
-        date: formattedDate, // Apply the formatted date
+        date: new Date(editFormData.date).toISOString().split("T")[0], // Ensure date is in YYYY-MM-DD format
       };
-      // Proceed with saving the event
       fetch(`http://127.0.0.1:5001/events/${eventId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updatedFormData), // Send the updated form data with the correct date
+        body: JSON.stringify(updatedFormData),
       })
         .then((response) => response.json())
         .then((updatedEvent) => {
-          // Update the events list with the newly updated event
-          setEvents(
-            events.map((event) => (event.id === eventId ? updatedEvent : event))
-          );
+          setEvents(events.map((event) => (event.id === eventId ? updatedEvent : event)));
           setEditingEventId(null); // Exit editing mode
         })
         .catch((error) => {
@@ -125,10 +105,12 @@ function EventList() {
         });
     }
   };
+
   // Handle canceling the edit
   const handleCancelClick = () => {
     setEditingEventId(null);
   };
+
   // Handle deleting an event
   const handleDeleteClick = (eventId) => {
     fetch(`http://127.0.0.1:5001/events/${eventId}`, {
@@ -139,6 +121,7 @@ function EventList() {
       })
       .catch((error) => console.error("Error deleting event:", error));
   };
+
   return (
     <div className="event-list-container">
       <h2>Event List</h2>
@@ -154,10 +137,7 @@ function EventList() {
         onChange={(e) => setSearchTerm(e.target.value)}
       />
       {errorMessage && (
-        <p
-          className="error-message"
-          style={{ color: "black", fontSize: "2em", backgroundColor: "white" }}
-        >
+        <p className="error-message" style={{ color: "black", fontSize: "2em", backgroundColor: "white" }}>
           {errorMessage}
         </p>
       )}
@@ -172,6 +152,7 @@ function EventList() {
             <th>Description</th>
             <th>Venue</th>
             <th>Event Type</th>
+            <th>Artists</th> {/* New column for Artists */}
             <th>Actions</th>
           </tr>
         </thead>
@@ -239,10 +220,33 @@ function EventList() {
                     </select>
                   </td>
                   <td>
-                    <button
-                      className="Saveme"
-                      onClick={() => handleSaveClick(event.id)}
+                    <select
+                      className="selectedit"
+                      name="event_type"
+                      value={editFormData.event_type}
+                      onChange={handleEditChange}
                     >
+                      <option value="" disabled>Select Event Type</option>
+                      <option value="Drag Shows">Drag Shows</option>
+                      <option value="Live Lip Syncing">Live Lip Syncing</option>
+                      <option value="Live Singing">Live Singing</option>
+                      <option value="Comedy Nights">Comedy Nights</option>
+                      <option value="Open Mic">Open Mic</option>
+                      <option value="Karaoke">Karaoke</option>
+                      <option value="DJ Sets">DJ Sets</option>
+                      <option value="Dance Performances">Dance Performances</option>
+                      <option value="Themed Parties">Themed Parties</option>
+                      <option value="Fundraising Events">Fundraising Events</option>
+                      <option value="Talent Show">Talent Show</option>
+                      <option value="Variety Show">Variety Show</option>
+                      <option value="Music Festival">Music Festival</option>
+                      <option value="Art Exhibitions">Art Exhibitions</option>
+                      <option value="Spoken Word Performances">Spoken Word Performances</option>
+                      <option value="Fashion Shows">Fashion Shows</option>
+                    </select>
+                  </td>
+                  <td>
+                    <button className="Saveme" onClick={() => handleSaveClick(event.id)}>
                       Save
                     </button>
                     <button className="Cancelme" onClick={handleCancelClick}>
@@ -255,24 +259,17 @@ function EventList() {
                   <td>{event.id}</td>
                   <td>{event.name}</td>
                   <td>{new Date(event.date).toLocaleDateString()}</td>
-                  <td>{formatTimeTo12Hour(event.time)}</td>{" "}
-                  {/* Convert time to 12-hour format */}
+                  <td>{formatTimeTo12Hour(event.time)}</td>
                   <td>{event.location}</td>
                   <td>{event.description}</td>
                   <td>{event.venue.name}</td>
-                  <td>{event.event_type}</td>  
-
+                  <td>{event.event_type}</td>
+                  <td>{event.artists.map(artist => artist.name).join(', ')}</td> {/* List of artists */}
                   <td>
-                    <button
-                      className="editbutton"
-                      onClick={() => handleEditClick(event)}
-                    >
+                    <button className="editbutton" onClick={() => handleEditClick(event)}>
                       Edit
                     </button>
-                    <button
-                      className="deletebutton"
-                      onClick={() => handleDeleteClick(event.id)}
-                    >
+                    <button className="deletebutton" onClick={() => handleDeleteClick(event.id)}>
                       Delete
                     </button>
                   </td>

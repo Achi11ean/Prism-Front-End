@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './CreateAttendee.css';  // Import your CSS file
+import './CreateAttendee.css';  // Ensure you have this CSS file
 
 function CreateAttendee() {
   const [newAttendee, setNewAttendee] = useState({
@@ -8,17 +8,31 @@ function CreateAttendee() {
     last_name: '',
     email: '',
     preferred_event_type: '',
-    favorite_event_types: [],  // For storing selected favorite event types
+    favorite_event_types: [],
+    favorite_artist_ids: [],
+    favorite_event_ids: [], // New field for favorite event IDs
   });
-  const [eventTypes, setEventTypes] = useState([]);  // For holding the list of event types
+  const [eventTypes, setEventTypes] = useState([]);
+  const [artists, setArtists] = useState([]);
+  const [events, setEvents] = useState([]); // New state for events
   const navigate = useNavigate();
 
-  // Fetch available event types on component load
+  // Fetch available event types, artists, and events on component load
   useEffect(() => {
     fetch('http://localhost:5001/event-types')
       .then((response) => response.json())
-      .then((data) => setEventTypes(data))  // Assuming backend returns event types as an array
+      .then((data) => setEventTypes(data))
       .catch((error) => console.error('Error fetching event types:', error));
+
+    fetch('http://localhost:5001/artists')
+      .then((response) => response.json())
+      .then((data) => setArtists(data))
+      .catch((error) => console.error('Error fetching artists:', error));
+
+    fetch('http://localhost:5001/events') // Fetch events for the event selection
+      .then((response) => response.json())
+      .then((data) => setEvents(data))
+      .catch((error) => console.error('Error fetching events:', error));
   }, []);
 
   const handleInputChange = (e) => {
@@ -36,9 +50,31 @@ function CreateAttendee() {
     }));
   };
 
+  const handleArtistSelection = (e) => {
+    const options = e.target.options;
+    const selectedArtists = [];
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].selected) {
+        selectedArtists.push(options[i].value);
+      }
+    }
+    setNewAttendee({ ...newAttendee, favorite_artist_ids: selectedArtists });
+  };
+
+  const handleFavoriteEventSelection = (e) => {
+    const options = e.target.options;
+    const selectedEvents = [];
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].selected) {
+        selectedEvents.push(options[i].value);
+      }
+    }
+    setNewAttendee({ ...newAttendee, favorite_event_ids: selectedEvents });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     fetch('http://localhost:5001/attendees', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -46,50 +82,87 @@ function CreateAttendee() {
     })
       .then((response) => response.json())
       .then(() => {
-        navigate('/attendees');
+        navigate('/attendees'); // Redirect to the attendees list after creation
       })
       .catch((error) => console.error('Error creating attendee:', error));
   };
 
   return (
-    <div className="create-attendee-container">  {/* Apply the class from your CSS */}
+    <div className="create-event-container">
       <h2>Create Attendee</h2>
       <form onSubmit={handleSubmit}>
+        <label htmlFor="first_name">First Name</label>
         <input
           type="text"
           name="first_name"
-          placeholder="First Name"
+          id="first_name"
           value={newAttendee.first_name}
           onChange={handleInputChange}
           required
         />
+
+        <label htmlFor="last_name">Last Name</label>
         <input
           type="text"
           name="last_name"
-          placeholder="Last Name"
+          id="last_name"
           value={newAttendee.last_name}
           onChange={handleInputChange}
           required
         />
+
+        <label htmlFor="email">Email</label>
         <input
           type="email"
           name="email"
-          placeholder="Email"
+          id="email"
           value={newAttendee.email}
           onChange={handleInputChange}
           required
         />
 
-        <div>
-          <label>Favorite Event Types:</label>
-          <select className="select-event-type" multiple value={newAttendee.favorite_event_types} onChange={handleEventTypeSelection}>
-            {eventTypes.map((eventType) => (
-              <option key={eventType} value={eventType}>
-                {eventType}
-              </option>
-            ))}
-          </select>
-        </div>
+        <label>Favorite Event Types:</label>
+        <select
+          className="select-event-type" 
+          multiple 
+          value={newAttendee.favorite_event_types} 
+          onChange={handleEventTypeSelection}
+        >
+          {eventTypes.map((eventType) => (
+            <option key={eventType} value={eventType}>
+              {eventType}
+            </option>
+          ))}
+        </select>
+
+        <label>Favorite Artists:</label>
+        <select
+          className="select-artist" 
+          multiple 
+          value={newAttendee.favorite_artist_ids} 
+          onChange={handleArtistSelection}
+        >
+          {artists.map((artist) => (
+            <option key={artist.id} value={artist.id}>
+              {artist.name}
+            </option>
+          ))}
+        </select>
+
+        <label>Favorite Events:</label>
+        <select
+          className="select-event" 
+          multiple 
+          value={newAttendee.favorite_event_ids} 
+          onChange={handleFavoriteEventSelection}
+        >
+          {events.map((event) => (
+            <option key={event.id} value={event.id}>
+              {event.name}
+            </option>
+          ))}
+        </select>
+
         <button type="submit">Create Attendee</button>
       </form>
     </div>
