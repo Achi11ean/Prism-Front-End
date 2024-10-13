@@ -1,7 +1,8 @@
 /* General form container styling */
 .create-event-container {
-    background-color: rgba(107, 41, 0, 0.8); /* Background with transparency */
+    background-color: rgba(255, 158, 97, 0.8); /* Background with transparency */
     padding: 40px;
+    width: 1900px; /* Width of the form container */
     max-width: 1500px; /* Width of the form container */
     margin: 50px auto; /* Center the form on the page */
     border-radius: 12px; /* Rounded corners */
@@ -12,91 +13,122 @@
 /* Form header styling */
 .create-event-container h2 {
     text-align: center;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin-bottom: 30px;
-    font-size: 2.5rem; /* Large title */
-    color: #fff; /* White color for form header */
+    font-size: 3rem; /* Large title */
+    color: #161511; /* Header color */
 }
 
 /* Label styling */
 .create-event-container label {
     display: block;
-    font-size: 2em;
-    margin-bottom: 10px;
+    font-size: 2em; /* Font size for labels */
+    margin-bottom: 15px; /* Increased space below labels */
+    text-align: center; /* Center align the text */
+    font-family: 'Arial', sans-serif; /* Change to a modern sans-serif font */
+    color: #4a4a4a; /* Dark gray for a softer look */
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5); /* Subtle text shadow for depth */
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3); /* Light border below labels */
+    padding-bottom: 5px; /* Space between text and border */
+    transition: color 0.3s, transform 0.3s; /* Transition for hover effects */
 }
 
-/* Input and textarea field styling */
+/* Label hover effect */
+.create-event-container label:hover {
+    color: #ff6b6b; /* Change color on hover */
+    transform: scale(1.05); /* Slightly increase size on hover */
+}
+
+/* General styling for all inputs, selects, and textareas */
 .create-event-container input[type="text"],
+.create-event-container input[type="email"],
 .create-event-container input[type="date"],
 .create-event-container input[type="time"],
+.create-event-container select,
 .create-event-container textarea {
-    width: 100%; /* Make inputs longer */
-    padding: 12px;
-    font-size: 2em;
-    margin-bottom: 20px;
-    border: 3px solid #ddd;
-    border-radius: 20px;
-    box-sizing: border-box;
-    
+    width: 100%; /* Full width */
+    padding: 12px; /* Comfortable padding */
+    font-size: 2em; /* Font size for inputs */
+    margin-bottom: 20px; /* Space between elements */
+    border: 3px solid #ddd; /* Light border */
+    border-radius: 20px; /* Rounded corners */
+    background: rgba(237, 243, 227, 0.9); /* Slightly transparent white */
+    color: #333; /* Dark text for readability */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Transition for focus effects */
+}
+
+/* Specific textarea styling */
+.create-event-container textarea {
+    height: 150px; /* Set height for the description box */
+}
+
+/* Focus effect for inputs, selects, and textareas */
+.create-event-container input:focus,
+.create-event-container select:focus,
+.create-event-container textarea:focus {
+    border-color: #007bff; /* Highlight border on focus */
+    outline: none; /* Remove default outline */
+    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.5); /* Increase shadow on focus */
 }
 
 /* Dropdown (select) styling */
 .create-event-container select {
-    width: 100%; /* Make dropdown longer */
-    padding: 15px;
-    font-size: 2em;
-    margin-bottom: 20px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    box-sizing: border-box;
-    text-align: center;
+    width: 100%; /* Full width dropdown */
+    padding: 15px; /* Padding for dropdown */
+    font-size: 2.5em; /* Font size for select text */
+    margin-bottom: 20px; /* Space between dropdowns */
+    background: linear-gradient(45deg, #ff6b6b, #ffdd00); /* Gradient background */
+    border: 3px solid #ff5722; /* Coral border */
+    border-radius: 20px; /* More rounded corners */
+    box-sizing: border-box; /* Include padding in width */
+    color: #3e2723; /* Darker text color for contrast */
+    appearance: none; /* Remove default dropdown styling for custom look */
+    transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s; /* Transition effects */
+}
+
+/* Dropdown focus effect */
+.create-event-container select:focus {
+    border-color: #ff9800; /* Highlight border with an orange color on focus */
+    box-shadow: 0 0 10px rgba(255, 152, 0, 0.5); /* Glow effect for focus */
+    outline: none; /* Remove default outline */
 }
 
 /* Button styling */
 .create-event-container button {
     display: block;
-    width: 1200px; /* Make button longer */
+    width: 100%; /* Full width button */
     padding: 15px;
-    background-color: #05fc3b;
-    color: rgb(0, 0, 0);
-    border: 6px solid black;
-    border-radius: 15px;
+    background: linear-gradient(45deg, #ff6b6b, #ffdd00); /* Gradient background for button */
+    color: #ffffff; /* White text */
+    border: none; /* Remove borders */
+    border-radius: 30px; /* More rounded corners */
     cursor: pointer;
-    font-size: 2rem;
+    font-size: 2.5rem; /* Increased font size */
     margin-top: 20px;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; /* Smooth transition for hover effects */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
 }
 
 /* Button hover effect */
 .create-event-container button:hover {
-    background-color: #d6da0b;
-    color: #000;
-}
-
-/* Input, textarea, and select focus effect */
-.create-event-container input:focus,
-.create-event-container textarea:focus,
-.create-event-container select:focus {
-    border-color: #007bff;
-    outline: none;
-}
-
-/* Description textarea (make it taller) */
-.create-event-container textarea {
-    height: 150px; /* Make description box taller */
-    font-size: 1.5em; /* Adjust font size for textarea */
+    background: linear-gradient(45deg, #ffdd00, #ff6b6b); /* Inverted gradient on hover */
+    color: #000; /* Change text color to black on hover */
+    transform: scale(1.05); /* Slightly increase size on hover */
 }
 
 /* Make the form responsive */
 @media (max-width: 600px) {
     .create-event-container {
         padding: 20px;
-        max-width: 100%;
+        max-width: 100%; 
     }
 
     .create-event-container h2 {
-        font-size: 2rem;
+        font-size: 2rem; /* Smaller font size on small screens */
     }
 
     .create-event-container button {
-        font-size: 1.2rem;
+        font-size: 1.2rem; /* Adjust button size */
     }
 }

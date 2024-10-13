@@ -92,19 +92,27 @@ const [errorMessage, setErrorMessage] = useState(''); // This line defines the e
   return (
     <div className="venue-list-container">
       <h2>Venue List</h2>
-
+  
       {/* Create button */}
-      <button className="Create" onClick={() => navigate("/create-venue")}>Create New Venue</button>
-
+      <button className="Createvenue" onClick={() => navigate("/create-venue")}>Create New Venue</button>
+  
       {/* Search input */}
-      <input
-        type="text"
-        placeholder="Search by name"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
-    {errorMessage && <p className="error-message" style={{ color: 'black', fontSize: '2em', backgroundColor: "white" }}>{errorMessage}</p>} {/* Error message display */}
-
+      <div className="search-container"> {/* Optional container for search */}
+        <input
+          className='search-input'
+          type="text"
+          placeholder="Search Venues by name..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
+  
+      {errorMessage && (
+        <p className="error-message" style={{ color: 'black', fontSize: '2em', backgroundColor: "white" }}>
+          {errorMessage}
+        </p>
+      )} {/* Error message display */}
+  
       <table border="1" cellPadding="10" className="venue-table">
         <thead>
           <tr>
@@ -124,6 +132,7 @@ const [errorMessage, setErrorMessage] = useState(''); // This line defines the e
                   <td>{venue.id}</td>
                   <td>
                     <input
+                      className='editvenue'
                       type="text"
                       name="name"
                       value={editFormData.name}
@@ -132,6 +141,7 @@ const [errorMessage, setErrorMessage] = useState(''); // This line defines the e
                   </td>
                   <td>
                     <input
+                      className='editvenue'
                       type="text"
                       name="organizer"
                       value={editFormData.organizer}
@@ -140,6 +150,7 @@ const [errorMessage, setErrorMessage] = useState(''); // This line defines the e
                   </td>
                   <td>
                     <input
+                      className='editvenue'
                       type="text"
                       name="email"
                       value={editFormData.email}
@@ -148,6 +159,7 @@ const [errorMessage, setErrorMessage] = useState(''); // This line defines the e
                   </td>
                   <td>
                     <input
+                      className='editvenue'
                       type="text"
                       name="earnings"
                       value={editFormData.earnings}
@@ -167,7 +179,7 @@ const [errorMessage, setErrorMessage] = useState(''); // This line defines the e
                   <td>{venue.email}</td>
                   <td>{venue.earnings}</td>
                   <td>
-                    <button className="editbutton"onClick={() => handleEditClick(venue)}>Edit</button>
+                    <button className="editbutton" onClick={() => handleEditClick(venue)}>Edit</button>
                     <button className="deletebutton" onClick={() => handleDeleteClick(venue.id)}>Delete</button>
                   </td>
                 </>
@@ -179,5 +191,4 @@ const [errorMessage, setErrorMessage] = useState(''); // This line defines the e
     </div>
   );
 }
-
 export default VenueList;

@@ -70,6 +70,7 @@ function CreateArtist() {
       <form onSubmit={handleSubmit}>
         <label htmlFor="artistName">Artist Name</label>
         <input
+          placeholder='[Enter Stage Name]'
           type="text"
           id="artistName"
           name="name"
@@ -80,6 +81,7 @@ function CreateArtist() {
 
         <label htmlFor="artistAge">Age</label>
         <input
+          placeholder='[Enter Age]'
           type="number"
           id="artistAge"
           name="age"
@@ -90,6 +92,7 @@ function CreateArtist() {
 
         <label htmlFor="artistBackground">Background</label>
         <textarea
+          placeholder='[Social Media: @HarmonicEssence | Performancs Goals:... | Experience:...]'
           id="artistBackground"
           name="background"
           value={formData.background}
@@ -99,6 +102,7 @@ function CreateArtist() {
 
         <label htmlFor="artistSongs">Songs</label>
         <input
+          placeholder='[Enter song names or links you can perform(to) or N/A]'
           type="text"
           id="artistSongs"
           name="songs"

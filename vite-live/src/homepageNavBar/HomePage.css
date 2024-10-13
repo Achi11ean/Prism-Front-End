@@ -1,9 +1,9 @@
 .homepage {
     text-align: center;
-    padding: 50px;
-    color: #fff;
+    padding: 1px;
+    color: #01f8e7;
 }
-.homepage p:hover  {
+#rainbow:hover  {
     filter: 
         drop-shadow(0 0 4px violet) 
         drop-shadow(0 0 8px indigo) 
@@ -15,33 +15,38 @@
 }
 
 .homepage p {
-    color: rgb(255, 254, 254);
+    color: rgb(255, 255, 255);
     font-size: 4em;
-    margin-bottom: 40px;
+    margin-top: 110px;
+    margin-bottom: 290px;
+    font-weight: 700;
+    font-style:italic;
     border: 4px solid green;
     border-radius: 50px;
     background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
     padding: 7px;
     text-shadow: 
-    -1px -1px 0 black,  
-     1px -1px 0 black,
+    -1px  1px 0 black,  
+     1px  1px 0 black,
     -1px  1px 0 black,
      1px  1px 0 black;
 
 }
 
 #rainbow {
+    font-size: 300px;
     background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
     background-clip: text; /* Ensures the gradient is clipped to the text */
     -webkit-text-fill-color: transparent; /* Makes the inside of the text transparent, showing the gradient */
     display: inline-block;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     
 
 }
 
 .homepage h1 {
     font-size: 8rem;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     padding-bottom: 95px;
     background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
     padding: 20px; /* Padding inside the h1 to give space around the text */
@@ -50,20 +55,27 @@
 }
 
 #rainbow2 {
-    background-color: rgb(254, 254, 254); /* Semi-transparent black background */
-    padding-top: 95px;
-    border-radius: 15px;
-    padding-right: 95px;
-    padding-left: 95px;
-    padding-bottom: 5px;
+    background-color: rgba(145, 128, 128, 0.587); /* Semi-transparent black background */
+    padding-top: 220px;
+    border-radius: 100px;
+    padding-right: 20px;
+    border:8px rgb(255, 255, 255);
+    padding-left: 20px;
+    padding-bottom: 15px;
     font-family: 'Segoe UI';
     box-shadow: 15px 15px 10px ;
-    border: 3px solid black;
 
 
 }
 
 h2 {
-    color: black;
+    color: rgb(241, 241, 241);
     font-size: 60px;
+}
+
+#welcome {
+    font-style: italic;
+    font-family: Franklin Gothic Medium;
+    font-size: 60px;
+    text-decoration: underline double ;
 }

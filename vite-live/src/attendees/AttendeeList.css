@@ -1,17 +1,25 @@
 /* Style for the container around the attendee list */
 .attendee-list-container {
-    background-color: rgba(107, 41, 0, 0.8); /* Dark background with transparency */
+    background-color: rgba(255, 165, 0, 0.662); /* Vibrant orange background with transparency */
     padding: 20px;
-    max-width: 4000px; /* Max width for the attendee list container */
+    max-width: 2000px; /* Max width for the attendee list container */
     margin: 40px auto; /* Center the container horizontally */
-    border-radius: 8px; /* Rounded corners for a nice look */
+    border-radius: 40px; /* Rounded corners for a nice look */
     box-shadow: 20px 18px 20px rgba(239, 236, 236, 0.895); /* Add a shadow */
 }
 
 /* Header for the attendee list */
 .attendee-list-container h1 {
     text-align: center; /* Center the header */
-    margin-bottom: 20px; /* Space between header and content */
+    margin-bottom: 40px; /* Space between header and content */
+    font-family: cursive;
+    color: rgb(6, 5, 2); /* Bright cyan color */
+    text-decoration: underline; /* Underline style */
+    font-size: 90px; /* Increased font size for emphasis */
+    background: linear-gradient(45deg, violet, cyan, lime); /* Gradient background */
+    border: 4px solid magenta; /* Bright magenta border color */
+    border-radius: 80px; /* Rounded corners */
+    padding: 10px; /* Padding for the header */
 }
 
 /* Style for the table */
@@ -21,29 +29,35 @@
 }
 
 .attendee-table th, .attendee-table td {
-    border: 1px solid #000; /* Border for table cells */
-    padding: 10px; /* Padding inside cells for better readability */
+    border: 2px solid #FF1493; /* Bright pink border for table cells */
+    padding: 6px; /* Padding inside cells for better readability */
     text-align: left; /* Align text to the left */
-    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background for readability */
-    color: #000; /* Text color */
-    font-size: 35px; /* Font size for the table content */
+    background-color: rgba(100, 149, 237, 0.764); /* Slightly transparent cornflower blue background */
+    color: #FFFFFF; /* White text color */
+    font-size: 30px; /* Font size for the table content */
+    font-family: 'Franklin', sans-serif; /* Change to a fun font */
+    font-weight: 900; /* Bold text */
 }
 
 /* Input field for search */
 .attendee-list-container input {
-    padding: 8px; /* Padding inside the input */
     font-size: 40px; /* Font size */
     text-align: center; /* Center text in input */
-    border: 1px solid #f00000; /* Border styling */
-    border-radius: 4px; /* Rounded corners */
-    margin-bottom: 20px; /* Space below the input */
+    border: 2px solid #FF69B4; /* Bright pink border */
+    border-radius: 10px; /* Rounded corners */
+    margin-bottom: 10px; /* Space below the input */
     width: 100%; /* Full width input field */
     box-sizing: border-box; /* Ensure padding doesn’t affect width */
+    font-family: 'Franklin', sans-serif; /* Change to a fun font */
+    max-width: 1400px;
+    color: black; /* Text color */
+    padding: 8px; /* Padding */
+    background-color: rgba(255, 255, 224, 0.8); /* Light yellow background */
 }
 
 /* Styling for the Edit button */
 .editbutton {
-    background-color: #4CAF50; /* Green background for edit */
+    background-color: #FF7F50; /* Coral background for edit */
     color: white; /* White text */
     padding: 10px 15px; /* Padding around the button */
     font-size: 25px; /* Font size */
@@ -54,12 +68,12 @@
 }
 
 .editbutton:hover {
-    background-color: #00ff11; /* Darker green on hover */
+    background-color: #FF6347; /* Darker coral on hover */
 }
 
 /* Styling for the Delete button */
 .deletebutton {
-    background-color: #f44336; /* Red background for delete */
+    background-color: #FF4500; /* OrangeRed background for delete */
     color: white; /* White text */
     padding: 10px 15px; /* Padding around the button */
     font-size: 25px; /* Font size */
@@ -69,34 +83,33 @@
 }
 
 .deletebutton:hover {
-    background-color: #d32f2f; /* Darker red on hover */
+    background-color: #FF6347; /* Darker red on hover */
 }
 
 /* Create button styles */
-.Create {
+.Createme {
     display: inline-block; /* Inline-block for button styling */
-    background-color: #008CBA; /* Light blue background */
-    color: white; /* White text */
+    background-color: #FFD700; /* Gold background */
+    color: #000; /* Black text */
     padding: 12px 25px; /* Padding for the button */
     font-size: 40px; /* Slightly larger font size */
     border: none; /* Remove borders */
-    border-radius: 12px; /* Rounded corners */
+    border-radius: 20px; /* Rounded corners */
     cursor: pointer; /* Pointer cursor to indicate it's clickable */
     margin-bottom: 20px; /* Space below the button */
-    transition: background-color 0.3s ease; /* Smooth background color change */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    box-shadow: 10px 10px 12px rgba(252, 252, 252, 0.3); /* Stronger shadow on focus */
 }
 
 /* Hover effect for the Create button */
-.Create:hover {
-    background-color: #005f73; /* Darker blue on hover */
-    color: #e0f7fa; /* Light cyan text on hover */
+.Createme:hover {
+    background-color: #FFFACD; /* LemonChiffon on hover */
+    color: #000; /* Black text on hover */
 }
 
 /* Optional focus effect */
-.Create:focus {
+.Createme:focus {
     outline: none; /* Remove default browser outline */
-    background-color: #004e66; /* Even darker shade when focused */
+    background-color: #FF1493; /* Bright pink when focused */
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.5); /* Stronger shadow on focus */
 }
 
@@ -119,7 +132,7 @@
 
 /* Cute styling for the Cancel button */
 .Cancelme {
-    background-color: #ffa07a; /* Light salmon background */
+    background-color: #FFA07A; /* Light salmon background */
     color: black; /* Black text */
     border: none; /* Remove borders */
     padding: 10px 20px; /* Padding for a nice button size */
@@ -131,5 +144,31 @@
 }
 
 .Cancelme:hover {
-    background-color: #ffb494; /* Slightly lighter salmon on hover */
+    background-color: #FFB494; /* Slightly lighter salmon on hover */
+}
+
+/* Styling for select boxes */
+.selecteventtypes,
+.selectevent {
+    width: 100%; /* Make select boxes full width */
+    padding: 15px; /* Add padding for better spacing */
+    font-size: 22px; /* Increase font size */
+    border: 2px solid #FF69B4; /* Bright pink border */
+    border-radius: 8px; /* Rounded corners */
+    background-color: rgba(255, 255, 255, 0.9); /* Light background */
+    color: #000; /* Text color */
+    margin-bottom: 20px; /* Space below select */
+}
+
+/* Hover effect for select boxes */
+.selecteventtypes:hover,
+.selectevent:hover {
+    border-color: #FF1493; /* Change border color on hover */
+}
+
+/* Focus effect for select boxes */
+.selecteventtypes:focus,
+.selectevent:focus {
+    outline: none; /* Remove default outline */
+    border-color: #FF69B4; /* Change border color on focus */
 }

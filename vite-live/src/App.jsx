@@ -12,8 +12,12 @@ import AttendeeList from './attendees/AttendeeList';
 import CreateAttendee from './attendees/CreateAttendee';  
 
 // Import Artist components
-import ArtistList from './artists/ArtistList';  // Import ArtistList component
-import CreateArtist from './artists/CreateArtist';  // Import CreateArtist component
+import ArtistList from './artists/ArtistList';  
+import CreateArtist from './artists/CreateArtist';  
+
+// Import Tour components
+import TourList from './tours/TourList';  // Import TourList component
+import CreateTour from './tours/CreateTour';  // Import CreateTour component
 
 import './App.css'
 
@@ -35,8 +39,12 @@ function App() {
         <Route path="/create-attendee" element={<CreateAttendee />} />  
 
         {/* Artist-related routes */}
-        <Route path="/artists" element={<ArtistList />} />  {/* Route for ArtistList */}
-        <Route path="/create-artist" element={<CreateArtist />} />  {/* Route for CreateArtist */}
+        <Route path="/artists" element={<ArtistList />} />  
+        <Route path="/create-artist" element={<CreateArtist />} />  
+
+        {/* Tour-related routes */}
+        <Route path="/tours" element={<TourList />} />  {/* Route for TourList */}
+        <Route path="/create-tour" element={<CreateTour />} />  {/* Route for CreateTour */}
       </Routes>
     </div>
   )

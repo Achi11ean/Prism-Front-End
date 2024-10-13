@@ -88,11 +88,12 @@ function CreateAttendee() {
   };
 
   return (
-    <div className="create-event-container">
+    <div className="create-attendee-container">
       <h2>Create Attendee</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="first_name">First Name</label>
         <input
+          placeholder='[Enter First Name]'
           type="text"
           name="first_name"
           id="first_name"
@@ -103,6 +104,7 @@ function CreateAttendee() {
 
         <label htmlFor="last_name">Last Name</label>
         <input
+          placeholder='[Enter Last Name]'
           type="text"
           name="last_name"
           id="last_name"
@@ -113,6 +115,7 @@ function CreateAttendee() {
 
         <label htmlFor="email">Email</label>
         <input
+          placeholder='[Enter Email]'
           type="email"
           name="email"
           id="email"
@@ -123,7 +126,7 @@ function CreateAttendee() {
 
         <label>Favorite Event Types:</label>
         <select
-          className="select-event-type" 
+          className="attendee-select-event-type" 
           multiple 
           value={newAttendee.favorite_event_types} 
           onChange={handleEventTypeSelection}
@@ -137,7 +140,7 @@ function CreateAttendee() {
 
         <label>Favorite Artists:</label>
         <select
-          className="select-artist" 
+          className="attendee-select-artist" 
           multiple 
           value={newAttendee.favorite_artist_ids} 
           onChange={handleArtistSelection}
@@ -151,7 +154,7 @@ function CreateAttendee() {
 
         <label>Favorite Events:</label>
         <select
-          className="select-event" 
+          className="attendee-select-event" 
           multiple 
           value={newAttendee.favorite_event_ids} 
           onChange={handleFavoriteEventSelection}

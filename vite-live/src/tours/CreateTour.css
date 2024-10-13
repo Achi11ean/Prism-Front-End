@@ -1,8 +1,8 @@
 /* General form container styling */
-.create-artist-container {
-    background-color: rgba(255, 192, 203, 0.8); /* Background with transparency */
+.create-tour-container {
+    background-color: rgba(255, 228, 196, 0.8); /* Light peach background with transparency */
     padding: 40px;
-    width:1900px;
+    width: 90%; /* Use percentage for better responsiveness */
     max-width: 1500px; /* Width of the form container */
     margin: 50px auto; /* Center the form on the page */
     border-radius: 12px; /* Rounded corners */
@@ -11,9 +11,9 @@
 }
 
 /* Form header styling */
-.create-artist-container h2 {
+.create-tour-container h2 {
     text-align: center;
-    background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+    background: linear-gradient(90deg, #FFA07A, #FF4500); /* Gradient from light salmon to orange-red */
     background-clip: text; /* Ensures the gradient is clipped to the text */
     -webkit-text-fill-color: transparent; /* Makes the inside of the text transparent, showing the gradient */
     font-family: Trebuchet;
@@ -23,58 +23,58 @@
 }
 
 /* Label styling */
-.create-artist-container label {
+.create-tour-container label {
     display: block;
-    font-size: 3em; /* Large font for labels */
-    margin-left: 220px;
-    margin-right: 250px;
-    border-radius: 60px;
+    font-size: 2.5em; /* Slightly smaller font for labels */
+    margin-left: 20px; /* Margin adjustments for centering */
+    margin-right: 20px;
+    border-radius: 8px; /* Rounded edges for labels */
     margin-bottom: 10px;
     text-align: center;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    color: rgb(76, 78, 74); /* Dark grey color for labels */
+    color: rgb(70, 70, 70); /* Dark grey color for labels */
     transition: background-color 0.3s; /* Smooth transition for hover */
 }
 
 /* Label hover effect */
-.create-artist-container label:hover {
+.create-tour-container label:hover {
     background-color: rgba(255, 182, 193, 0.7); /* Light pink on hover */
 }
 
 /* Input and textarea field styling */
-.create-artist-container input[type="text"],
-.create-artist-container input[type="number"],
-.create-artist-container textarea {
+.create-tour-container input[type="text"],
+.create-tour-container input[type="date"],
+.create-tour-container textarea {
     width: 100%; /* Make inputs longer */
     padding: 15px; /* Increased padding for inputs */
     font-size: 2em; /* Font size for input text */
-    background-color: rgb(20, 218, 192); /* Soft teal background */
+    background-color: rgb(255, 250, 205); /* Lemon chiffon background */
     font-family: 'Geneva', sans-serif;
     margin-bottom: 20px; /* Space between inputs */
-    border: 2px solid #f57c00; /* Orange border */
+    border: 2px solid #FF6347; /* Tomato border */
     border-radius: 20px; /* Rounded input corners */
     box-sizing: border-box; /* Include padding in width */
-    transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s; /* Transition effects */
     text-align: center; /* Center text */
+    color: black;
 }
 
 /* Input focus effect with animation */
-.create-artist-container input:focus,
-.create-artist-container textarea:focus {
-    border-color: #ff9800; /* Bright orange on focus */
-    box-shadow: 0 0 8px rgba(255, 152, 0, 0.5); /* Glow effect on focus */
+.create-tour-container input:focus,
+.create-tour-container textarea:focus {
+    border-color: #FF4500; /* Darker orange on focus */
+    box-shadow: 0 0 8px rgba(255, 99, 71, 0.5); /* Glow effect on focus */
     outline: none; /* Remove default outline */
     transform: scale(1.02); /* Slightly enlarge the input */
 }
 
 /* Dropdown (select) styling */
-.create-artist-container select {
+.create-tour-container select {
     width: 100%; /* Full width dropdown */
     padding: 15px; /* Padding for dropdown */
     font-size: 2.5em; /* Font size for select text */
     margin-bottom: 20px; /* Space between dropdowns */
-    background: linear-gradient(45deg, #ff6b6b, #ffdd00); /* Gradient background from pink to yellow */
-    border: 3px solid #ff5722; /* Orange border */
+    background: linear-gradient(45deg, #FFD700, #FF8C00); /* Gradient background from gold to dark orange */
+    border: 3px solid #FFA500; /* Orange border */
     border-radius: 20px; /* More rounded corners */
     box-sizing: border-box; /* Include padding in width */
     color: #3e2723; /* Darker text color for contrast */
@@ -84,38 +84,44 @@
 }
 
 /* Dropdown focus effect */
-.create-artist-container select:focus {
-    border-color: #ff9800; /* Highlight border with an orange color on focus */
-    box-shadow: 0 0 10px rgba(255, 152, 0, 0.5); /* Glow effect for focus */
+.create-tour-container select:focus {
+    border-color: #FF4500; /* Highlight border with a darker orange color on focus */
+    box-shadow: 0 0 10px rgba(255, 99, 71, 0.5); /* Glow effect for focus */
     outline: none; /* Remove default outline */
 }
 
-/* Custom arrow for dropdown */
-.create-artist-container select::after {
-    content: '▼'; /* Custom arrow icon */
-    position: absolute; /* Position relative to the dropdown */
-    right: 15px; /* Positioning */
-    top: 50%; /* Centering */
-    transform: translateY(-50%); /* Adjust to center */
-    pointer-events: none; /* Ignore mouse events for the arrow */
+/* Checkbox container styling */
+.event-checkboxes {
+    max-height: 200px; /* Set a maximum height for the checkbox container */
+    overflow-y: auto; /* Enable vertical scrolling if needed */
+    border: 2px solid #FF69B4; /* Border for the checkbox container */
+    border-radius: 8px; /* Rounded corners for the container */
+    padding: 10px; /* Padding for the container */
+    background-color: pink; /* Light background */
+    margin-bottom: 20px; /* Space below the checkbox container */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
 }
 
-/* Select focus effect with animation */
-.create-artist-container select:focus {
-    border-color: #ff9800; /* Highlight border on focus */
-    box-shadow: 0 0 8px rgba(255, 152, 0, 0.5); /* Glow effect on focus */
-    outline: none; /* Remove default outline */
-    transform: scale(1.02); /* Slightly enlarge the select */
+/* Individual checkbox styling */
+.event-checkboxes div {
+    margin-bottom: 5px; /* Space between checkboxes */
+    display: flex; /* Align checkbox and label in a row */
+    align-items: center; /* Center items vertically */
+}
+
+.event-checkboxes input {
+    margin-right: 10px; /* Space between checkbox and label */
+    cursor: pointer; /* Pointer cursor for checkbox */
 }
 
 /* Button styling */
-.create-artist-container button {
+.create-tour-container button {
     display: block;
     font-family: 'Impact', 'Haettenschweiler', 'Arial Narrow Bold', sans-serif;
     width: 100%; /* Full width button */
     padding: 15px;
-    background: linear-gradient(45deg, #1efc05, #ffdd00); /* Gradient from bright green to yellow */
-    color: rgb(0, 0, 0); /* Dark text for better contrast */
+    background: linear-gradient(45deg, #32CD32, #3CB371); /* Gradient from lime green to medium sea green */
+    color: rgb(255, 255, 255); /* White text for better contrast */
     border: none; /* Remove the border for a cleaner look */
     border-radius: 30px; /* More rounded corners */
     cursor: pointer;
@@ -125,33 +131,34 @@
 }
 
 /* Button hover effect */
-.create-artist-container button:hover {
-    background: linear-gradient(45deg, #ffdd00, #1efc05); /* Inverted gradient on hover */
+.create-tour-container button:hover {
+    background: linear-gradient(45deg, #3CB371, #32CD32); /* Inverted gradient on hover */
     transform: scale(1.05); /* Slightly grow on hover */
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5); /* Increase shadow on hover for depth */
 }
 
 /* Button focus effect */
-.create-artist-container button:focus {
+.create-tour-container button:focus {
     outline: none; /* Remove default outline */
-    background: linear-gradient(45deg, #6200ea, #ff00b3); /* Change to a vibrant purple to pink gradient on focus */
-    box-shadow: 0 0 15px rgba(98, 0, 234, 0.5); /* Glow effect for focus */
+    background: linear-gradient(45deg, #8B0000, #B22222); /* Change to a dark red gradient on focus */
+    box-shadow: 0 0 15px rgba(139, 0, 0, 0.5); /* Glow effect for focus */
     color: #fff; /* Change text color to white for contrast */
     border-radius: 30px; /* Maintain rounded corners */
 }
 
 /* Make the form responsive */
 @media (max-width: 600px) {
-    .create-artist-container {
+    .create-tour-container {
         padding: 20px; 
+        background-color: pink;
         max-width: 100%; /* Full width on small screens */
     }
 
-    .create-artist-container h2 {
+    .create-tour-container h2 {
         font-size: 2rem; /* Smaller font size on small screens */
     }
 
-    .create-artist-container button {
+    .create-tour-container button {
         font-size: 1.2rem; /* Adjust button size */
     }
 }

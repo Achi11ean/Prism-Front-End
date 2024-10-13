@@ -1,138 +1,177 @@
 /* Style for the container around the event list */
 .event-list-container {
-    background-color: rgba(107, 41, 0, 0.8); /* Dark background with transparency */
-    padding: 20px;
-    max-width: 4000px; /* Max width for the event list container */
-    margin: 40px auto; /* Center the container horizontally */
-    border-radius: 8px; /* Rounded corners for a nice look */
-    box-shadow: 20px 18px 20px rgba(239, 236, 236, 0.895); /* Add a shadow */
-  }
-  
-  /* Header for the event list */
-  .event-list-container h2 {
-    text-align: center; /* Center the header */
-    margin-bottom: 20px; /* Space between header and content */
-  }
-  
-  /* Style for the table */
-  .event-table {
-    width: 100%; /* Ensure the table takes up full width of its container */
-    border-collapse: collapse; /* Collapse borders to avoid double lines */
-  }
-  
-  .event-table th, .event-table td {
-    border: 1px solid #000; /* Border for table cells */
-    padding: 10px; /* Padding inside cells for better readability */
-    text-align: left; /* Align text to the left */
-    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background for readability */
-    color: #000;
-    font-size: 35px;
-  }
-  
+  background-color: rgba(255, 218, 185, 0.662); /* Light peach background with transparency */
+  padding: 20px;
+  max-width: 2900px; /* Max width for the event list container */
+  margin: 40px auto; /* Center the container horizontally */
+  border-radius: 40px; /* Rounded corners for a nice look */
+  box-shadow: 20px 18px 20px rgba(239, 236, 236, 0.895); /* Add a shadow */
+}   
 
-  
-  /* Input field for search */
-  .event-list-container input {
-    padding: 8px; /* Padding inside the input */
-    font-size: 40px; /* Font size */
-    text-align: center;
-    border: 1px solid #f00000; /* Border styling */
-    border-radius: 4px; /* Rounded corners */
-    margin-bottom: 20px; /* Space below the input */
-    width: 100%; /* Full width input field */
-    box-sizing: border-box; /* Ensure padding doesn’t affect width */
-  }
-    /* Styling for the Edit button */
+.inputedit {
+  max-width: 300px;
+}
+
+/* Header for the event list */
+.event-list-container h2 {
+  color: rgb(255, 69, 0); /* Fun vibrant red color */
+  text-align: center; /* Center the header */
+  font-family: 'Fantasy';
+  margin-bottom: 20px; /* Space between header and content */
+  font-size: 6em; /* Increased font size for emphasis */
+  text-decoration: underline dotted cyan; /* Underline style */
+  border: 4px solid lime; /* Bright lime border color */
+  border-radius: 80px; /* Rounded corners */
+  padding: 10px; /* Padding for the header */
+  background: linear-gradient(45deg, yellow, orange, red); /* Gradient background */
+}
+
+/* Style for the table */
+.event-table {
+  max-width: 2500px;
+  width: 100%; /* Ensure the table takes up full width of its container */
+  border-collapse: collapse; /* Collapse borders to avoid double lines */
+}
+
+.event-table th, .event-table td {
+  border: 2px solid #FF69B4; /* Bright pink border for table cells */
+  padding: 10px; /* Padding inside cells for better readability */
+  text-align: left; /* Align text to the left */
+  background-color: rgba(255, 228, 196, 0.764); /* Slightly transparent light peach background for readability */
+  color: #8A2BE2; /* Text color - BlueViolet */
+  font-size: 35px;
+}
+
+/* Input field for search */
+.event-list-container input {
+  padding: 8px; /* Padding inside the input */
+  text-align: center;
+  width: 1820px;
+  font-size: 45px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  border: 2px solid #FF1493; /* Deep pink border */
+  border-radius: 30px; /* Rounded corners */
+  margin-bottom: 20px; /* Space below the input */
+  box-sizing: border-box; /* Ensure padding doesn’t affect width */
+  background-color: rgba(173, 216, 230, 0.8); /* Light blue background */
+  color: #8B0000; /* Dark red text color */
+}
+
+/* Styling for the Edit button */
 .editbutton {
-    background-color: #4CAF50; /* Green background for edit */
-    color: white; /* White text */
-    padding: 10px 15px; /* Padding around the button */
-    font-size: 25px; /* Font size */
-    border: none; /* Remove borders */
-    border-radius: 20px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    margin-right: 10px; /* Space between buttons */
-  }
-  
-  .editbutton:hover {
-    background-color: #00ff11; /* Darker green on hover */
-  }
-  
-  /* Styling for the Delete button */
-  .deletebutton {
-    background-color: #f44336; /* Red background for delete */
-    color: white; /* White text */
-    padding: 10px 15px;
-    font-size: 25px;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-  }
-  
-  .deletebutton:hover {
-    background-color: #d32f2f; /* Darker red on hover */
-  }
-  .Create {
-    display: inline-block;
-    background-color: #008CBA; /* Light blue background */
-    color: white; /* White text */
-    padding: 12px 25px; /* Padding for the button */
-    font-size: 40px; /* Slightly larger font size */
-    border: none; /* Remove borders */
-    border-radius: 12px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor to indicate it's clickable */
-    margin-bottom: 20px; /* Space below the button */
-    transition: background-color 0.3s ease; /* Smooth background color change */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  background-color: #FFD700; /* Gold background for edit */
+  color: white; /* White text */
+  padding: 10px 15px; /* Padding around the button */
+  font-size: 25px; /* Font size */
+  border: none; /* Remove borders */
+  border-radius: 20px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  margin-right: 10px; /* Space between buttons */
+}
+
+.editbutton:hover {
+  background-color: #FFDA44; /* Lighter gold on hover */
+}
+
+/* Styling for the Delete button */
+.deletebutton {
+  background-color: #FF4500; /* OrangeRed background for delete */
+  color: white; /* White text */
+  padding: 10px 15px;
+  font-size: 25px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.deletebutton:hover {
+  background-color: #FF6347; /* Darker red on hover */
+}
+
+/* Create button styles */
+.CreateButton {
+  display: inline-block;
+  background-color: #FF69B4; /* Hot pink background */
+  color: rgb(255, 255, 255); /* White text */
+  padding: 12px 25px; /* Padding for the button */
+  font-size: 60px; /* Slightly larger font size */
+  border: none; /* Remove borders */
+  border-radius: 20px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor to indicate it's clickable */
+  margin-bottom: 20px; /* Space below the button */
+  box-shadow: 10px 10px 12px rgba(252, 252, 252, 0.3); /* Stronger shadow on focus */
 }
 
 /* Hover effect for the Create button */
-.Create:hover {
-    background-color: #005f73; /* Darker blue on hover */
-    color: #e0f7fa; /* Light cyan text on hover */
+.CreateButton:hover {
+  background-color: #FFB6C1; /* Lighter pink on hover */
+  color: #000; /* Black text on hover */
 }
 
 /* Optional focus effect */
-.Create:focus {
-    outline: none; /* Remove default browser outline */
-    background-color: #004e66; /* Even darker shade when focused */
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.5); /* Stronger shadow on focus */
-}
-
-.selectedit {
-  font-size: 1.5em  
+.CreateButton:focus {
+  outline: none; /* Remove default browser outline */
+  background-color: #FF1493; /* Bright pink when focused */
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5); /* Stronger shadow on focus */
+  color: white; /* White text on focus */
 }
 
 /* Cute styling for the Save button */
 .Saveme {
-    background-color: #ff69b4;  /* Cute pink background */
-    color: black;               /* White text */
-    border: none;               /* Remove borders */
-    padding: 10px 20px;         /* Padding for a nice button size */
-    border-radius: 25px;        /* Rounded corners for a cute effect */
-    font-size: 20px;            /* Larger text */
-    font-weight: bold;          /* Bold text */
-    cursor: pointer;            /* Pointer cursor on hover */
-    transition: background-color 0.3s ease;  /* Smooth hover transition */
-  }
-  
-  .Saveme:hover {
-    background-color: #ff85c2;  /* Slightly lighter pink on hover */
-  }
-  
-  /* Cute styling for the Cancel button */
-  .Cancelme {
-    background-color: #ffa07a;  /* Light salmon background */
-    color: black;               /* White text */
-    border: none;               /* Remove borders */
-    padding: 10px 20px;         /* Padding for a nice button size */
-    border-radius: 25px;        /* Rounded corners for a cute effect */
-    font-size: 20px;            /* Larger text */
-    font-weight: bold;          /* Bold text */
-    cursor: pointer;            /* Pointer cursor on hover */
-    transition: background-color 0.3s ease;  /* Smooth hover transition */
-  }
-  
-  .Cancelme:hover {
-    background-color: #ffb494;  /* Slightly lighter salmon on hover */
-  }
+  background-color: #ff69b4; /* Cute pink background */
+  color: black; /* Black text */
+  border: none; /* Remove borders */
+  padding: 10px 20px; /* Padding for a nice button size */
+  border-radius: 25px; /* Rounded corners for a cute effect */
+  font-size: 20px; /* Larger text */
+  font-weight: bold; /* Bold text */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth hover transition */
+}
+
+.Saveme:hover {
+  background-color: #ff85c2; /* Slightly lighter pink on hover */
+}
+
+/* Cute styling for the Cancel button */
+.Cancelme {
+  background-color: #FFA07A; /* Light salmon background */
+  color: black; /* Black text */
+  border: none; /* Remove borders */
+  padding: 10px 20px; /* Padding for a nice button size */
+  border-radius: 25px; /* Rounded corners for a cute effect */
+  font-size: 20px; /* Larger text */
+  font-weight: bold; /* Bold text */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth hover transition */
+}
+
+.Cancelme:hover {
+  background-color: #FFB494; /* Slightly lighter salmon on hover */
+}
+
+/* Styling for select boxes */
+.selecteventtypes,
+.selectevent {
+  width: 100%; /* Make select boxes full width */
+  padding: 15px; /* Add padding for better spacing */
+  font-size: 22px; /* Increase font size */
+  border: 2px solid #FF69B4; /* Bright pink border */
+  border-radius: 8px; /* Rounded corners */
+  background-color: rgba(255, 255, 255, 0.9); /* Light background */
+  color: #000; /* Text color */
+  margin-bottom: 20px; /* Space below select */
+}
+
+/* Hover effect for select boxes */
+.selecteventtypes:hover,
+.selectevent:hover {
+  border-color: #FF1493; /* Change border color on hover */
+}
+
+/* Focus effect for select boxes */
+.selecteventtypes:focus,
+.selectevent:focus {
+  outline: none; /* Remove default outline */
+  border-color: #FF69B4; /* Change border color on focus */
+}

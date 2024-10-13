@@ -5,6 +5,7 @@ import "./EventList.css";
 function EventList() {
   const [events, setEvents] = useState([]);
   const [venues, setVenues] = useState([]);
+  const [artists, setArtists] = useState([]); // State to hold artists
   const [searchTerm, setSearchTerm] = useState("");
   const [editingEventId, setEditingEventId] = useState(null);
   const [editFormData, setEditFormData] = useState({
@@ -14,10 +15,11 @@ function EventList() {
     location: "",
     description: "",
     venue_id: "",
-    event_type: "", // Add event_type to form data for editing
-    artist_ids: [], // Add artist_ids for multiple artist selections
+    event_type: "", // Include event_type in edit form
+    artist_ids: [], // To hold selected artist IDs
   });
   const [errorMessage, setErrorMessage] = useState("");
+  const [artistSearchTerm, setArtistSearchTerm] = useState(""); // State for artist search input
   const formatTimeTo12Hour = (time24) => {
     const [hours, minutes] = time24.split(":");
     const period = +hours >= 12 ? "PM" : "AM";
@@ -26,11 +28,12 @@ function EventList() {
   };
   const navigate = useNavigate();
 
-  // Fetch events from the backend
+  // Fetch events, venues, and artists from the backend
   useEffect(() => {
     const url = searchTerm
-      ? `http://127.0.0.1:5001/events/search?name=${searchTerm}`
+      ? `http://127.0.0.1:5001/events/search?searchTerm=${searchTerm}`
       : "http://127.0.0.1:5001/events";
+
     fetch(url)
       .then((response) => {
         if (!response.ok) {
@@ -39,33 +42,37 @@ function EventList() {
         return response.json();
       })
       .then((data) => {
+        setEvents(data);
         if (data.length === 0) {
           setErrorMessage("No events found matching your search.");
         } else {
           setErrorMessage(""); // Clear error message if events are found
-          setEvents(data); // Update the events list
         }
       })
       .catch((error) => {
         setErrorMessage("No Matching Criteria.");
         console.error("Error fetching events:", error);
       });
-  }, [searchTerm]);
 
-  // Fetch venues for dropdown selection during editing
-  useEffect(() => {
+    // Fetch venues for dropdown selection during editing
     fetch("http://127.0.0.1:5001/venues")
       .then((response) => response.json())
       .then((data) => setVenues(data))
       .catch((error) => console.error("Error fetching venues:", error));
-  }, []);
+
+    // Fetch artists for checkbox selection
+    fetch("http://127.0.0.1:5001/artists")
+      .then((response) => response.json())
+      .then((data) => setArtists(data))
+      .catch((error) => console.error("Error fetching artists:", error));
+  }, [searchTerm]);
 
   // Handle the edit button click to edit an event
   const handleEditClick = (event) => {
     setEditingEventId(event.id);
     setEditFormData({
       name: event.name,
-      date: event.date.split('T')[0], // Format as YYYY-MM-DD
+      date: new Date(event.date).toISOString().split('T')[0], // Format as YYYY-MM-DD
       time: event.time,
       location: event.location,
       description: event.description,
@@ -74,21 +81,41 @@ function EventList() {
       artist_ids: event.artists.map(artist => artist.id), // Preselect artists
     });
   };
-
   // Handle input changes for editing
   const handleEditChange = (e) => {
     const { name, value } = e.target;
     setEditFormData({ ...editFormData, [name]: value });
   };
 
+  // Handle artist selection
+  const handleArtistSelection = (artistId) => {
+    setEditFormData((prevState) => {
+      const isSelected = prevState.artist_ids.includes(artistId);
+      return {
+        ...prevState,
+        artist_ids: isSelected
+          ? prevState.artist_ids.filter((id) => id !== artistId) // Remove if already selected
+          : [...prevState.artist_ids, artistId], // Add to selected
+      };
+    });
+  };
+
   // Save the updated event data
   const handleSaveClick = (eventId) => {
     const isConfirmed = window.confirm("Please verify the date before saving.");
     if (isConfirmed) {
+      // Validate the time format before saving
+      if (!editFormData.time || !/^([01]\d|2[0-3]):([0-5]\d)$/.test(editFormData.time)) {
+        alert("Please enter a valid time in HH:MM format.");
+        return;
+      }
+  
       const updatedFormData = {
         ...editFormData,
         date: new Date(editFormData.date).toISOString().split("T")[0], // Ensure date is in YYYY-MM-DD format
+        time: editFormData.time, // Make sure time is included correctly
       };
+      
       fetch(`http://127.0.0.1:5001/events/${eventId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -122,17 +149,21 @@ function EventList() {
       .catch((error) => console.error("Error deleting event:", error));
   };
 
+  // Filter artists based on search input
+  const filteredArtists = artists.filter((artist) =>
+    artist.name.toLowerCase().includes(artistSearchTerm.toLowerCase())
+  );
+
   return (
     <div className="event-list-container">
       <h2>Event List</h2>
-      {/* Create button */}
-      <button className="Create" onClick={() => navigate("/create-event")}>
+      <button className="CreateButton" onClick={() => navigate("/create-event")}>
         Create New Event
       </button>
-      {/* Search input */}
       <input
+        className="searchme"
         type="text"
-        placeholder="Search by event name"
+        placeholder="[Search by Event Name, Location or Venue]"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
@@ -151,8 +182,8 @@ function EventList() {
             <th>Location</th>
             <th>Description</th>
             <th>Venue</th>
-            <th>Event Type</th>
-            <th>Artists</th> {/* New column for Artists */}
+            <th>Event Type</th> {/* Ensure the Event Type column is present */}
+            <th>Artists</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -164,6 +195,7 @@ function EventList() {
                   <td>{event.id}</td>
                   <td>
                     <input
+                      className="inputedit"
                       type="text"
                       name="name"
                       value={editFormData.name}
@@ -172,6 +204,7 @@ function EventList() {
                   </td>
                   <td>
                     <input
+                      className="inputedit"
                       type="date"
                       name="date"
                       value={editFormData.date}
@@ -180,6 +213,7 @@ function EventList() {
                   </td>
                   <td>
                     <input
+                      className="inputedit"
                       type="time"
                       name="time"
                       value={editFormData.time}
@@ -188,6 +222,7 @@ function EventList() {
                   </td>
                   <td>
                     <input
+                      className="inputedit"
                       type="text"
                       name="location"
                       value={editFormData.location}
@@ -196,6 +231,7 @@ function EventList() {
                   </td>
                   <td>
                     <input
+                      className="inputedit"
                       type="text"
                       name="description"
                       value={editFormData.description}
@@ -246,6 +282,31 @@ function EventList() {
                     </select>
                   </td>
                   <td>
+                    {/* Search input for artists */}
+                    <input
+                      type="text"
+                      placeholder="Search Artists..."
+                      value={artistSearchTerm}
+                      onChange={(e) => setArtistSearchTerm(e.target.value)}
+                      className="artist-search"
+                    />
+                    <div className="artist-checkboxes">
+                      {filteredArtists.map((artist) => (
+                        <div key={artist.id}>
+                          <label>
+                            <input
+                              type="checkbox"
+                              value={artist.id}
+                              checked={editFormData.artist_ids.includes(artist.id)}
+                              onChange={() => handleArtistSelection(artist.id)}
+                            />
+                            {artist.name}
+                          </label>
+                        </div>
+                      ))}
+                    </div>
+                  </td>
+                  <td>
                     <button className="Saveme" onClick={() => handleSaveClick(event.id)}>
                       Save
                     </button>
@@ -264,7 +325,7 @@ function EventList() {
                   <td>{event.description}</td>
                   <td>{event.venue.name}</td>
                   <td>{event.event_type}</td>
-                  <td>{event.artists.map(artist => artist.name).join(', ')}</td> {/* List of artists */}
+                  <td>{event.artists.map((artist) => artist.name).join(', ')}</td>
                   <td>
                     <button className="editbutton" onClick={() => handleEditClick(event)}>
                       Edit

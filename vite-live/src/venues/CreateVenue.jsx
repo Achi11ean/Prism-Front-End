@@ -38,7 +38,9 @@ function CreateVenue() {
             <form className="venue-form" onSubmit={handleSubmit}>
                 <div>
                     <label>Venue Name:</label>
+                    <br/>
                     <input
+                        placeholder='CT: Zen Bar'
                         type="text"
                         name="name"
                         value={newVenue.name}
@@ -46,9 +48,13 @@ function CreateVenue() {
                         required
                     />
                 </div>
+                <br/>
+                <br/>
                 <div>
                     <label>Organizer:</label>
+                    <br/>
                     <input
+                        placeholder='[Enter Primary Event Organizer First and Last Name]'
                         type="text"
                         name="organizer"
                         value={newVenue.organizer}
@@ -56,9 +62,13 @@ function CreateVenue() {
                         required
                     />
                 </div>
+                <br/>
+                <br/>
                 <div>
                     <label>Email:</label>
+                    <br/>
                     <input
+                        placeholder='[Enter Your email Address Here]'
                         type="email"
                         name="email"
                         value={newVenue.email}
@@ -66,9 +76,13 @@ function CreateVenue() {
                         required
                     />
                 </div>
+                <br/>
+                <br/>
                 <div>
                     <label>Earnings:</label>
+                    <br/>
                     <input
+                        placeholder='[Average Artist Earning: $100, Free Shots, Door Cover]'
                         type="text"
                         name="earnings"
                         value={newVenue.earnings}

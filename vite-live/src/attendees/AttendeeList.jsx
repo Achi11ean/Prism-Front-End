@@ -207,17 +207,18 @@ function AttendeeList() {
     <div className="attendee-list-container">
       <h1>Attendees List</h1>
       <input
+      className="Searchme"
         type="text"
         placeholder="Search attendees by name..."
         value={searchTerm}
         onChange={handleSearchChange}
       />
       {errorMessage && <p>{errorMessage}</p>}
-      <button className="Create" onClick={() => navigate("/create-attendee")}>
+      <button className="Createme" onClick={() => navigate("/create-attendee")}>
         Create New Attendee
       </button>
       {attendees.length === 0 ? (
-        <p>No attendees found.</p>
+        <p id="error">No Matching Criteria.</p>
       ) : (
         <table className="attendee-table">
           <thead>

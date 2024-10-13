@@ -1,81 +1,133 @@
 /* General form container styling */
-.create-event-container {
-    background-color: rgba(107, 41, 0, 0.8); /* Background with transparency */
+.create-attendee-container {
+    background-color: rgba(255, 223, 186, 0.9); /* Soft peach background with transparency */
     padding: 40px;
-    max-width: 1500px; /* Width of the form container */
+    width: 800px;
+    max-width: 1200px; /* Width of the form container */
     margin: 50px auto; /* Center the form on the page */
-    border-radius: 12px; /* Rounded corners */
-    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-    color: #fff; /* Text color for labels */
+    border-radius: 15px; /* Rounded corners */
+    color: #3e2723; /* Darker text color for better contrast */
+    text-align: center; /* Center text */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
 }
 
 /* Form header styling */
-.create-event-container h2 {
+.create-attendee-container h2 {
     text-align: center;
+    text-decoration: underline; /* Underline for emphasis */
     margin-bottom: 30px;
-    font-size: 2.5rem; /* Large title */
-    color: #fff; /* White color for form header */
+    font-family: 'Georgia', serif; /* Elegant font family */
+    font-size: 4rem; /* Large title */
+    color: #ff6f61; /* Warm coral color for form header */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Shadow effect for the title */
 }
 
 /* Label styling */
-.create-event-container label {
+.create-attendee-container label {
     display: block;
-    font-size: 2em;
-    margin-bottom: 10px;
+    padding: 10px 20px; /* Padding for label */
+    border-radius: 50px; /* Round edges for labels */
+    background-color: rgba(255, 200, 150, 0.8); /* Light peach background */
+    margin: 10px auto; /* Center labels */
+    text-align: center;
+    font-size: 2.5rem; /* Large font for labels */
+    color: rgb(0, 8, 255); /* Dark blue color for labels */
+    transition: background-color 0.3s; /* Smooth transition for hover */
 }
 
-/* Input and textarea field styling */
-.create-event-container input[type="text"],
-.create-event-container input[type="email"],
-.create-event-container select {
+/* Label hover effect */
+.create-attendee-container label:hover {
+    background-color: rgba(255, 220, 180, 0.9); /* Slightly darker on hover */
+}
+
+/* Input and select field styling */
+.create-attendee-container input[type="text"],
+.create-attendee-container input[type="email"],
+.create-attendee-container select {
     width: 100%; /* Make inputs longer */
-    padding: 12px;
-    font-size: 2em; /* Font size for input text */
+    padding: 15px; /* Padding for inputs */
+    font-size: 2rem; /* Font size for input text */
     margin-bottom: 20px; /* Space between inputs */
-    border: 3px solid #ddd; /* Light border */
-    border-radius: 8px; /* Rounded input corners */
-    box-sizing: border-box;
+    border: 2px solid #ff6f61; /* Coral border */
+    border-radius: 20px; /* Rounded input corners */
+    background-color: rgba(255, 255, 255, 0.9); /* White background for inputs */
+    color: #3e2723; /* Text color */
+    box-sizing: border-box; /* Include padding in width */
+    transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s; /* Transition effects */
+}
+
+/* Input focus effect with animation */
+.create-attendee-container input:focus,
+.create-attendee-container select:focus {
+    border-color: #ff9800; /* Bright orange on focus */
+    box-shadow: 0 0 5px rgba(255, 152, 0, 0.5); /* Glow effect on focus */
+    outline: none; /* Remove default outline */
+    transform: scale(1.02); /* Slightly enlarge the input */
+}
+
+/* Dropdown styling */
+.create-attendee-container select {
+    width: 100%; /* Full width dropdown */
+    padding: 15px; /* Padding for dropdown */
+    font-size: 2.5em; /* Font size for select text */
+    margin-bottom: 20px; /* Space between dropdowns */
+    background: linear-gradient(45deg, #ff6b6b, #ffdd00); /* Gradient background from pink to yellow */
+    border: 3px solid #ff5722; /* Coral border */
+    border-radius: 20px; /* More rounded corners */
+    box-sizing: border-box; /* Include padding in width */
+    color: #3e2723; /* Darker text color for contrast */
+    appearance: none; /* Remove default dropdown styling for custom look */
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
+    transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s; /* Transition effects */
+}
+
+/* Dropdown focus effect */
+.create-attendee-container select:focus {
+    border-color: #ff9800; /* Highlight border with an orange color on focus */
+    box-shadow: 0 0 10px rgba(255, 152, 0, 0.5); /* Glow effect for focus */
+    outline: none; /* Remove default outline */
 }
 
 /* Button styling */
-.create-event-container button {
+.create-attendee-container button {
     display: block;
-    width: 1200px; /* Make button longer */
+    width: 100%; /* Full width button */
     padding: 15px;
-    background-color: #05fc3b; /* Button color */
-    color: rgb(0, 0, 0); /* Text color */
-    border: 6px solid black;
-    border-radius: 15px; /* Rounded corners */
+    background: linear-gradient(45deg, #ff5722, #ff9800); /* Bright gradient background for button */
+    color: #ffffff; /* White text */
+    border: none; /* Remove borders */
+    border-radius: 30px; /* More rounded corners */
     cursor: pointer;
-    font-size: 2rem; /* Button font size */
+    font-size: 2.5rem; /* Increased font size */
     margin-top: 20px;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; /* Transition for hover effects */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Soft shadow for depth */
 }
 
 /* Button hover effect */
-.create-event-container button:hover {
-    background-color: #d6da0b; /* Change button color on hover */
-    color: #000;
+.create-attendee-container button:hover {
+    background: linear-gradient(45deg, #ff9800, #ff5722); /* Inverted gradient on hover */
+    transform: scale(1.05); /* Slightly grow on hover */
 }
 
-/* Input and select focus effect */
-.create-event-container input:focus,
-.create-event-container select:focus {
-    border-color: #007bff; /* Highlight border on focus */
-    outline: none;
+/* Button focus effect */
+.create-attendee-container button:focus {
+    background-color: #6200ea; /* Change to a vibrant purple on focus */
+    border-color: #ff9800; /* Highlight border with an orange color on focus */
 }
 
 /* Make the form responsive */
 @media (max-width: 600px) {
-    .create-event-container {
+    .create-attendee-container {
         padding: 20px; 
-        max-width: 100%; 
+        max-width: 100%; /* Full width on small screens */
     }
 
-    .create-event-container h2 {
+    .create-attendee-container h2 {
         font-size: 2rem; /* Smaller font size on small screens */
     }
 
-    .create-event-container button {
+    .create-attendee-container button {
         font-size: 1.2rem; /* Adjust button size */
     }
 }

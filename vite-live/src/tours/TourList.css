@@ -1,0 +1,254 @@
+/* Style for the container around the tour list */
+.tour-list-container {
+    background-color: rgba(255, 228, 196, 0.434); /* Light peach background with transparency */
+    padding: 20px;
+    font-weight: 700;
+    max-width: 2400px; /* Max width for the tour list container */
+    margin: 40px auto; /* Center the container horizontally with some margin at the top */
+    border-radius: 40px; /* Rounded corners for a nicer look */
+    box-shadow: 20px 18px 20px rgba(239, 236, 236, 0.895); /* Add a subtle shadow */
+}
+
+/* Header for the tour list */
+.tour-list-container h2 {
+    text-align: center; /* Center the header */
+    margin-bottom: 20px; /* Space between header and content */
+    color: rgb(255, 255, 255); /* White text */
+    font-size: 4em; /* Reduced font size for better fit */
+    margin-bottom: 40px;
+    border: 4px solid #FF5733; /* Change border color to vibrant coral */
+    font-family: 'Comic Sans MS'; /* New fun font */
+    font-weight: 700;
+    border-radius: 80px;
+    padding-top: 10px;
+    background: linear-gradient(45deg, #00BFFF, #FF1493); /* Gradient background from Deep Sky Blue to Deep Pink */
+}
+
+/* Style for the search input section */
+.search-container {
+    margin-bottom: 30px; /* Space below the search section */
+}
+
+/* Input field for search */
+.search-input {
+    padding: 8px; /* Padding inside the input */
+    font-size: 40px; /* Adjusted font size for better fit */
+    text-align: center; /* Center text in input */
+    border: 1px solid #FF4500; /* Orange-red border */
+    border-radius: 10px; /* Rounded corners */
+    margin-bottom: 20px; /* Space below the input */
+    background-color: rgba(255, 182, 193, 0.7); /* Light pink background */
+    width: 1820px; /* Full width input field */
+    box-sizing: border-box; /* Ensure padding doesn’t affect the width */
+}
+
+/* Style for the edit input fields */
+.edit-input-container {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    gap: 15px; /* Space between inputs */
+}
+
+/* Input fields for editing */
+.edit-input {
+    padding: 10px; /* Padding for the edit inputs */
+    font-size: 30px; /* Font size for better readability */
+    border: 1px solid #FF69B4; /* Bright pink border */
+    border-radius: 8px; /* Rounded corners */
+    width: 300px;
+    background-color: rgba(255, 15, 159, 0.9); /* Light background */
+}
+
+/* Style for the table */
+.tour-table {
+    width: 100%; /* Ensure the table takes up full width of its container */
+    border-collapse: collapse; /* Collapse borders to avoid double lines */
+}
+
+.tour-table th,
+.tour-table td {
+    border: 1px solid #FF8C00; /* Border for table cells in vibrant orange */
+    padding: 8px; /* Padding inside cells for better readability */
+    text-align: left; /* Align text to the left */
+    background-color: rgba(144, 238, 144, 0.875); /* Light green background for readability */
+    color: #000; /* Text color */
+    font-size: 30px; /* Adjusted font size for better readability */
+    font-family: 'Geneva';
+}
+
+/* General styling for select boxes */
+.selecteventtypes,
+.selectevent {
+    width: 60px; /* Make select boxes full width */
+    padding: 10px; /* Add padding for better spacing */
+    font-size: 40px; /* Adjusted font size for better fit */
+    border: 2px solid #FF69B4; /* Bright pink border */
+    border-radius: 8px; /* Rounded corners */
+    background-color: rgba(0, 0, 0, 0.9); /* Light background */
+    color: #ffffff; /* Text color */
+    margin-bottom: 20px; /* Space below select */
+}
+
+/* Stacked Created By Options */
+.created-by-container {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    gap: 10px; /* Space between stacked items */
+}
+
+/* Hover effect for select boxes */
+.selecteventtypes:hover,
+.selectevent:hover {
+    border-color: #FF1493; /* Change border color on hover */
+}
+
+/* Focus effect for select boxes */
+.selecteventtypes:focus,
+.selectevent:focus {
+    outline: none; /* Remove default outline */
+    border-color: #FF69B4; /* Change border color on focus */
+}
+
+/* Button styles */
+.editbutton, .deletebutton, .CreateTour, .Saveme, .Cancelme {
+    padding: 10px 15px; /* Consistent padding for buttons */
+    border-radius: 20px; /* Rounded corners */
+    font-size: 20px; /* Consistent font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin-right: 10px; /* Space between buttons */
+}
+
+.editbutton:hover {
+    background-color: #FF8C00; /* Darker orange on hover */
+}
+
+.deletebutton {
+    background-color: #FF4500; /* Orange background for delete */
+    color: white; /* White text */
+}
+
+.deletebutton:hover {
+    background-color: #FF6347; /* Lighter orange on hover */
+}
+
+.CreateTour {
+    background-color: #FF6347; /* Tomato background */
+    color: #ffffff; /* White text */
+    font-size: 35px;
+}
+
+/* Save button styles */
+.Saveme {
+    background-color: #FF69B4; /* Cute pink background */
+    color: black; /* Black text */
+}
+
+.Saveme:hover {
+    background-color: #FF85C2; /* Slightly lighter pink on hover */
+}
+
+/* Cancel button styles */
+.Cancelme {
+    background-color: #FFA07A; /* Light salmon background */
+    color: black; /* Black text */
+}
+
+.Cancelme:hover {
+    background-color: #FFB494; /* Slightly lighter salmon on hover */
+}
+/* Styling for the SelectArtist dropdown */
+.SelectArtist {
+    width: 100%; /* Make select box full width */
+    padding: 12px; /* Add padding for better spacing */
+    font-size: 20px; /* Font size for better readability */
+    border: 2px solid #FF69B4; /* Bright pink border */
+    border-radius: 8px; /* Rounded corners */
+    background-color: rgba(255, 255, 255, 0.9); /* Light background */
+    color: #000; /* Text color */
+    margin-bottom: 20px; /* Space below select */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: border-color 0.3s ease; /* Smooth border color transition */
+}
+
+/* Hover effect for the dropdown */
+.SelectArtist:hover {
+    border-color: #FF1493; /* Change border color on hover */
+}
+
+/* Focus effect for the dropdown */
+.SelectArtist:focus {
+    outline: none; /* Remove default outline */
+    border-color: #FF69B4; /* Change border color on focus */
+    box-shadow: 0 0 5px rgba(255, 105, 180, 0.5); /* Subtle glow effect */
+}
+/* Styling for the selectEvent dropdown */
+.selectEvent {
+    width: 100%; /* Make select box full width */
+    padding: 12px; /* Add padding for better spacing */
+    font-size: 20px; /* Font size for better readability */
+    border: 2px solid #FF69B4; /* Bright pink border */
+    border-radius: 8px; /* Rounded corners */
+    background-color: rgba(255, 255, 255, 0.9); /* Light background */
+    color: #000; /* Text color */
+    margin-bottom: 20px; /* Space below select */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: border-color 0.3s ease, background-color 0.3s ease; /* Smooth transitions */
+}
+
+/* Hover effect for the dropdown */
+.selectEvent:hover {
+    border-color: #FF1493; /* Change border color on hover */
+    background-color: rgba(255, 182, 193, 0.8); /* Light pink background on hover */
+}
+
+/* Focus effect for the dropdown */
+.selectEvent:focus {
+    outline: none; /* Remove default outline */
+    border-color: #FF69B4; /* Change border color on focus */
+    box-shadow: 0 0 5px rgba(255, 105, 180, 0.5); /* Subtle glow effect */
+}
+
+.searchedit {
+    font-size: 20px; /* Font size for readability */
+    padding: 10px; /* Padding for better spacing */
+    border: 2px solid #FF69B4; /* Bright pink border */
+    border-radius: 8px; /* Rounded corners for a softer look */
+    background-color: rgba(255, 255, 255, 0.9); /* Light background for contrast */
+    color: #000; /* Black text for readability */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for focus effects */
+    width: 100%; /* Full width for consistency */
+    margin-bottom: 15px; /* Space below the input */
+    box-sizing: border-box; /* Ensure padding doesn’t affect width */
+}
+
+/* Focus effect for searchedit */
+.searchedit:focus {
+    outline: none; /* Remove default outline */
+    border-color: #FF1493; /* Darker pink border on focus */
+    box-shadow: 0 0 5px rgba(255, 20, 147, 0.5); /* Glow effect on focus */
+}
+/* Style for checkbox container */
+.checkbox-container {
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack checkboxes vertically */
+    gap: 10px; /* Space between checkboxes */
+  }
+  
+  /* Checkbox styling */
+  .checkbox-container input[type="checkbox"] {
+    margin-right: 10px; /* Space between checkbox and label */
+  }
+  
+  /* Checkbox label styling */
+  .checkbox-container label {
+    font-size: 20px; /* Font size for better readability */
+    color: #000; /* Text color */
+  }
+  .event-checkboxes {
+    max-height: 200px; /* Set a maximum height for the checkbox container */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border: 1px solid #FF69B4; /* Optional: Add a border to the checkbox container */
+    border-radius: 8px; /* Rounded corners for the container */
+    padding: 10px; /* Padding for the container */
+    background-color: rgba(255, 255, 255, 0.9); /* Light background */
+}
