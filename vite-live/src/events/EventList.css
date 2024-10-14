@@ -43,19 +43,7 @@
 }
 
 /* Input field for search */
-.event-list-container input {
-  padding: 8px; /* Padding inside the input */
-  text-align: center;
-  width: 1820px;
-  font-size: 45px;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  border: 2px solid #FF1493; /* Deep pink border */
-  border-radius: 30px; /* Rounded corners */
-  margin-bottom: 20px; /* Space below the input */
-  box-sizing: border-box; /* Ensure padding doesn’t affect width */
-  background-color: rgba(173, 216, 230, 0.8); /* Light blue background */
-  color: #8B0000; /* Dark red text color */
-}
+
 
 /* Styling for the Edit button */
 .editbutton {
@@ -174,4 +162,45 @@
 .selectevent:focus {
   outline: none; /* Remove default outline */
   border-color: #FF69B4; /* Change border color on focus */
+}
+.artist-checkboxes {
+  max-height: 150px; /* Set maximum height for the scrollable area */
+  overflow-y: auto; /* Enable vertical scrolling */
+  border: 1px solid #fffafa; /* Add a border */
+  padding: 5px; /* Add some padding */
+  margin-top: 5px; /* Space above the checkbox area */
+  border-radius: 5px; /* Rounded corners */
+
+}
+ .searchme {
+    padding: 8px; /* Padding inside the input */
+    text-align: center;
+    width: 1820px;
+    font-size: 60px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border: 2px solid #FF1493; /* Deep pink border */
+    border-radius: 30px; /* Rounded corners */
+    margin-bottom: 20px; /* Space below the input */
+    box-sizing: border-box; /* Ensure padding doesn’t affect width */
+    background-color: rgba(173, 216, 230, 0.8); /* Light blue background */
+    color: #8B0000; /* Dark red text color */
+  }
+ 
+.inputedit {
+  font-size: 35px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  background-color: rgba(173, 216, 230, 0.8); /* Light blue background */
+  border-radius: 30px; /* Rounded corners */
+  padding: 10px;
+}
+.searcheventsedit {
+  font-size: 35px;
+  background-color: rgba(173, 216, 230, 0.8); /* Light blue background */
+  color: #8B0000; /* Dark red text color */
+  border-radius: 30px; /* Rounded corners */
+
+}
+.selectedit {
+  font-size: 30px;
+  max-width: 200px;
 }

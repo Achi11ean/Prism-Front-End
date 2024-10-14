@@ -9,9 +9,10 @@ function CreateArtist() {
     age: '',
     background: '',
     songs: '',
-    event_ids: [], // For linking to events
+    event_ids: [],
   });
-
+  const [eventSearchTerm, setEventSearchTerm] = useState('');
+  const [ageError, setAgeError] = useState(''); // State for age validation error
   const navigate = useNavigate();
 
   // Fetch available events from the backend
@@ -22,15 +23,25 @@ function CreateArtist() {
       .catch(error => console.error('Error fetching events:', error));
   }, []);
 
+  const validateAge = (age) => {
+    return age >= 18; // Validate age is 18 or older
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Ensure the age is valid before submitting
+    if (!validateAge(Number(formData.age))) {
+      setAgeError('Artist must be at least 18 years old.');
+      return;
+    }
+
     // Ensure event_ids are integers
     const updatedFormData = {
       ...formData,
-      event_ids: formData.event_ids.map(Number), // Convert strings to numbers
+      event_ids: formData.event_ids.map(Number),
     };
-    
-    // Submit artist creation request to the backend
+
     fetch('http://localhost:5001/artists', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -39,7 +50,7 @@ function CreateArtist() {
       .then(response => response.json())
       .then(data => {
         console.log('Artist created:', data);
-        navigate("/artists"); // Redirect to the artist list after creating
+        navigate("/artists"); // Redirect to artist list
       })
       .catch(error => {
         console.error('Error creating artist:', error);
@@ -50,19 +61,28 @@ function CreateArtist() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+
+    // Clear the age error when user starts typing again
+    if (name === 'age' && ageError) {
+      setAgeError('');
+    }
   };
 
-  // Handle multiple event selection
-  const handleEventChange = (e) => {
-    const options = e.target.options;
-    const selectedEvents = [];
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].selected) {
-        selectedEvents.push(options[i].value);
-      }
-    }
-    setFormData({ ...formData, event_ids: selectedEvents });
+  const handleEventSelection = (eventId) => {
+    setFormData((prevState) => {
+      const isSelected = prevState.event_ids.includes(eventId);
+      return {
+        ...prevState,
+        event_ids: isSelected
+          ? prevState.event_ids.filter((id) => id !== eventId)
+          : [...prevState.event_ids, eventId],
+      };
+    });
   };
+
+  const filteredEvents = events.filter((event) =>
+    event.name.toLowerCase().includes(eventSearchTerm.toLowerCase())
+  );
 
   return (
     <div className="create-artist-container">
@@ -70,7 +90,7 @@ function CreateArtist() {
       <form onSubmit={handleSubmit}>
         <label htmlFor="artistName">Artist Name</label>
         <input
-          placeholder='[Enter Stage Name]'
+          placeholder="[Enter Stage Name]"
           type="text"
           id="artistName"
           name="name"
@@ -81,18 +101,20 @@ function CreateArtist() {
 
         <label htmlFor="artistAge">Age</label>
         <input
-          placeholder='[Enter Age]'
+          placeholder="[Enter Age]"
           type="number"
           id="artistAge"
           name="age"
           value={formData.age}
           onChange={handleChange}
           required
+          min={18} // HTML5 constraint to block ages below 18
         />
+        {ageError && <p className="error-message">{ageError}</p>}
 
         <label htmlFor="artistBackground">Background</label>
         <textarea
-          placeholder='[Social Media: @HarmonicEssence | Performancs Goals:... | Experience:...]'
+          placeholder="[Social Media: @HarmonicEssence | Performance Goals:...]"
           id="artistBackground"
           name="background"
           value={formData.background}
@@ -102,7 +124,7 @@ function CreateArtist() {
 
         <label htmlFor="artistSongs">Songs</label>
         <input
-          placeholder='[Enter song names or links you can perform(to) or N/A]'
+          placeholder="[Enter song names or links or N/A]"
           type="text"
           id="artistSongs"
           name="songs"
@@ -112,19 +134,27 @@ function CreateArtist() {
         />
 
         <label htmlFor="eventSelect">Events</label>
-        <select
-          id="eventSelect"
-          name="event_ids"
-          multiple // Allow multiple selections
-          value={formData.event_ids}
-          onChange={handleEventChange}
-        >
-          {events.map((event) => (
-            <option key={event.id} value={event.id}>
-              {event.name}
-            </option>
+        <input
+          type="text"
+          placeholder="Search Events..."
+          value={eventSearchTerm}
+          onChange={(e) => setEventSearchTerm(e.target.value)}
+          className="event-search"
+        />
+        <div className="event-checkboxes" style={{ maxHeight: '150px', overflowY: 'scroll', border: '1px solid #ccc', padding: '5px' }}>
+          {filteredEvents.map((event) => (
+            <div key={event.id}>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={formData.event_ids.includes(event.id)}
+                  onChange={() => handleEventSelection(event.id)}
+                />
+                {event.name}
+              </label>
+            </div>
           ))}
-        </select>
+        </div>
 
         <button type="submit">Create Artist</button>
       </form>

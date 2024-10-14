@@ -12,7 +12,8 @@ function VenueList() {
     email: '',
     earnings: '',
   });
-const [errorMessage, setErrorMessage] = useState(''); // This line defines the error message state
+  const [errorMessage, setErrorMessage] = useState(''); // This line defines the error message state
+  const [emailError, setEmailError] = useState(''); // State for email validation error
 
   const navigate = useNavigate();
 
@@ -41,6 +42,7 @@ const [errorMessage, setErrorMessage] = useState(''); // This line defines the e
         console.error('Error fetching venues:', error);
       });
   }, [searchTerm]);
+
   // Handle the edit button click to edit a venue
   const handleEditClick = (venue) => {
     setEditingVenueId(venue.id);
@@ -56,10 +58,23 @@ const [errorMessage, setErrorMessage] = useState(''); // This line defines the e
   const handleEditChange = (e) => {
     const { name, value } = e.target;
     setEditFormData({ ...editFormData, [name]: value });
+    
+    // Validate email when it changes
+    if (name === 'email') {
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      setEmailError(emailPattern.test(value) ? '' : 'Invalid email format');
+    } else {
+      setEmailError(''); // Clear email error for other fields
+    }
   };
 
   // Save the updated venue data
   const handleSaveClick = (venueId) => {
+    if (emailError) {
+      alert('Please fix the errors before saving.'); // Alert for errors
+      return;
+    }
+
     fetch(`http://127.0.0.1:5001/venues/${venueId}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
@@ -95,23 +110,26 @@ const [errorMessage, setErrorMessage] = useState(''); // This line defines the e
   
       {/* Create button */}
       <button className="Createvenue" onClick={() => navigate("/create-venue")}>Create New Venue</button>
-  
       {/* Search input */}
-      <div className="search-container"> {/* Optional container for search */}
-        <input
-          className='search-input'
-          type="text"
-          placeholder="Search Venues by name..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </div>
+      <input
+        className='search-venue'
+        type="text"
+        placeholder="Search Venues by name..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
   
       {errorMessage && (
         <p className="error-message" style={{ color: 'black', fontSize: '2em', backgroundColor: "white" }}>
           {errorMessage}
         </p>
       )} {/* Error message display */}
+  
+      {emailError && (
+        <p className="email-error" style={{ color: 'red' }}>
+          {emailError}
+        </p>
+      )} {/* Email validation error display */}
   
       <table border="1" cellPadding="10" className="venue-table">
         <thead>

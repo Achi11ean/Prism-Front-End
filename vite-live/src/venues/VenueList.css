@@ -1,25 +1,5 @@
-.venue-list-container input[type="text"] {
-  width: 100%; /* Full width inputs */
-  padding: 10px; /* Padding for inputs */
-  /* font-size: 20px; Font size for input text */
-  margin-bottom: 15px; /* Space between inputs */
-  border: 2px solid #ff69b4; /* Bright pink border */
-  border-radius: 10px; /* Rounded corners */
-  background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent background */
-  color: #3e2723; /* Text color */
-  box-sizing: border-box; /* Include padding in width */
-  transition: border-color 0.3s, box-shadow 0.3s; /* Transition effects */
-  box-shadow: 20px 18px 20px rgba(239, 236, 236, 0.895); /* Add a subtle shadow */
 
-}
 
-/* Input focus effect with animation */
-.venue-list-container input[type="text"]:focus {
-  border-color: #FF1493; /* Darker pink on focus */
-  box-shadow: 0 0 5px rgba(255, 20, 147, 0.5); /* Glow effect on focus */
-  outline: none; /* Remove default outline */
-  transform: scale(1.02); /* Slightly enlarge the input */
-}
 
 /* Header for the venue list */
 .venue-list-container h2 {
@@ -54,16 +34,15 @@
 }
 
 /* Input field for search */
-.search-input {
+.search-venue {
   padding: 8px; /* Padding inside the input */
-  font-size: 25px; /* Font size for search */
+  font-size: 60px; /* Font size for search */
   text-align: center; /* Center text in input */
   border: 2px solid #ff1493; /* Deep pink border */
   border-radius: 10px; /* Rounded corners */
+  width:1500px;
   margin-bottom: 20px; /* Space below the search input */
   background-color: rgb(173, 216, 230); /* Light blue background */
-  width: 200px; /* Full width input field */
-  
   box-sizing: border-box; /* Ensure padding doesn’t affect the width */
 }
 
@@ -103,7 +82,7 @@
   background-color: #FF69B4; /* Hot pink background */
   color: rgb(0, 0, 0); /* Black text */
   padding: 12px 25px; /* Padding for the button */
-  font-size: 35px; /* Slightly larger font size */
+  font-size: 60px; /* Slightly larger font size */
   border: 2px solid #FF1493; /* Deep pink border */
   border-radius: 12px; /* Rounded corners */
   cursor: pointer; /* Pointer cursor to indicate it's clickable */
@@ -187,3 +166,12 @@
 .editvenue {
   font-size: 35px;
 }
+
+.venue-list-container {
+  background-color: rgba(255, 218, 185, 0.662); /* Light peach background with transparency */
+  padding: 20px;
+  max-width: 2500px; /* Max width for the event list container */
+  margin: 40px auto; /* Center the container horizontally */
+  border-radius: 40px; /* Rounded corners for a nice look */
+  box-shadow: 20px 18px 20px rgba(239, 236, 236, 0.895); /* Add a shadow */
+} 

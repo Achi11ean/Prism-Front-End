@@ -32,7 +32,7 @@
 /* Input field for search */
 .search-input {
     padding: 8px; /* Padding inside the input */
-    font-size: 40px; /* Adjusted font size for better fit */
+    font-size: 60px; /* Adjusted font size for better fit */
     text-align: center; /* Center text in input */
     border: 1px solid #FF4500; /* Orange-red border */
     border-radius: 10px; /* Rounded corners */
@@ -134,7 +134,8 @@
 .CreateTour {
     background-color: #FF6347; /* Tomato background */
     color: #ffffff; /* White text */
-    font-size: 35px;
+    font-size: 60px;
+    font-family: 'Comic Sans MS';
 }
 
 /* Save button styles */

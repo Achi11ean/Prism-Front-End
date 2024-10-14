@@ -17,6 +17,8 @@ function CreateEvent() {
     artist_ids: [],
   });
   const [errorMessage, setErrorMessage] = useState(''); // State for error messages
+  const [venueSearchTerm, setVenueSearchTerm] = useState(''); // State for venue search
+  const [artistSearchTerm, setArtistSearchTerm] = useState(''); // State for artist search
   const navigate = useNavigate();
 
   // Fetch available venues, event types, and artists from the backend
@@ -71,22 +73,37 @@ function CreateEvent() {
     setFormData({ ...formData, [name]: value });
   };
 
-  // Handle multiple artist selection
-  const handleArtistChange = (e) => {
-    const options = e.target.options;
-    const selectedArtists = [];
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].selected) {
-        selectedArtists.push(options[i].value);
-      }
-    }
-    setFormData({ ...formData, artist_ids: selectedArtists });
+  // Handle multiple artist selection with checkboxes
+  const handleArtistSelection = (artistId) => {
+    setFormData((prevState) => {
+      const isSelected = prevState.artist_ids.includes(artistId);
+      return {
+        ...prevState,
+        artist_ids: isSelected
+          ? prevState.artist_ids.filter((id) => id !== artistId)
+          : [...prevState.artist_ids, artistId],
+      };
+    });
   };
+
+  // Filter venues based on search input
+  const filteredVenues = venues.filter((venue) =>
+    venue.name.toLowerCase().includes(venueSearchTerm.toLowerCase())
+  );
+
+  // Filter artists based on search input
+  const filteredArtists = artists.filter((artist) =>
+    artist.name.toLowerCase().includes(artistSearchTerm.toLowerCase())
+  );
 
   return (
     <div className="create-event-container">
       <h2>Create Event</h2>
-      {errorMessage && <p style={{ color: 'red', fontSize: '2em', TextAlign: 'center', backgroundColor: 'white' }}>{errorMessage}</p>} {/* Display error message */}
+      {errorMessage && (
+        <p style={{ color: 'red', fontSize: '2em', textAlign: 'center', backgroundColor: 'white' }}>
+          {errorMessage}
+        </p>
+      )} {/* Display error message */}
       <form onSubmit={handleSubmit}>
         <label htmlFor="eventDate">Date</label>
         <input
@@ -109,6 +126,14 @@ function CreateEvent() {
         />
 
         <label htmlFor="venueSelect">Venue</label>
+        {/* Search input for venues */}
+        <input
+          type="text"
+          placeholder="Search Venues..."
+          value={venueSearchTerm}
+          onChange={(e) => setVenueSearchTerm(e.target.value)}
+          className="venue-search"
+        />
         <select
           id="venueSelect"
           name="venue_id"
@@ -117,7 +142,7 @@ function CreateEvent() {
           required
         >
           <option value="" disabled>Select a Venue</option>
-          {venues.map((venue) => (
+          {filteredVenues.map((venue) => (
             <option key={venue.id} value={venue.id}>
               {venue.name}
             </option>
@@ -171,21 +196,30 @@ function CreateEvent() {
             </option>
           ))}
         </select>
-        
+
         <label htmlFor="artistSelect">Artists</label>
-        <select
-          id="artistSelect"
-          name="artist_ids"
-          multiple // Allow multiple selections
-          value={formData.artist_ids}
-          onChange={handleArtistChange}
-        >
-          {artists.map((artist) => (
-            <option key={artist.id} value={artist.id}>
-              {artist.name}
-            </option>
+        {/* Search input for artists */}
+        <input
+          type="text"
+          placeholder="Search Artists..."
+          value={artistSearchTerm}
+          onChange={(e) => setArtistSearchTerm(e.target.value)}
+          className="artist-search"
+        />
+        <div className="event-checkboxes" style={{ maxHeight: "150px", overflowY: "scroll", border: "1px solid #ccc", padding: "5px" }}>
+          {filteredArtists.map((artist) => (
+            <div key={artist.id}>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={formData.artist_ids.includes(artist.id)}
+                  onChange={() => handleArtistSelection(artist.id)}
+                />
+                {artist.name}
+              </label>
+            </div>
           ))}
-        </select>
+        </div>
 
         <button type="submit" className="create-event-btn">Create Event</button>
       </form>

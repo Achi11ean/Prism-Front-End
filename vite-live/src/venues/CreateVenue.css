@@ -1,40 +1,41 @@
 /* General form container styling */
 .create-venue-container {
-  background-color: rgba(255, 158, 97, 0.8); /* Background with transparency */
+  background-color: rgba(255, 158, 97, 0.8); /* Warm coral background with transparency */
   padding: 40px;
-  max-width: 1000px; /* Width of the form container */
-  margin: 50px auto; /* Center the form on the page */
-  border-radius: 15px; /* Rounded corners */
-  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-  color: #329a27; /* Darker text color for better contrast */
+  width:2000px;
+  max-width: 2500px;
+  margin: 50px auto;
+  border-radius: 15px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+  color: #329a27; /* Vibrant green text */
 }
 
 /* Form header styling */
 .create-venue-container h2 {
   text-align: center;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: 'Trebuchet MS', Arial, sans-serif;
   margin-bottom: 30px;
-  font-size: 5rem; /* Large title */
-  color: #5ae879; /* Warm coral color for form header */
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Shadow effect for the title */
+  font-size: 5rem;
+  color: #ffde7d; /* Fun yellow for title */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* Label styling */
 .create-venue-container label {
-  display: block; /* Block layout to force a new line */
-  padding: 10px 20px; /* Padding for label */
-  border-radius: 50px; /* Round edges for labels */
-  background-color: rgba(255, 200, 150, 0.8); /* Light peach background */
-  margin: 10px auto; /* Center labels */
+  display: block;
+  padding: 10px 20px;
+  border-radius: 50px;
+  background-color: rgba(159, 236, 255, 0.8); /* Light blue background */
+  margin: 10px auto;
   text-align: center;
-  font-size: 2.5rem; /* Large font for labels */
-  color: rgb(0, 8, 255); /* Dark blue color for labels */
-  transition: background-color 0.3s; /* Smooth transition for hover */
+  font-size: 2.5rem;
+  color: rgb(92, 41, 222); /* Bold purple text */
+  transition: background-color 0.3s;
 }
 
 /* Label hover effect */
 .create-venue-container label:hover {
-  background-color: rgba(255, 220, 180, 0.9); /* Slightly darker on hover */
+  background-color: rgba(100, 210, 255, 0.9); /* Slightly deeper blue on hover */
 }
 
 /* Input and select field styling */
@@ -43,68 +44,95 @@
 .create-venue-container input[type="number"],
 .create-venue-container select,
 .create-venue-container textarea {
-  width: 100%; /* Full width inputs */
-  padding: 15px; /* Padding for inputs */
-  font-size: 2rem; /* Font size for input text */
-  margin-bottom: 20px; /* Space between inputs */
+  width: 100%;
+  padding: 15px;
+  font-size: 2rem;
+  margin-bottom: 20px;
   border: 2px solid #ff6f61; /* Coral border */
-  border-radius: 20px; /* Rounded input corners */
-  background-color: rgba(255, 255, 255, 0.9); /* White background for inputs */
-  color: #3e2723; /* Text color */
-  box-sizing: border-box; /* Include padding in width */
-  transition: border-color 0.3s, box-shadow 0.3s; /* Transition effects */
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.9); /* White background */
+  color: #3e2723; /* Deep brown text */
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-/* Input focus effect with animation */
+/* Input focus effect */
 .create-venue-container input:focus,
 .create-venue-container select:focus,
 .create-venue-container textarea:focus {
-  border-color: #ff9800; /* Bright orange on focus */
-  box-shadow: 0 0 5px rgba(255, 152, 0, 0.5); /* Glow effect on focus */
-  outline: none; /* Remove default outline */
-  transform: scale(1.02); /* Slightly enlarge the input */
+  border-color: #ff9800; /* Bright orange border on focus */
+  box-shadow: 0 0 5px rgba(255, 152, 0, 0.5); /* Orange glow */
+  outline: none;
+  transform: scale(1.02); /* Slight enlargement */
 }
 
 /* Button styling */
 .create-venue-container button {
   display: block;
-  width: 1000px; /* Full width button */
-  padding: 15px; /* Increased padding for better touch targets */
-  background: linear-gradient(45deg, #ff6b6b, #ffdd00); /* Gradient background for button */
-  color: #fff; /* White text for contrast */
-  border: none; /* Remove borders */
-  border-radius: 30px; /* More rounded corners */
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(45deg, #ff6b6b, #ffdd00); /* Fun red-yellow gradient */
+  color: #fff;
+  border: none;
+  border-radius: 30px;
   cursor: pointer;
-  font-size: 2.5rem; /* Increased font size */
+  font-size: 2.5rem;
   margin-top: 20px;
-  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; /* Transition for hover effects */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 
 /* Button hover effect */
 .create-venue-container button:hover {
-  background: linear-gradient(45deg, #ffdd00, #ff6b6b); /* Inverted gradient on hover */
-  transform: scale(1.05); /* Slightly grow on hover */
+  background: linear-gradient(45deg, #ffdd00, #ff6b6b); /* Reverse gradient */
+  transform: scale(1.05); /* Slight enlargement on hover */
+}
+
+/* Error message styling */
+.error-message {
+  color: #e91e63; /* Bright pink for error messages */
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-top: 5px;
+  display: inline-block;
+  position: relative;
+}
+
+.error-tooltip {
+  visibility: hidden;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  top: 25px;
+  left: 0;
+  white-space: nowrap;
+}
+
+.error-message:hover .error-tooltip {
+  visibility: visible;
 }
 
 /* Make the form responsive */
 @media (max-width: 600px) {
   .create-venue-container {
-      padding: 20px; 
-      max-width: 100%; 
+    padding: 20px;
+    max-width: 100%;
   }
 
   .create-venue-container h2 {
-      font-size: 2rem; /* Smaller font size on small screens */
+    font-size: 2rem;
   }
 
   .create-venue-container button {
-      font-size: 1.2rem; /* Adjust button size */
+    font-size: 1.2rem;
   }
 
   .create-venue-container input[type="text"],
   .create-venue-container input[type="email"],
   .create-venue-container input[type="number"] {
-      font-size: 1.2em; /* Adjust input size for smaller screens */
+    font-size: 1.2em;
   }
 }

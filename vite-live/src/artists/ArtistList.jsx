@@ -5,6 +5,7 @@ import "./ArtistList.css"; // Import your CSS file
 function ArtistList() {
   const [artists, setArtists] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [eventSearchTerm, setEventSearchTerm] = useState(""); // For searching events
   const [editingArtistId, setEditingArtistId] = useState(null); // Track the artist being edited
   const [editFormData, setEditFormData] = useState({
     name: "",
@@ -69,18 +70,6 @@ function ArtistList() {
     setEditFormData({ ...editFormData, [name]: value });
   };
 
-  // Handle multiple event selection during editing
-  const handleEventChange = (e) => {
-    const options = e.target.options;
-    const selectedEvents = [];
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].selected) {
-        selectedEvents.push(options[i].value);
-      }
-    }
-    setEditFormData({ ...editFormData, event_ids: selectedEvents });
-  };
-
   // Save the updated artist data
   const handleSaveClick = (artistId) => {
     const updatedFormData = {
@@ -139,6 +128,7 @@ function ArtistList() {
       </button>
       {/* Search input */}
       <input
+        className="searchartists"
         type="text"
         placeholder="Search by artist name"
         value={searchTerm}
@@ -170,6 +160,7 @@ function ArtistList() {
                   <td>{artist.id}</td>
                   <td>
                     <input
+                      className="inputartists"
                       type="text"
                       name="name"
                       value={editFormData.name}
@@ -178,6 +169,7 @@ function ArtistList() {
                   </td>
                   <td>
                     <input
+                      className="inputartists"
                       type="number"
                       name="age"
                       value={editFormData.age}
@@ -186,6 +178,7 @@ function ArtistList() {
                   </td>
                   <td>
                     <input
+                      className="inputartists"
                       type="text"
                       name="background"
                       value={editFormData.background}
@@ -194,6 +187,7 @@ function ArtistList() {
                   </td>
                   <td>
                     <input
+                      className="inputartists"
                       type="text"
                       name="songs"
                       value={editFormData.songs}
@@ -202,22 +196,42 @@ function ArtistList() {
                     />
                   </td>
                   <td>
-                    <select  
-                      className="selecteventtypes"
-                      name="event_ids"
-                      multiple
-                      value={editFormData.event_ids}
-                      onChange={handleEventChange}
-                    >
-                      {events.map((event) => (
-                        <option key={event.id} value={event.id}>
-                          {event.name}
-                        </option>
-                      ))}
-                    </select>
+                    <input
+                      className="searchedit"
+                      type="text"
+                      placeholder="Search Events"
+                      value={eventSearchTerm}
+                      onChange={(e) => setEventSearchTerm(e.target.value)}
+                    />
+                    {/* Scrollable events container */}
+                    <div className="event-checkboxes" style={{ maxHeight: '150px', overflowY: 'auto' }}>
+                      {events
+                        .filter(event =>
+                          event.name.toLowerCase().includes(eventSearchTerm.toLowerCase())
+                        )
+                        .map((event) => (
+                          <div key={event.id}>
+                            <input
+                              type="checkbox"
+                              id={`event-${event.id}`}
+                              value={event.id}
+                              checked={editFormData.event_ids.includes(event.id)}
+                              onChange={(e) => {
+                                const selectedEventId = parseInt(e.target.value);
+                                const updatedEventIds = editFormData.event_ids.includes(selectedEventId)
+                                  ? editFormData.event_ids.filter(id => id !== selectedEventId) // Uncheck the box
+                                  : [...editFormData.event_ids, selectedEventId]; // Check the box
+
+                                setEditFormData({ ...editFormData, event_ids: updatedEventIds });
+                              }}
+                            />
+                            <label htmlFor={`event-${event.id}`}>{event.name}</label>
+                          </div>
+                        ))}
+                    </div>
                   </td>
                   <td>
-                    <button className="Saveme"onClick={() => handleSaveClick(artist.id)}>Save</button>
+                    <button className="Saveme" onClick={() => handleSaveClick(artist.id)}>Save</button>
                     <button className="Cancelme" onClick={handleCancelClick}>Cancel</button>
                   </td>
                 </>

@@ -16,7 +16,9 @@ function CreateTour() {
     created_by_id: '', // For venue
     created_by_artist_id: '', // For artist
   });
-  const [eventSearchTerm, setEventSearchTerm] = useState(""); // State for event search term
+  const [eventSearchTerm, setEventSearchTerm] = useState(''); // State for event search term
+  const [venueSearchTerm, setVenueSearchTerm] = useState(''); // State for venue search term
+  const [artistSearchTerm, setArtistSearchTerm] = useState(''); // State for artist search term
 
   const navigate = useNavigate();
 
@@ -174,7 +176,15 @@ function CreateTour() {
             ))}
         </div>
 
-        {/* Dropdown for selecting a venue */}
+        {/* Search bar for venues */}
+        <label htmlFor="venueSearch">Search Venue</label>
+        <input
+          type="text"
+          id="venueSearch"
+          placeholder="Search Venues"
+          value={venueSearchTerm}
+          onChange={(e) => setVenueSearchTerm(e.target.value)} // Capture venue search term
+        />
         <label htmlFor="venueSelect">Created By (Select Venue)</label>
         <select
           id="venueSelect"
@@ -183,14 +193,26 @@ function CreateTour() {
           onChange={handleChange}
         >
           <option value="">Select Venue</option>
-          {venues.map((venue) => (
-            <option key={venue.id} value={venue.id}>
-              {venue.name}
-            </option>
-          ))}
+          {venues
+            .filter(venue =>
+              venue.name.toLowerCase().includes(venueSearchTerm.toLowerCase())
+            )
+            .map((venue) => (
+              <option key={venue.id} value={venue.id}>
+                {venue.name}
+              </option>
+            ))}
         </select>
 
-        {/* Dropdown for selecting an artist */}
+        {/* Search bar for artists */}
+        <label htmlFor="artistSearch">Search Artist</label>
+        <input
+          type="text"
+          id="artistSearch"
+          placeholder="Search Artists"
+          value={artistSearchTerm}
+          onChange={(e) => setArtistSearchTerm(e.target.value)} // Capture artist search term
+        />
         <label htmlFor="artistSelect">Created By (Select Artist)</label>
         <select
           id="artistSelect"
@@ -199,11 +221,15 @@ function CreateTour() {
           onChange={handleChange}
         >
           <option value="">Select Artist</option>
-          {artists.map((artist) => (
-            <option key={artist.id} value={artist.id}>
-              {artist.name}
-            </option>
-          ))}
+          {artists
+            .filter(artist =>
+              artist.name.toLowerCase().includes(artistSearchTerm.toLowerCase())
+            )
+            .map((artist) => (
+              <option key={artist.id} value={artist.id}>
+                {artist.name}
+              </option>
+            ))}
         </select>
 
         <button type="submit">Create Tour</button>

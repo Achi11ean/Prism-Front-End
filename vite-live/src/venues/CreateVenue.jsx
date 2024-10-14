@@ -9,15 +9,34 @@ function CreateVenue() {
         email: '',
         earnings: ''
     });
+    const [emailError, setEmailError] = useState(''); // State for email validation error
     const navigate = useNavigate();
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setNewVenue({ ...newVenue, [name]: value });
+
+        // Reset email error when the user starts typing
+        if (name === 'email') {
+            setEmailError('');
+        }
+    };
+
+    const validateEmail = (email) => {
+        // Basic email validation regex
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        // Validate email before submitting
+        if (!validateEmail(newVenue.email)) {
+            setEmailError('Please enter a valid email address.');
+            return; // Stop submission if the email is invalid
+        }
+
         fetch('http://127.0.0.1:5001/venues', {
             method: 'POST',
             headers: {
@@ -38,7 +57,7 @@ function CreateVenue() {
             <form className="venue-form" onSubmit={handleSubmit}>
                 <div>
                     <label>Venue Name:</label>
-                    <br/>
+                    <br />
                     <input
                         placeholder='CT: Zen Bar'
                         type="text"
@@ -48,11 +67,10 @@ function CreateVenue() {
                         required
                     />
                 </div>
-                <br/>
-                <br/>
+                <br />
                 <div>
                     <label>Organizer:</label>
-                    <br/>
+                    <br />
                     <input
                         placeholder='[Enter Primary Event Organizer First and Last Name]'
                         type="text"
@@ -62,11 +80,10 @@ function CreateVenue() {
                         required
                     />
                 </div>
-                <br/>
-                <br/>
+                <br />
                 <div>
                     <label>Email:</label>
-                    <br/>
+                    <br />
                     <input
                         placeholder='[Enter Your email Address Here]'
                         type="email"
@@ -75,12 +92,16 @@ function CreateVenue() {
                         onChange={handleInputChange}
                         required
                     />
+                    {emailError && (
+                        <p className="error-message" style={{ color: 'red', fontSize: '0.9em' }}>
+                            {emailError}
+                        </p>
+                    )}
                 </div>
-                <br/>
-                <br/>
+                <br />
                 <div>
                     <label>Earnings:</label>
-                    <br/>
+                    <br />
                     <input
                         placeholder='[Average Artist Earning: $100, Free Shots, Door Cover]'
                         type="text"

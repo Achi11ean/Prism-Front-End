@@ -5,7 +5,7 @@ import "./EventList.css";
 function EventList() {
   const [events, setEvents] = useState([]);
   const [venues, setVenues] = useState([]);
-  const [artists, setArtists] = useState([]); // State to hold artists
+  const [artists, setArtists] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [editingEventId, setEditingEventId] = useState(null);
   const [editFormData, setEditFormData] = useState({
@@ -15,17 +15,20 @@ function EventList() {
     location: "",
     description: "",
     venue_id: "",
-    event_type: "", // Include event_type in edit form
-    artist_ids: [], // To hold selected artist IDs
+    event_type: "",
+    artist_ids: [],
   });
   const [errorMessage, setErrorMessage] = useState("");
-  const [artistSearchTerm, setArtistSearchTerm] = useState(""); // State for artist search input
+  const [artistSearchTerm, setArtistSearchTerm] = useState("");
+  const [venueSearchTerm, setVenueSearchTerm] = useState(""); // State for venue search input
+
   const formatTimeTo12Hour = (time24) => {
     const [hours, minutes] = time24.split(":");
     const period = +hours >= 12 ? "PM" : "AM";
     const hours12 = +hours % 12 || 12; // Convert to 12-hour format
     return `${hours12}:${minutes} ${period}`;
   };
+
   const navigate = useNavigate();
 
   // Fetch events, venues, and artists from the backend
@@ -46,7 +49,7 @@ function EventList() {
         if (data.length === 0) {
           setErrorMessage("No events found matching your search.");
         } else {
-          setErrorMessage(""); // Clear error message if events are found
+          setErrorMessage("");
         }
       })
       .catch((error) => {
@@ -72,15 +75,16 @@ function EventList() {
     setEditingEventId(event.id);
     setEditFormData({
       name: event.name,
-      date: new Date(event.date).toISOString().split('T')[0], // Format as YYYY-MM-DD
+      date: new Date(event.date).toISOString().split('T')[0],
       time: event.time,
       location: event.location,
       description: event.description,
       venue_id: event.venue.id,
-      event_type: event.event_type, // Include event_type in edit form
-      artist_ids: event.artists.map(artist => artist.id), // Preselect artists
+      event_type: event.event_type,
+      artist_ids: event.artists.map(artist => artist.id),
     });
   };
+
   // Handle input changes for editing
   const handleEditChange = (e) => {
     const { name, value } = e.target;
@@ -94,8 +98,8 @@ function EventList() {
       return {
         ...prevState,
         artist_ids: isSelected
-          ? prevState.artist_ids.filter((id) => id !== artistId) // Remove if already selected
-          : [...prevState.artist_ids, artistId], // Add to selected
+          ? prevState.artist_ids.filter((id) => id !== artistId)
+          : [...prevState.artist_ids, artistId],
       };
     });
   };
@@ -104,7 +108,6 @@ function EventList() {
   const handleSaveClick = (eventId) => {
     const isConfirmed = window.confirm("Please verify the date before saving.");
     if (isConfirmed) {
-      // Validate the time format before saving
       if (!editFormData.time || !/^([01]\d|2[0-3]):([0-5]\d)$/.test(editFormData.time)) {
         alert("Please enter a valid time in HH:MM format.");
         return;
@@ -112,8 +115,8 @@ function EventList() {
   
       const updatedFormData = {
         ...editFormData,
-        date: new Date(editFormData.date).toISOString().split("T")[0], // Ensure date is in YYYY-MM-DD format
-        time: editFormData.time, // Make sure time is included correctly
+        date: new Date(editFormData.date).toISOString().split("T")[0],
+        time: editFormData.time,
       };
       
       fetch(`http://127.0.0.1:5001/events/${eventId}`, {
@@ -124,7 +127,7 @@ function EventList() {
         .then((response) => response.json())
         .then((updatedEvent) => {
           setEvents(events.map((event) => (event.id === eventId ? updatedEvent : event)));
-          setEditingEventId(null); // Exit editing mode
+          setEditingEventId(null);
         })
         .catch((error) => {
           console.error("Error updating event:", error);
@@ -152,6 +155,11 @@ function EventList() {
   // Filter artists based on search input
   const filteredArtists = artists.filter((artist) =>
     artist.name.toLowerCase().includes(artistSearchTerm.toLowerCase())
+  );
+
+  // Filter venues based on search input
+  const filteredVenues = venues.filter((venue) =>
+    venue.name.toLowerCase().includes(venueSearchTerm.toLowerCase())
   );
 
   return (
@@ -182,7 +190,7 @@ function EventList() {
             <th>Location</th>
             <th>Description</th>
             <th>Venue</th>
-            <th>Event Type</th> {/* Ensure the Event Type column is present */}
+            <th>Event Type</th>
             <th>Artists</th>
             <th>Actions</th>
           </tr>
@@ -239,6 +247,14 @@ function EventList() {
                     />
                   </td>
                   <td>
+                    {/* Search input for venues */}
+                    <input
+                      className='searcheventsedit'
+                      type="text"
+                      placeholder="Search Venues..."
+                      value={venueSearchTerm}
+                      onChange={(e) => setVenueSearchTerm(e.target.value)}
+                    />
                     <select
                       className="selectedit"
                       name="venue_id"
@@ -248,7 +264,7 @@ function EventList() {
                       <option value="" disabled>
                         Select Venue
                       </option>
-                      {venues.map((venue) => (
+                      {filteredVenues.map((venue) => (
                         <option key={venue.id} value={venue.id}>
                           {venue.name}
                         </option>
@@ -282,15 +298,14 @@ function EventList() {
                     </select>
                   </td>
                   <td>
-                    {/* Search input for artists */}
                     <input
+                      className="searcheventsedit"
                       type="text"
                       placeholder="Search Artists..."
                       value={artistSearchTerm}
                       onChange={(e) => setArtistSearchTerm(e.target.value)}
-                      className="artist-search"
                     />
-                    <div className="artist-checkboxes">
+                    <div className="event-checkboxes" style={{ maxHeight: "150px", overflowY: "scroll", border: "1px solid #ccc", padding: "5px" }}>
                       {filteredArtists.map((artist) => (
                         <div key={artist.id}>
                           <label>

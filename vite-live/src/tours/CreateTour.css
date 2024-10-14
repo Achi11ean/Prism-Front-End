@@ -97,8 +97,9 @@
     border: 2px solid #FF69B4; /* Border for the checkbox container */
     border-radius: 8px; /* Rounded corners for the container */
     padding: 10px; /* Padding for the container */
-    background-color: pink; /* Light background */
+    background-color: rgb(241, 158, 172); /* Light background */
     margin-bottom: 20px; /* Space below the checkbox container */
+    color:black;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
 }
 

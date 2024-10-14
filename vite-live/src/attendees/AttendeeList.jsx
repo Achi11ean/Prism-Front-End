@@ -17,7 +17,9 @@ function AttendeeList() {
     favorite_event_types: [],
     favorite_artist_ids: [],
   });
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState(""); // For attendee search
+  const [eventSearchTerm, setEventSearchTerm] = useState(""); // For favorite events search
+  const [artistSearchTerm, setArtistSearchTerm] = useState(""); // For favorite artists search
   const navigate = useNavigate();
   const [artists, setArtists] = useState([]);
 
@@ -41,8 +43,8 @@ function AttendeeList() {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        console.log("Fetched attendees:", data);  // Debugging log
-        if (Array.isArray(data)) { // Ensure it's an array
+        console.log("Fetched attendees:", data); // Debugging log
+        if (Array.isArray(data)) {
           setAttendees(data);
           setErrorMessage(""); // Reset error message if data is fetched
         } else {
@@ -149,46 +151,46 @@ function AttendeeList() {
 
   const handleSave = (id) => {
     const updatedAttendee = {
-        first_name: editData.first_name,
-        last_name: editData.last_name,
-        email: editData.email,
-        favorite_event_ids: editData.favorite_event_ids,
-        favorite_event_types: editData.favorite_event_types,
-        favorite_artist_ids: editData.favorite_artist_ids,
+      first_name: editData.first_name,
+      last_name: editData.last_name,
+      email: editData.email,
+      favorite_event_ids: editData.favorite_event_ids,
+      favorite_event_types: editData.favorite_event_types,
+      favorite_artist_ids: editData.favorite_artist_ids,
     };
 
     console.log("Updated Attendee Data:", updatedAttendee); // Log for debugging
 
     fetch(`http://localhost:5001/attendees/${id}`, {
-        method: "PATCH",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedAttendee),
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedAttendee),
     })
-    .then((response) => {
+      .then((response) => {
         console.log("Response status:", response.status); // Log response status
         if (!response.ok) {
-            return response.json().then((errorData) => {
-                console.error("Error response from server:", errorData);
-                throw new Error("Failed to save attendee");
-            });
+          return response.json().then((errorData) => {
+            console.error("Error response from server:", errorData);
+            throw new Error("Failed to save attendee");
+          });
         }
         return response.json();
-    })
-    .then((data) => {
+      })
+      .then((data) => {
         console.log("Data returned from the server:", data); // Log returned data
         setAttendees((prevAttendees) =>
-            prevAttendees.map((attendee) =>
-                attendee.id === id ? { ...data } : attendee
-            )
+          prevAttendees.map((attendee) =>
+            attendee.id === id ? { ...data } : attendee
+          )
         );
         setEditingId(null); // Exit editing mode
-    })
-    .catch((error) => {
+      })
+      .catch((error) => {
         console.error("Error saving attendee:", error);
-    });
-};
+      });
+  };
 
   const handleCancel = () => {
     setEditingId(null);
@@ -199,15 +201,35 @@ function AttendeeList() {
     setSearchTerm(value);
   };
 
+  const handleEventSearchChange = (e) => {
+    const value = e.target.value;
+    setEventSearchTerm(value); // Update search term for events
+  };
+
+  const handleArtistSearchChange = (e) => {
+    const value = e.target.value;
+    setArtistSearchTerm(value); // Update search term for artists
+  };
+
   if (loading) {
     return <p>Loading attendees...</p>;
   }
+
+  // Filter events based on the event search term
+  const filteredEvents = events.filter((event) =>
+    event.name.toLowerCase().includes(eventSearchTerm.toLowerCase())
+  );
+
+  // Filter artists based on the artist search term
+  const filteredArtists = artists.filter((artist) =>
+    artist.name.toLowerCase().includes(artistSearchTerm.toLowerCase())
+  );
 
   return (
     <div className="attendee-list-container">
       <h1>Attendees List</h1>
       <input
-      className="Searchme"
+        className="Searchme"
         type="text"
         placeholder="Search attendees by name..."
         value={searchTerm}
@@ -240,6 +262,7 @@ function AttendeeList() {
                 <td>
                   {editingId === attendee.id ? (
                     <input
+                      className="editattendee"
                       type="text"
                       name="first_name"
                       value={editData.first_name}
@@ -252,6 +275,7 @@ function AttendeeList() {
                 <td>
                   {editingId === attendee.id ? (
                     <input
+                      className="editattendee"
                       type="text"
                       name="last_name"
                       value={editData.last_name}
@@ -264,6 +288,7 @@ function AttendeeList() {
                 <td>
                   {editingId === attendee.id ? (
                     <input
+                      className="editattendee"
                       type="email"
                       name="email"
                       value={editData.email}
@@ -275,24 +300,47 @@ function AttendeeList() {
                 </td>
                 <td>
                   {editingId === attendee.id ? (
-                    <select
-                      className="selectevent"
-                      multiple
-                      value={editData.favorite_event_ids}
-                      onChange={handleEventSelection}
-                    >
-                      {events.map((event) => (
-                        <option key={event.id} value={event.id}>
-                          {event.name}
-                        </option>
-                      ))}
-                    </select>
+                    <>
+                      {/* Search bar for favorite events */}
+                      <input
+                        className="editattendee"
+                        type="text"
+                        placeholder="Search favorite events..."
+                        value={eventSearchTerm}
+                        onChange={handleEventSearchChange}
+                      />
+                      <div
+                        className="event-checkboxes"
+                        style={{
+                          maxHeight: "150px",
+                          overflowY: "scroll",
+                          border: "1px solid #ccc",
+                          padding: "5px",
+                        }}
+                      >
+                        {filteredEvents.map((event) => (
+                          <div key={event.id}>
+                            <label>
+                              <input
+                                type="checkbox"
+                                value={event.id}
+                                checked={editData.favorite_event_ids.includes(
+                                  event.id
+                                )}
+                                onChange={handleEventSelection}
+                              />
+                              {event.name}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </>
                   ) : (
                     <ul>
                       {attendee.favorite_events &&
                       attendee.favorite_events.length > 0 ? (
                         attendee.favorite_events.map((event) => (
-                          <li key={event.id}>{event.name}</li> 
+                          <li key={event.id}>{event.name}</li>
                         ))
                       ) : (
                         <li>No favorite events</li>
@@ -302,24 +350,47 @@ function AttendeeList() {
                 </td>
                 <td>
                   {editingId === attendee.id ? (
-                    <select
-                      className="selecteventtypes"
-                      multiple
-                      value={editData.favorite_event_types}
-                      onChange={handleEventTypeSelection}
-                    >
-                      {eventTypes.map((eventType) => (
-                        <option key={eventType} value={eventType}>
-                          {eventType}
-                        </option>
-                      ))}
-                    </select>
+                    <>
+                      {/* Search bar for favorite event types */}
+                      <input
+                        className="editattendee"
+                        type="text"
+                        placeholder="Search favorite event types..."
+                        value={eventSearchTerm}
+                        onChange={handleEventSearchChange}
+                      />
+                      <div
+                        className="event-checkboxes"
+                        style={{
+                          maxHeight: "150px",
+                          overflowY: "scroll",
+                          border: "1px solid #ccc",
+                          padding: "5px",
+                        }}
+                      >
+                        {eventTypes.map((eventType) => (
+                          <div key={eventType}>
+                            <label>
+                              <input
+                                type="checkbox"
+                                value={eventType}
+                                checked={editData.favorite_event_types.includes(
+                                  eventType
+                                )}
+                                onChange={handleEventTypeSelection}
+                              />
+                              {eventType}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </>
                   ) : (
                     <ul>
                       {Array.isArray(attendee.favorite_event_types) &&
                       attendee.favorite_event_types.length > 0 ? (
                         attendee.favorite_event_types.map((type) => (
-                          <li key={type}>{type}</li> 
+                          <li key={type}>{type}</li>
                         ))
                       ) : (
                         <li>No favorite event types</li>
@@ -329,24 +400,47 @@ function AttendeeList() {
                 </td>
                 <td>
                   {editingId === attendee.id ? (
-                    <select
-                      className="selecteventtypes"
-                      multiple
-                      value={editData.favorite_artist_ids}
-                      onChange={handleArtistSelection}
-                    >
-                      {artists.map((artist) => (
-                        <option key={artist.id} value={artist.id}>
-                          {artist.name}
-                        </option>
-                      ))}
-                    </select>
+                    <>
+                      {/* Search bar for favorite artists */}
+                      <input
+                        className="editattendee"
+                        type="text"
+                        placeholder="Search favorite artists..."
+                        value={artistSearchTerm}
+                        onChange={handleArtistSearchChange}
+                      />
+                      <div
+                        className="event-checkboxes"
+                        style={{
+                          maxHeight: "150px",
+                          overflowY: "scroll",
+                          border: "1px solid #ccc",
+                          padding: "5px",
+                        }}
+                      >
+                        {filteredArtists.map((artist) => (
+                          <div key={artist.id}>
+                            <label>
+                              <input
+                                type="checkbox"
+                                value={artist.id}
+                                checked={editData.favorite_artist_ids.includes(
+                                  artist.id
+                                )}
+                                onChange={(e) => handleArtistSelection(e)} // Pass the event object
+                              />
+                              {artist.name}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </>
                   ) : (
                     <ul>
                       {attendee.favorite_artists &&
                       attendee.favorite_artists.length > 0 ? (
                         attendee.favorite_artists.map((artist) => (
-                          <li key={artist.id}>{artist.name}</li> 
+                          <li key={artist.id}>{artist.name}</li>
                         ))
                       ) : (
                         <li>No favorite artists</li>
@@ -357,15 +451,28 @@ function AttendeeList() {
                 <td>
                   {editingId === attendee.id ? (
                     <>
-                      <button className="Saveme" onClick={() => handleSave(attendee.id)}>
+                      <button
+                        className="Saveme"
+                        onClick={() => handleSave(attendee.id)}
+                      >
                         Save
                       </button>
-                      <button className="Cancelme" onClick={handleCancel}>Cancel</button>
+                      <button className="Cancelme" onClick={handleCancel}>
+                        Cancel
+                      </button>
                     </>
                   ) : (
                     <>
-                      <button className="editbutton"onClick={() => handleEdit(attendee)}>Edit</button>
-                      <button className="deletebutton"onClick={() => handleDelete(attendee.id)}>
+                      <button
+                        className="editbutton"
+                        onClick={() => handleEdit(attendee)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="deletebutton"
+                        onClick={() => handleDelete(attendee.id)}
+                      >
                         Delete
                       </button>
                     </>

@@ -27,7 +27,7 @@
     display: block;
     padding: 10px 20px; /* Padding for label */
     border-radius: 50px; /* Round edges for labels */
-    background-color: rgba(255, 200, 150, 0.8); /* Light peach background */
+    background-color: rgb(241, 158, 172); /* Light peach background */
     margin: 10px auto; /* Center labels */
     text-align: center;
     font-size: 2.5rem; /* Large font for labels */
@@ -114,6 +114,13 @@
 .create-attendee-container button:focus {
     background-color: #6200ea; /* Change to a vibrant purple on focus */
     border-color: #ff9800; /* Highlight border with an orange color on focus */
+}
+
+/* Checkbox styling */
+.create-attendee-container input[type="checkbox"] {
+    width: 20px; /* Increased checkbox width */
+    height: 20px; /* Increased checkbox height */
+    margin-right: 10px; /* Space between checkbox and label */
 }
 
 /* Make the form responsive */

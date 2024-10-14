@@ -15,6 +15,8 @@ function CreateAttendee() {
   const [eventTypes, setEventTypes] = useState([]);
   const [artists, setArtists] = useState([]);
   const [events, setEvents] = useState([]); // New state for events
+  const [artistSearchTerm, setArtistSearchTerm] = useState(''); // State for artist search term
+  const [eventSearchTerm, setEventSearchTerm] = useState(''); // State for event search term
   const navigate = useNavigate();
 
   // Fetch available event types, artists, and events on component load
@@ -50,26 +52,34 @@ function CreateAttendee() {
     }));
   };
 
-  const handleArtistSelection = (e) => {
-    const options = e.target.options;
-    const selectedArtists = [];
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].selected) {
-        selectedArtists.push(options[i].value);
-      }
+  const handleArtistSelection = (artistId) => {
+    const currentIndex = newAttendee.favorite_artist_ids.indexOf(artistId);
+    const newFavoriteArtists = [...newAttendee.favorite_artist_ids];
+
+    if (currentIndex === -1) {
+      // If the artist is not selected, add it
+      newFavoriteArtists.push(artistId);
+    } else {
+      // If the artist is already selected, remove it
+      newFavoriteArtists.splice(currentIndex, 1);
     }
-    setNewAttendee({ ...newAttendee, favorite_artist_ids: selectedArtists });
+
+    setNewAttendee({ ...newAttendee, favorite_artist_ids: newFavoriteArtists });
   };
 
-  const handleFavoriteEventSelection = (e) => {
-    const options = e.target.options;
-    const selectedEvents = [];
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].selected) {
-        selectedEvents.push(options[i].value);
-      }
+  const handleFavoriteEventSelection = (eventId) => {
+    const currentIndex = newAttendee.favorite_event_ids.indexOf(eventId);
+    const newFavoriteEvents = [...newAttendee.favorite_event_ids];
+
+    if (currentIndex === -1) {
+      // If the event is not selected, add it
+      newFavoriteEvents.push(eventId);
+    } else {
+      // If the event is already selected, remove it
+      newFavoriteEvents.splice(currentIndex, 1);
     }
-    setNewAttendee({ ...newAttendee, favorite_event_ids: selectedEvents });
+
+    setNewAttendee({ ...newAttendee, favorite_event_ids: newFavoriteEvents });
   };
 
   const handleSubmit = (e) => {
@@ -139,32 +149,57 @@ function CreateAttendee() {
         </select>
 
         <label>Favorite Artists:</label>
-        <select
-          className="attendee-select-artist" 
-          multiple 
-          value={newAttendee.favorite_artist_ids} 
-          onChange={handleArtistSelection}
-        >
-          {artists.map((artist) => (
-            <option key={artist.id} value={artist.id}>
-              {artist.name}
-            </option>
-          ))}
-        </select>
+        <input
+          
+          type="text"
+          placeholder="Search Artists"
+          value={artistSearchTerm}
+          onChange={(e) => setArtistSearchTerm(e.target.value)} // Capture search term
+        />
+        <div className="event-checkboxes">
+          {artists
+            .filter(artist => 
+              artist.name.toLowerCase().includes(artistSearchTerm.toLowerCase())
+            )
+            .map((artist) => (
+              <div key={artist.id}>
+                <input
+                  type="checkbox"
+                  id={`artist-${artist.id}`}
+                  value={artist.id}
+                  checked={newAttendee.favorite_artist_ids.includes(artist.id)}
+                  onChange={() => handleArtistSelection(artist.id)}
+                />
+                <label htmlFor={`artist-${artist.id}`}>{artist.name}</label>
+              </div>
+            ))}
+        </div>
 
         <label>Favorite Events:</label>
-        <select
-          className="attendee-select-event" 
-          multiple 
-          value={newAttendee.favorite_event_ids} 
-          onChange={handleFavoriteEventSelection}
-        >
-          {events.map((event) => (
-            <option key={event.id} value={event.id}>
-              {event.name}
-            </option>
-          ))}
-        </select>
+        <input
+          type="text"
+          placeholder="Search Events"
+          value={eventSearchTerm}
+          onChange={(e) => setEventSearchTerm(e.target.value)} // Capture search term
+        />
+        <div className="event-checkboxes">
+          {events
+            .filter(event => 
+              event.name.toLowerCase().includes(eventSearchTerm.toLowerCase())
+            )
+            .map((event) => (
+              <div key={event.id} >
+                <input
+                  type="checkbox"
+                  id={`event-${event.id}`}
+                  value={event.id}
+                  checked={newAttendee.favorite_event_ids.includes(event.id)}
+                  onChange={() => handleFavoriteEventSelection(event.id)}
+                />
+                <label htmlFor={`event-${event.id}`}>{event.name}</label>
+              </div>
+            ))}
+        </div>
 
         <button type="submit">Create Attendee</button>
       </form>

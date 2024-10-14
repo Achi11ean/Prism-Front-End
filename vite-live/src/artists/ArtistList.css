@@ -1,6 +1,6 @@
 /* Style for the container around the artist list */
 .artist-list-container {
-    background-color: rgba(107, 0, 86, 0.434); /* Background with transparency for better readability */
+    background-color: rgba(102, 107, 0, 0.434); /* Background with transparency for better readability */
     padding: 20px;
     font-weight: 700;
     max-width: 2400px; /* Max width for the artist list container */
@@ -16,7 +16,7 @@
     color: rgb(255, 254, 254);
     font-size: 6em;
     margin-bottom: 40px;
-    border: 4px solid green;
+    border: 4px solid rgb(248, 248, 248);
     font-family: fantasy;
     font-weight:700;
     border-radius: 80px;
@@ -34,25 +34,14 @@
     border: 1px solid #000; /* Border for table cells */
     padding: 10px; /* Padding inside cells for better readability */
     text-align: left; /* Align text to the left */
-    background-color: rgba(255, 238, 0, 0.875); /* Slightly transparent white background for readability */
+    background-color: rgba(217, 137, 80, 0.875); /* Slightly transparent white background for readability */
     color: #000; /* Text color */
-    font-size: 35px; /* Font size for the table content */
+    font-size: 26px; /* Font size for the table content */
     font-family: 'geneva';
 }
 
 /* Input field for search */
-.artist-list-container input {
-    padding: 8px; /* Padding inside the input */
-    font-size: 60px; /* Font size */
-    text-align: center; /* Center text in input */
-    border: 1px solid #f00000; /* Light border */
-    border-radius: 10px; /* Rounded corners */
-    margin-bottom: 60px; /* Space below the input */
-    margin-left:15px;
-    background-color: rgb(143, 220, 28);
-    width: 1860px; /* Full width input field */
-    box-sizing: border-box; /* Ensure padding doesn’t affect the width */
-}
+
 
 /* Styling for the Edit button */
 .editbutton {
@@ -150,7 +139,7 @@
 /* General styling for select boxes */
 .selecteventtypes,
 .selectevent {
-    width: 100%; /* Make select boxes full width */
+    width: 100px; /* Make select boxes full width */
     padding: 15px; /* Add padding for better spacing */
     font-size:22px; /* Increase font size */
     border: 2px solid #ddd; /* Light border */
@@ -171,4 +160,24 @@
 .selectevent:focus {
     outline: none; /* Remove default outline */
     border-color: #0056b3; /* Change border color on focus */
+}
+.searchartists {
+        padding: 8px; /* Padding inside the input */
+        font-size: 60px; /* Font size */
+        text-align: center; /* Center text in input */
+        border: 1px solid #f00000; /* Light border */
+        border-radius: 10px; /* Rounded corners */
+        margin-bottom: 60px; /* Space below the input */
+        margin-left:15px;
+        background-color: rgb(220, 214, 28);
+        width: 1860px; /* Full width input field */
+        box-sizing: border-box; /* Ensure padding doesn’t affect the width */
+}
+.inputartists {
+    font-size: 35px;
+    border-radius: 30px;
+    background-color: rgb(98, 98, 81);
+    border: 3px solid rgb(0, 0, 0); /* Light border */
+
+
 }
