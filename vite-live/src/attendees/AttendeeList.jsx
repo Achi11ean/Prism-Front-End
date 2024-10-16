@@ -242,6 +242,8 @@ function AttendeeList() {
       {attendees.length === 0 ? (
         <p id="error">No Matching Criteria.</p>
       ) : (
+        <div className="table-container">
+
         <table className="attendee-table">
           <thead>
             <tr>
@@ -298,7 +300,7 @@ function AttendeeList() {
                     attendee.email
                   )}
                 </td>
-                <td>
+                <td className="favorite-event-column">
                   {editingId === attendee.id ? (
                     <>
                       {/* Search bar for favorite events */}
@@ -482,6 +484,7 @@ function AttendeeList() {
             ))}
           </tbody>
         </table>
+        </div>
       )}
     </div>
   );

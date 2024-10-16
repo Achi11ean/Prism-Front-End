@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
 import "./EventList.css";
 
 function EventList() {
@@ -75,13 +76,13 @@ function EventList() {
     setEditingEventId(event.id);
     setEditFormData({
       name: event.name,
-      date: new Date(event.date).toISOString().split('T')[0],
+      date: new Date(event.date).toISOString().split("T")[0],
       time: event.time,
       location: event.location,
       description: event.description,
       venue_id: event.venue.id,
       event_type: event.event_type,
-      artist_ids: event.artists.map(artist => artist.id),
+      artist_ids: event.artists.map((artist) => artist.id),
     });
   };
 
@@ -108,17 +109,33 @@ function EventList() {
   const handleSaveClick = (eventId) => {
     const isConfirmed = window.confirm("Please verify the date before saving.");
     if (isConfirmed) {
-      if (!editFormData.time || !/^([01]\d|2[0-3]):([0-5]\d)$/.test(editFormData.time)) {
+      if (
+        !editFormData.time ||
+        !/^([01]\d|2[0-3]):([0-5]\d)$/.test(editFormData.time)
+      ) {
         alert("Please enter a valid time in HH:MM format.");
         return;
       }
-  
+
+      // Parse the date correctly without UTC conversion
+      const dateParts = editFormData.date.split("-");
+      const localDate = new Date(
+        parseInt(dateParts[0]), // Year
+        parseInt(dateParts[1]) - 1, // Month (0-based index)
+        parseInt(dateParts[2]) // Day
+      );
+
+      // Format the date as YYYY-MM-DD without using toISOString()
+      const formattedDate = `${localDate.getFullYear()}-${String(
+        localDate.getMonth() + 1
+      ).padStart(2, "0")}-${String(localDate.getDate()).padStart(2, "0")}`;
+
       const updatedFormData = {
         ...editFormData,
-        date: new Date(editFormData.date).toISOString().split("T")[0],
+        date: formattedDate, // No UTC shift, date stays consistent
         time: editFormData.time,
       };
-      
+
       fetch(`http://127.0.0.1:5001/events/${eventId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -126,7 +143,9 @@ function EventList() {
       })
         .then((response) => response.json())
         .then((updatedEvent) => {
-          setEvents(events.map((event) => (event.id === eventId ? updatedEvent : event)));
+          setEvents(
+            events.map((event) => (event.id === eventId ? updatedEvent : event))
+          );
           setEditingEventId(null);
         })
         .catch((error) => {
@@ -165,7 +184,10 @@ function EventList() {
   return (
     <div className="event-list-container">
       <h2>Event List</h2>
-      <button className="CreateButton" onClick={() => navigate("/create-event")}>
+      <button
+        className="CreateButton"
+        onClick={() => navigate("/create-event")}
+      >
         Create New Event
       </button>
       <input
@@ -176,185 +198,223 @@ function EventList() {
         onChange={(e) => setSearchTerm(e.target.value)}
       />
       {errorMessage && (
-        <p className="error-message" style={{ color: "black", fontSize: "2em", backgroundColor: "white" }}>
+        <p
+          className="error-message"
+          style={{ color: "black", fontSize: "2em", backgroundColor: "white" }}
+        >
           {errorMessage}
         </p>
       )}
-      <table border="1" cellPadding="10" className="event-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Location</th>
-            <th>Description</th>
-            <th>Venue</th>
-            <th>Event Type</th>
-            <th>Artists</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {events.map((event) => (
-            <tr key={event.id}>
-              {editingEventId === event.id ? (
-                <>
-                  <td>{event.id}</td>
-                  <td>
-                    <input
-                      className="inputedit"
-                      type="text"
-                      name="name"
-                      value={editFormData.name}
-                      onChange={handleEditChange}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      className="inputedit"
-                      type="date"
-                      name="date"
-                      value={editFormData.date}
-                      onChange={handleEditChange}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      className="inputedit"
-                      type="time"
-                      name="time"
-                      value={editFormData.time}
-                      onChange={handleEditChange}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      className="inputedit"
-                      type="text"
-                      name="location"
-                      value={editFormData.location}
-                      onChange={handleEditChange}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      className="inputedit"
-                      type="text"
-                      name="description"
-                      value={editFormData.description}
-                      onChange={handleEditChange}
-                    />
-                  </td>
-                  <td>
-                    {/* Search input for venues */}
-                    <input
-                      className='searcheventsedit'
-                      type="text"
-                      placeholder="Search Venues..."
-                      value={venueSearchTerm}
-                      onChange={(e) => setVenueSearchTerm(e.target.value)}
-                    />
-                    <select
-                      className="selectedit"
-                      name="venue_id"
-                      value={editFormData.venue_id}
-                      onChange={handleEditChange}
-                    >
-                      <option value="" disabled>
-                        Select Venue
-                      </option>
-                      {filteredVenues.map((venue) => (
-                        <option key={venue.id} value={venue.id}>
-                          {venue.name}
-                        </option>
-                      ))}
-                    </select>
-                  </td>
-                  <td>
-                    <select
-                      className="selectedit"
-                      name="event_type"
-                      value={editFormData.event_type}
-                      onChange={handleEditChange}
-                    >
-                      <option value="" disabled>Select Event Type</option>
-                      <option value="Drag Shows">Drag Shows</option>
-                      <option value="Live Lip Syncing">Live Lip Syncing</option>
-                      <option value="Live Singing">Live Singing</option>
-                      <option value="Comedy Nights">Comedy Nights</option>
-                      <option value="Open Mic">Open Mic</option>
-                      <option value="Karaoke">Karaoke</option>
-                      <option value="DJ Sets">DJ Sets</option>
-                      <option value="Dance Performances">Dance Performances</option>
-                      <option value="Themed Parties">Themed Parties</option>
-                      <option value="Fundraising Events">Fundraising Events</option>
-                      <option value="Talent Show">Talent Show</option>
-                      <option value="Variety Show">Variety Show</option>
-                      <option value="Music Festival">Music Festival</option>
-                      <option value="Art Exhibitions">Art Exhibitions</option>
-                      <option value="Spoken Word Performances">Spoken Word Performances</option>
-                      <option value="Fashion Shows">Fashion Shows</option>
-                    </select>
-                  </td>
-                  <td>
-                    <input
-                      className="searcheventsedit"
-                      type="text"
-                      placeholder="Search Artists..."
-                      value={artistSearchTerm}
-                      onChange={(e) => setArtistSearchTerm(e.target.value)}
-                    />
-                    <div className="event-checkboxes" style={{ maxHeight: "150px", overflowY: "scroll", border: "1px solid #ccc", padding: "5px" }}>
-                      {filteredArtists.map((artist) => (
-                        <div key={artist.id}>
-                          <label>
-                            <input
-                              type="checkbox"
-                              value={artist.id}
-                              checked={editFormData.artist_ids.includes(artist.id)}
-                              onChange={() => handleArtistSelection(artist.id)}
-                            />
-                            {artist.name}
-                          </label>
-                        </div>
-                      ))}
-                    </div>
-                  </td>
-                  <td>
-                    <button className="Saveme" onClick={() => handleSaveClick(event.id)}>
-                      Save
-                    </button>
-                    <button className="Cancelme" onClick={handleCancelClick}>
-                      Cancel
-                    </button>
-                  </td>
-                </>
-              ) : (
-                <>
-                  <td>{event.id}</td>
-                  <td>{event.name}</td>
-                  <td>{new Date(event.date).toLocaleDateString()}</td>
-                  <td>{formatTimeTo12Hour(event.time)}</td>
-                  <td>{event.location}</td>
-                  <td>{event.description}</td>
-                  <td>{event.venue.name}</td>
-                  <td>{event.event_type}</td>
-                  <td>{event.artists.map((artist) => artist.name).join(', ')}</td>
-                  <td>
-                    <button className="editbutton" onClick={() => handleEditClick(event)}>
-                      Edit
-                    </button>
-                    <button className="deletebutton" onClick={() => handleDeleteClick(event.id)}>
-                      Delete
-                    </button>
-                  </td>
-                </>
-              )}
+      <div class="table-container">
+        <table border="1" cellPadding="10" className="event-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Location</th>
+              <th>Description</th>
+              <th>Venue</th>
+              <th>Event Type</th>
+              <th>Artists</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {events.map((event) => (
+              <tr key={event.id}>
+                {editingEventId === event.id ? (
+                  <>
+                    <td>{event.id}</td>
+                    <td>
+                      <input
+                        className="inputedit"
+                        type="text"
+                        name="name"
+                        value={editFormData.name}
+                        onChange={handleEditChange}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        className="inputedit"
+                        type="date"
+                        name="date"
+                        value={editFormData.date}
+                        onChange={handleEditChange}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        className="inputedit"
+                        type="time"
+                        name="time"
+                        value={editFormData.time}
+                        onChange={handleEditChange}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        className="inputedit"
+                        type="text"
+                        name="location"
+                        value={editFormData.location}
+                        onChange={handleEditChange}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        className="inputedit"
+                        type="text"
+                        name="description"
+                        value={editFormData.description}
+                        onChange={handleEditChange}
+                      />
+                    </td>
+                    <td>
+                      {/* Search input for venues */}
+                      <input
+                        className="searcheventsedit"
+                        type="text"
+                        placeholder="Search Venues..."
+                        value={venueSearchTerm}
+                        onChange={(e) => setVenueSearchTerm(e.target.value)}
+                      />
+                      <select
+                        className="selectedit"
+                        name="venue_id"
+                        value={editFormData.venue_id}
+                        onChange={handleEditChange}
+                      >
+                        <option value="" disabled>
+                          Select Venue
+                        </option>
+                        {filteredVenues.map((venue) => (
+                          <option key={venue.id} value={venue.id}>
+                            {venue.name}
+                          </option>
+                        ))}
+                      </select>
+                    </td>
+                    <td>
+                      <select
+                        className="selectedit"
+                        name="event_type"
+                        value={editFormData.event_type}
+                        onChange={handleEditChange}
+                      >
+                        <option value="" disabled>
+                          Select Event Type
+                        </option>
+                        <option value="Drag Shows">Drag Shows</option>
+                        <option value="Live Lip Syncing">
+                          Live Lip Syncing
+                        </option>
+                        <option value="Live Singing">Live Singing</option>
+                        <option value="Comedy Nights">Comedy Nights</option>
+                        <option value="Open Mic">Open Mic</option>
+                        <option value="Karaoke">Karaoke</option>
+                        <option value="DJ Sets">DJ Sets</option>
+                        <option value="Dance Performances">
+                          Dance Performances
+                        </option>
+                        <option value="Themed Parties">Themed Parties</option>
+                        <option value="Fundraising Events">
+                          Fundraising Events
+                        </option>
+                        <option value="Talent Show">Talent Show</option>
+                        <option value="Variety Show">Variety Show</option>
+                        <option value="Music Festival">Music Festival</option>
+                        <option value="Art Exhibitions">Art Exhibitions</option>
+                        <option value="Spoken Word Performances">
+                          Spoken Word Performances
+                        </option>
+                        <option value="Fashion Shows">Fashion Shows</option>
+                      </select>
+                    </td>
+                    <td>
+                      <input
+                        className="searcheventsedit"
+                        type="text"
+                        placeholder="Search Artists..."
+                        value={artistSearchTerm}
+                        onChange={(e) => setArtistSearchTerm(e.target.value)}
+                      />
+                      <div
+                        className="event-checkboxes"
+                        style={{
+                          maxHeight: "150px",
+                          overflowY: "scroll",
+                          border: "1px solid #ccc",
+                          padding: "5px",
+                        }}
+                      >
+                        {filteredArtists.map((artist) => (
+                          <div key={artist.id}>
+                            <label>
+                              <input
+                                type="checkbox"
+                                value={artist.id}
+                                checked={editFormData.artist_ids.includes(
+                                  artist.id
+                                )}
+                                onChange={() =>
+                                  handleArtistSelection(artist.id)
+                                }
+                              />
+                              {artist.name}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </td>
+                    <td>
+                      <button
+                        className="Saveme"
+                        onClick={() => handleSaveClick(event.id)}
+                      >
+                        Save
+                      </button>
+                      <button className="Cancelme" onClick={handleCancelClick}>
+                        Cancel
+                      </button>
+                    </td>
+                  </>
+                ) : (
+                  <>
+                    <td>{event.id}</td>
+                    <td>{event.name}</td>
+                    <td>{new Date(event.date).toLocaleDateString()}</td>
+                    <td>{formatTimeTo12Hour(event.time)}</td>
+                    <td>{event.location}</td>
+                    <td>{event.description}</td>
+                    <td>{event.venue.name}</td>
+                    <td>{event.event_type}</td>
+                    <td>
+                      {event.artists.map((artist) => artist.name).join(", ")}
+                    </td>
+                    <td>
+                      <button
+                        className="editbutton"
+                        onClick={() => handleEditClick(event)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="deletebutton"
+                        onClick={() => handleDeleteClick(event.id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </>
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

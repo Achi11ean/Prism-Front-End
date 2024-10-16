@@ -130,7 +130,8 @@ function VenueList() {
           {emailError}
         </p>
       )} {/* Email validation error display */}
-  
+      
+      
       <table border="1" cellPadding="10" className="venue-table">
         <thead>
           <tr>

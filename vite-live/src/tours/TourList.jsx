@@ -23,9 +23,17 @@ function TourList() {
   const [venues, setVenues] = useState([]); // For holding venues
   const [artists, setArtists] = useState([]); // For holding artists
   const [errorMessage, setErrorMessage] = useState("");
+  const [originalFormData, setOriginalFormData] = useState(null);
 
   const navigate = useNavigate();
-
+  const formatDate = (date) => {
+    const parsedDate = new Date(date); 
+    const month = String(parsedDate.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    const day = String(parsedDate.getDate()).padStart(2, '0');
+    const year = parsedDate.getFullYear();
+    return `${month}/${day}/${year}`; // Format as MM/DD/YYYY
+  };
+  
   // Fetch tours, events, venues, and artists from the backend
   useEffect(() => {
     const url = searchTerm
@@ -75,16 +83,16 @@ function TourList() {
     setEditingTourId(tour.id);
     setEditFormData({
       name: tour.name,
-      start_date: tour.start_date,
-      end_date: tour.end_date,
+      start_date: new Date(`${editFormData.start_date}T10:00:00`).toLocaleDateString("en-US"), 
+      end_date: new Date(`${editFormData.end_date}T10:00:00`).toLocaleDateString("en-US"), 
       description: tour.description,
       social_media_handles: tour.social_media_handles,
-      event_ids: tour.events.map((event) => event.id), // Assuming you want the IDs for updating
+      event_ids: tour.events.map((event) => event.id), 
       created_by_id: tour.created_by_id, // For venue
-      created_by_artist_id: tour.created_by_artist_id, // For artist
+      created_by_artist_id: tour.created_by_artist_id, 
     });
   };
-
+  
   // Handle input changes for editing
   const handleEditChange = (e) => {
     const { name, value } = e.target;
@@ -92,22 +100,36 @@ function TourList() {
   };
 
   // Save the updated tour data
-  const handleSaveClick = (tourId) => {
-    const updatedFormData = {
-      name: editFormData.name,
-      start_date: editFormData.start_date,
-      end_date: editFormData.end_date,
-      description: editFormData.description,
-      social_media_handles: editFormData.social_media_handles,
-      event_ids: editFormData.event_ids.map(Number), // Convert to numbers
-      created_by_id: editFormData.created_by_id,
-      created_by_artist_id: editFormData.created_by_artist_id,
-    };
+// Save the updated tour data
+const handleSaveClick = (tourId) => {
+  const updatedFormData = {
+    name: editFormData.name,
+    start_date: new Date(`${editFormData.start_date}T10:00:00`).toLocaleDateString("en-US"), // Convert to MM/DD/YYYY, setting time to 10 AM
+    end_date: new Date(`${editFormData.end_date}T10:00:00`).toLocaleDateString("en-US"), // Convert to MM/DD/YYYY, setting time to 10 AM
+    description: editFormData.description,
+    social_media_handles: editFormData.social_media_handles,
+    event_ids: editFormData.event_ids.map(Number),
+    created_by_id: editFormData.created_by_id,
+    created_by_artist_id: editFormData.created_by_artist_id,
+  };
+
+  // Ask for confirmation
+  const confirmMessage = `Are you sure you want to update the tour with the following details?\n\n` +
+                         `Name: ${updatedFormData.name}\n` +
+                         `Start Date: ${updatedFormData.start_date}\n` +
+                         `End Date: ${updatedFormData.end_date}\n` +
+                         `Description: ${updatedFormData.description}\n` +
+                         `Social Media Handles: ${updatedFormData.social_media_handles}\n` +
+                         `Events: ${updatedFormData.event_ids.join(", ")}`;
+
+  // Show the confirmation dialog
+  if (window.confirm(confirmMessage)) {
+    console.log("Updating tour:", updatedFormData); // Log the data being sent
 
     fetch(`http://127.0.0.1:5001/tours/${tourId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedFormData), // Send the updated form data
+      body: JSON.stringify(updatedFormData),
     })
       .then((response) => {
         if (!response.ok) {
@@ -116,6 +138,7 @@ function TourList() {
         return response.json();
       })
       .then((updatedTour) => {
+        console.log("Updated tour response:", updatedTour); // Log the response
         setTours(
           tours.map((tour) => (tour.id === tourId ? updatedTour : tour))
         );
@@ -125,12 +148,16 @@ function TourList() {
         console.error("Error updating tour:", error);
         alert("Failed to update tour");
       });
-  };
-
+  } else {
+    console.log("Update canceled by user."); // Optional: log the cancellation
+  }
+};
   // Handle canceling the edit
   const handleCancelClick = () => {
     setEditingTourId(null);
   };
+
+  
 
   // Handle deleting a tour
   const handleDeleteClick = (tourId) => {
@@ -166,6 +193,8 @@ function TourList() {
           {errorMessage}
         </p>
       )}
+      <div className="table-container">
+
       <table border="1" cellPadding="10" className="tour-table">
         <thead>
           <tr>
@@ -369,6 +398,7 @@ function TourList() {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }

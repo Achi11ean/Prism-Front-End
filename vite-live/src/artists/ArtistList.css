@@ -23,19 +23,40 @@
     padding-top: 10px;
     background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
 }
-
+.table-container {
+    max-height: 600px; /* Set the maximum height for the table */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling unless necessary */
+    border: 2px solid #f761b1; /* Optional: Pink border around the container */
+}
+.artist-table th:hover {
+    background-color: #8945a0; /* Darker green on hover */
+  }
 /* Style for the table */
 .artist-table {
     width: 100%; /* Ensure the table takes up full width of its container */
-    border-collapse: collapse; /* Collapse borders to avoid double lines */
+}
+.artist-table th {
+    background-color: #b64c9f; /* A green background color */
+    color: rgb(244, 236, 7); /* White text color */
+    font-size: 26px;
+    min-width: 50px;
+    position: sticky; /* Enable sticky positioning */
+    top: 0; /* Stick to the top of the container */
+    z-index: 10; /* Ensure it is above other content when scrolling */
+    text-align: left; /* Align text to the left */
+    font-weight: bold; /* Make the text bold */
+    border-bottom: 2px solid #ddd; /* Add a bottom border */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
 }
 
-.artist-table th, .artist-table td {
-    border: 1px solid #000; /* Border for table cells */
-    padding: 10px; /* Padding inside cells for better readability */
+
+ .artist-table td {
+    border: .1px solid #6200ff; /* Border for table cells */
+    padding: 5px; /* Padding inside cells for better readability */
     text-align: left; /* Align text to the left */
-    background-color: rgba(217, 137, 80, 0.875); /* Slightly transparent white background for readability */
-    color: #000; /* Text color */
+    background-color: rgba(217, 131, 70, 0.875); /* Slightly transparent white background for readability */
+    color: #41024c; /* Text color */
     font-size: 26px; /* Font size for the table content */
     font-family: 'geneva';
 }
@@ -49,10 +70,11 @@
     color: white; /* White text */
     padding: 10px 15px; /* Padding around the button */
     font-size: 25px; /* Font size */
-    border: none; /* Remove borders */
+    border: 2px solid white; /* Remove borders */
     border-radius: 20px; /* Rounded corners */
     cursor: pointer; /* Pointer cursor on hover */
     margin-right: 10px; /* Space between buttons */
+    margin-bottom: 5px;
 }
 
 .editbutton:hover {
@@ -65,7 +87,7 @@
     color: white; /* White text */
     padding: 10px 15px;
     font-size: 25px;
-    border: none;
+    border: 2px solid white;
     border-radius: 20px;
     cursor: pointer;
 }
@@ -181,3 +203,22 @@
 
 
 }
+.artist-table tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light gray background for even rows */
+}
+
+.artist-table tr:hover {
+    background-color: #ddd; /* Gray background on row hover */
+}
+
+
+
+
+
+
+
+
+
+
+
+

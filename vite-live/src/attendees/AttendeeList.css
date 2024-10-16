@@ -2,8 +2,8 @@
 .attendee-list-container {
     background-color: rgba(255, 165, 0, 0.662); /* Vibrant orange background with transparency */
     padding: 20px;
-    width: 2500px;
-    max-width: 2500px; /* Max width for the attendee list container */
+    width: 2600px;
+    max-width: 2600px; /* Max width for the attendee list container */
     margin: 40px auto; /* Center the container horizontally */
     border-radius: 40px; /* Rounded corners for a nice look */
     box-shadow: 20px 18px 20px rgba(239, 236, 236, 0.895); /* Add a shadow */
@@ -30,16 +30,40 @@
 }
 
 .attendee-table th, .attendee-table td {
-    border: 2px solid #FF1493; /* Bright pink border for table cells */
+    border: 2px solid #f761b1; /* Bright pink border for table cells */
     padding: 6px; /* Padding inside cells for better readability */
     text-align: left; /* Align text to the left */
     background-color: rgba(100, 149, 237, 0.764); /* Slightly transparent cornflower blue background */
-    color: #FFFFFF; /* White text color */
+    color: #ffee00; /* White text color */
     font-size: 30px; /* Font size for the table content */
     font-family: 'Franklin', sans-serif; /* Change to a fun font */
     font-weight: 900; /* Bold text */
+    
+}
+.attendee-table th:hover {
+    background-color: #4f9b38; /* Darker green on hover */
+  }
+.attendee-table th {
+    background-color: #2fb056; /* Darker header row */
+    color: #feffff; /* Cyan header text */
+    position: sticky; /* Enable sticky positioning */
+    top: 0; /* Stick to the top of the container */
+    z-index: 10; /* Ensure it is above other content when scrolling */
+}
+.attendee-table tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light gray background for even rows */
 }
 
+.attendee-table tr:hover {
+    background-color: #c04949; /* Gray background on row hover */
+}
+
+.table-container {
+    max-height: 600px; /* Set the maximum height for the table */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling unless necessary */
+    border: 2px solid #f761b1; /* Optional: Pink border around the container */
+}
 
 
 /* Styling for the Edit button */

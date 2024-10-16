@@ -19,9 +19,15 @@
 /* Style for the table */
 .venue-table {
   width: 100%; /* Ensure the table takes up full width of its container */
-  border-collapse: collapse; /* Collapse borders to avoid double lines */
 }
 
+.venue-table tr:nth-child(even) {
+  background-color: #f2f2f2; /* Light gray background for even rows */
+}
+
+.venue-table tr:hover {
+  background-color: #050101; /* Gray background on row hover */
+}
 .venue-table th, .venue-table td {
   border: 1px solid #ff69b4; /* Bright pink border for table cells */
   padding: 10px; /* Padding inside cells for better readability */
@@ -174,4 +180,5 @@
   margin: 40px auto; /* Center the container horizontally */
   border-radius: 40px; /* Rounded corners for a nice look */
   box-shadow: 20px 18px 20px rgba(239, 236, 236, 0.895); /* Add a shadow */
+  
 } 

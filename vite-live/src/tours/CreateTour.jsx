@@ -19,7 +19,13 @@ function CreateTour() {
   const [eventSearchTerm, setEventSearchTerm] = useState(''); // State for event search term
   const [venueSearchTerm, setVenueSearchTerm] = useState(''); // State for venue search term
   const [artistSearchTerm, setArtistSearchTerm] = useState(''); // State for artist search term
-
+  const formatDate = (date) => {
+    const parsedDate = new Date(date);
+    const month = String(parsedDate.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    const day = String(parsedDate.getDate()).padStart(2, '0');
+    const year = parsedDate.getFullYear();
+    return `${month}/${day}/${year}`; // Format as MM/DD/YYYY
+  };
   const navigate = useNavigate();
 
   // Fetch available events, venues, and artists from the backend
@@ -42,25 +48,37 @@ function CreateTour() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Ensure event_ids are integers
+  
+    // Ensure event_ids are integers and format dates
     const updatedFormData = {
       ...formData,
+      start_date: formatDate(formData.start_date),
+      end_date: formatDate(formData.end_date),
       event_ids: formData.event_ids.map(Number), // Convert strings to numbers
     };
-
+  
     // Check that either a venue or an artist is selected
     if (!updatedFormData.created_by_id && !updatedFormData.created_by_artist_id) {
       alert('Please select either a venue or an artist as the creator.');
       return;
     }
-    
+  
+    // Filter out empty creator fields
+    if (!updatedFormData.created_by_id) delete updatedFormData.created_by_id;
+    if (!updatedFormData.created_by_artist_id) delete updatedFormData.created_by_artist_id;
+  
     // Submit tour creation request to the backend
     fetch('http://localhost:5001/tours', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updatedFormData),
     })
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to create tour');
+        }
+        return response.json();
+      })
       .then(data => {
         console.log('Tour created:', data);
         navigate("/tours"); // Redirect to the tour list after creating
@@ -70,7 +88,6 @@ function CreateTour() {
         alert('Failed to create tour');
       });
   };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });

@@ -30,10 +30,37 @@
 .event-table {
   max-width: 2500px;
   width: 100%; /* Ensure the table takes up full width of its container */
-  border-collapse: collapse; /* Collapse borders to avoid double lines */
+}
+.event-table th {
+  background-color: #4CAF50; /* A green background color */
+  color: white; /* White text color */
+  padding: 20px; /* Add padding for spacing */
+  text-align: left; /* Align text to the left */
+  font-size: 35px; /* Set font size to 35px */
+  font-weight: bold; /* Make the text bold */
+  border-bottom: 3px solid #ddd; /* Add a bottom border */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+  position: sticky; /* Enable sticky positioning */
+  top: 0; /* Stick to the top of the container */
+  z-index: 10; /* Ensure it is above other content when scrolling */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Add text shadow for depth */
+  border-radius: 10px 10px 0 0; /* Rounded corners for top header */
 }
 
-.event-table th, .event-table td {
+/* Optional: Add a hover effect for the header */
+.event-table th:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+/* Add styles for table body rows */
+.event-table tr:nth-child(even) {
+  background-color: #f2f2f2; /* Light gray background for even rows */
+}
+
+.event-table tr:hover {
+  background-color: #ddd; /* Gray background on row hover */
+}
+ .event-table td {
   border: 2px solid #FF69B4; /* Bright pink border for table cells */
   padding: 10px; /* Padding inside cells for better readability */
   text-align: left; /* Align text to the left */
@@ -171,6 +198,12 @@
   margin-top: 5px; /* Space above the checkbox area */
   border-radius: 5px; /* Rounded corners */
 
+}
+.table-container {
+  max-height: 800px; /* Set the maximum height for the table */
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: hidden; /* Prevent horizontal scrolling unless necessary */
+  border: 2px solid #f761b1; /* Optional: Pink border around the container */
 }
  .searchme {
     padding: 8px; /* Padding inside the input */

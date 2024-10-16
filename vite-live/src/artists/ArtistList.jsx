@@ -76,7 +76,10 @@ function ArtistList() {
       name: editFormData.name,
       age: editFormData.age,
       background: editFormData.background,
-      songs: editFormData.songs.split(",").map((song) => song.trim()).join(","), // Convert array to string
+      songs: editFormData.songs
+        .split(",")
+        .map((song) => song.trim())
+        .join(","), // Convert array to string
       event_ids: editFormData.event_ids.map(Number), // Convert to numbers
     };
 
@@ -93,7 +96,9 @@ function ArtistList() {
       })
       .then((updatedArtist) => {
         setArtists(
-          artists.map((artist) => (artist.id === artistId ? updatedArtist : artist))
+          artists.map((artist) =>
+            artist.id === artistId ? updatedArtist : artist
+          )
         );
         setEditingArtistId(null); // Exit editing mode
       })
@@ -135,125 +140,180 @@ function ArtistList() {
         onChange={(e) => setSearchTerm(e.target.value)}
       />
       {errorMessage && (
-        <p className="error-message" style={{ color: "black", fontSize: "2em", backgroundColor: "white" }}>
+        <p
+          className="error-message"
+          style={{ color: "black", fontSize: "2em", backgroundColor: "white" }}
+        >
           {errorMessage}
         </p>
       )}
-      <table border="1" cellPadding="10" className="artist-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Background</th>
-            <th>Songs</th>
-            <th>Events</th> {/* New column for Events */}
-            <th>Favorited By</th> {/* New column for Favorited By */}
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {artists.map((artist) => (
-            <tr key={artist.id}>
-              {editingArtistId === artist.id ? (
-                <>
-                  <td>{artist.id}</td>
-                  <td>
-                    <input
-                      className="inputartists"
-                      type="text"
-                      name="name"
-                      value={editFormData.name}
-                      onChange={handleEditChange}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      className="inputartists"
-                      type="number"
-                      name="age"
-                      value={editFormData.age}
-                      onChange={handleEditChange}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      className="inputartists"
-                      type="text"
-                      name="background"
-                      value={editFormData.background}
-                      onChange={handleEditChange}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      className="inputartists"
-                      type="text"
-                      name="songs"
-                      value={editFormData.songs}
-                      onChange={handleEditChange}
-                      placeholder="e.g. Song1, Song2"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      className="searchedit"
-                      type="text"
-                      placeholder="Search Events"
-                      value={eventSearchTerm}
-                      onChange={(e) => setEventSearchTerm(e.target.value)}
-                    />
-                    {/* Scrollable events container */}
-                    <div className="event-checkboxes" style={{ maxHeight: '150px', overflowY: 'auto' }}>
-                      {events
-                        .filter(event =>
-                          event.name.toLowerCase().includes(eventSearchTerm.toLowerCase())
-                        )
-                        .map((event) => (
-                          <div key={event.id}>
-                            <input
-                              type="checkbox"
-                              id={`event-${event.id}`}
-                              value={event.id}
-                              checked={editFormData.event_ids.includes(event.id)}
-                              onChange={(e) => {
-                                const selectedEventId = parseInt(e.target.value);
-                                const updatedEventIds = editFormData.event_ids.includes(selectedEventId)
-                                  ? editFormData.event_ids.filter(id => id !== selectedEventId) // Uncheck the box
-                                  : [...editFormData.event_ids, selectedEventId]; // Check the box
-
-                                setEditFormData({ ...editFormData, event_ids: updatedEventIds });
-                              }}
-                            />
-                            <label htmlFor={`event-${event.id}`}>{event.name}</label>
-                          </div>
-                        ))}
-                    </div>
-                  </td>
-                  <td>
-                    <button className="Saveme" onClick={() => handleSaveClick(artist.id)}>Save</button>
-                    <button className="Cancelme" onClick={handleCancelClick}>Cancel</button>
-                  </td>
-                </>
-              ) : (
-                <>
-                  <td>{artist.id}</td>
-                  <td>{artist.name}</td>
-                  <td>{artist.age}</td>
-                  <td>{artist.background}</td>
-                  <td>{artist.songs.join(", ")}</td>
-                  <td>{artist.events ? artist.events.map(event => event.name).join(", ") : 'No Events'}</td>
-                  <td>{artist.favorited_by.length > 0 ? artist.favorited_by.map(attendee => attendee.name).join(", ") : 'No Favorites'}</td> {/* List of attendees who favorited the artist */}
-                  <td>
-                    <button className="editbutton" onClick={() => handleEditClick(artist)}>Edit</button>
-                    <button className="deletebutton" onClick={() => handleDeleteClick(artist.id)}>Delete</button>
-                  </td>
-                </>
-              )}
+      <div class="table-container">
+        <table border="1" cellPadding="10" className="artist-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Age</th>
+              <th>Background</th>
+              <th>Songs</th>
+              <th>Events</th> {/* New column for Events */}
+              <th>Favorited By</th> {/* New column for Favorited By */}
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {artists.map((artist) => (
+              <tr key={artist.id}>
+                {editingArtistId === artist.id ? (
+                  <>
+                    <td>{artist.id}</td>
+                    <td>
+                      <input
+                        className="inputartists"
+                        type="text"
+                        name="name"
+                        value={editFormData.name}
+                        onChange={handleEditChange}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        className="inputartists"
+                        type="number"
+                        name="age"
+                        value={editFormData.age}
+                        onChange={handleEditChange}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        className="inputartists"
+                        type="text"
+                        name="background"
+                        value={editFormData.background}
+                        onChange={handleEditChange}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        className="inputartists"
+                        type="text"
+                        name="songs"
+                        value={editFormData.songs}
+                        onChange={handleEditChange}
+                        placeholder="e.g. Song1, Song2"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        className="searchedit"
+                        type="text"
+                        placeholder="Search Events"
+                        value={eventSearchTerm}
+                        onChange={(e) => setEventSearchTerm(e.target.value)}
+                      />
+                      {/* Scrollable events container */}
+                      <div
+                        className="event-checkboxes"
+                        style={{ maxHeight: "150px", overflowY: "auto" }}
+                      >
+                        {events
+                          .filter((event) =>
+                            event.name
+                              .toLowerCase()
+                              .includes(eventSearchTerm.toLowerCase())
+                          )
+                          .map((event) => (
+                            <div key={event.id}>
+                              <input
+                                type="checkbox"
+                                id={`event-${event.id}`}
+                                value={event.id}
+                                checked={editFormData.event_ids.includes(
+                                  event.id
+                                )}
+                                onChange={(e) => {
+                                  const selectedEventId = parseInt(
+                                    e.target.value
+                                  );
+                                  const updatedEventIds =
+                                    editFormData.event_ids.includes(
+                                      selectedEventId
+                                    )
+                                      ? editFormData.event_ids.filter(
+                                          (id) => id !== selectedEventId
+                                        ) // Uncheck the box
+                                      : [
+                                          ...editFormData.event_ids,
+                                          selectedEventId,
+                                        ]; // Check the box
+
+                                  setEditFormData({
+                                    ...editFormData,
+                                    event_ids: updatedEventIds,
+                                  });
+                                }}
+                              />
+                              <label htmlFor={`event-${event.id}`}>
+                                {event.name}
+                              </label>
+                            </div>
+                          ))}
+                      </div>
+                    </td>
+                    <td>
+                      <button
+                        className="Saveme"
+                        onClick={() => handleSaveClick(artist.id)}
+                      >
+                        Save
+                      </button>
+                      <button className="Cancelme" onClick={handleCancelClick}>
+                        Cancel
+                      </button>
+                    </td>
+                  </>
+                ) : (
+                  <>
+                    <td>{artist.id}</td>
+                    <td>{artist.name}</td>
+                    <td>{artist.age}</td>
+                    <td>{artist.background}</td>
+                    <td>{artist.songs.join(", ")}</td>
+                    <td>
+                      {artist.events
+                        ? artist.events.map((event) => event.name).join(", ")
+                        : "No Events"}
+                    </td>
+                    <td>
+                      {artist.favorited_by.length > 0
+                        ? artist.favorited_by
+                            .map((attendee) => attendee.name)
+                            .join(", ")
+                        : "No Favorites"}
+                    </td>{" "}
+                    {/* List of attendees who favorited the artist */}
+                    <td>
+                      <button
+                        className="editbutton"
+                        onClick={() => handleEditClick(artist)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="deletebutton"
+                        onClick={() => handleDeleteClick(artist.id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </>
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
