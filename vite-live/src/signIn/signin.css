@@ -1,0 +1,345 @@
+/* General form container styling */
+.error {
+    color: red;
+    font-size: 1rem;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Container styling */
+.sign-in-container {
+    background-color: rgba(255, 192, 203, 0.8); /* Background with transparency */
+    padding: 40px;
+    width: 1900px;
+    max-width: 1500px; /* Width of the form container */
+    margin: 50px auto; /* Center the form on the page */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    color: #3e2723; /* Darker text color for better contrast */
+}
+
+/* Form header styling */
+.sign-in-container h2 {
+    text-align: center;
+    background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+    background-clip: text; /* Ensures the gradient is clipped to the text */
+    -webkit-text-fill-color: transparent; /* Makes the inside of the text transparent, showing the gradient */
+    font-family: Trebuchet;
+    font-weight: 700;
+    font-size: 4rem; /* Increased font size for the header */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Shadow effect for the title */
+}
+
+/* Label styling */
+.sign-in-container label {
+    display: block;
+    font-size: 3em; /* Large font for labels */
+    margin-left: 220px;
+    margin-right: 250px;
+    border-radius: 60px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: rgb(76, 78, 74); /* Dark grey color for labels */
+    transition: background-color 0.3s; /* Smooth transition for hover */
+}
+
+/* Label hover effect */
+.sign-in-container label:hover {
+    background-color: rgba(255, 182, 193, 0.7); /* Light pink on hover */
+}
+
+/* Input and textarea field styling */
+.sign-in-container input[type="text"],
+.sign-in-container input[type="number"],
+.sign-in-container input[type="password"],
+.sign-in-container textarea {
+    width: 100%; /* Make inputs longer */
+    padding: 15px; /* Increased padding for inputs */
+    font-size: 2em; /* Font size for input text */
+    background-color: rgb(20, 218, 192); /* Soft teal background */
+    font-family: 'Geneva', sans-serif;
+    margin-bottom: 20px; /* Space between inputs */
+    border: 2px solid #f57c00; /* Orange border */
+    border-radius: 20px; /* Rounded input corners */
+    box-sizing: border-box; /* Include padding in width */
+    transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s; /* Transition effects */
+    text-align: center; /* Center text */
+}
+
+/* Input focus effect with animation */
+.sign-in-container input:focus,
+.sign-in-container textarea:focus {
+    border-color: #ff9800; /* Bright orange on focus */
+    box-shadow: 0 0 8px rgba(255, 152, 0, 0.5); /* Glow effect on focus */
+    outline: none; /* Remove default outline */
+    transform: scale(1.02); /* Slightly enlarge the input */
+}
+
+/* Dropdown (select) styling */
+.sign-in-container input,
+.sign-in-container select {
+    width: 100%; /* Full width dropdown */
+    padding: 15px; /* Padding for dropdown */
+    font-size: 2.5em; /* Font size for select text */
+    margin-bottom: 20px; /* Space between dropdowns */
+    background: linear-gradient(45deg, #ff6b6b, #ffdd00); /* Gradient background from pink to yellow */
+    border: 3px solid #ff5722; /* Orange border */
+    border-radius: 20px; /* More rounded corners */
+    box-sizing: border-box; /* Include padding in width */
+    color: #3e2723; /* Darker text color for contrast */
+    appearance: none; /* Remove default dropdown styling for custom look */
+    background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white background */
+    transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s; /* Transition effects */
+    position: relative; /* For custom arrow positioning */
+}
+
+/* Custom arrow for dropdown */
+.sign-in-container select::after {
+    content: '▼'; /* Custom arrow icon */
+    position: absolute; /* Position relative to the dropdown */
+    right: 15px; /* Positioning */
+    top: 50%; /* Centering */
+    transform: translateY(-50%); /* Adjust to center */
+    pointer-events: none; /* Ignore mouse events for the arrow */
+    font-size: 1.2rem; /* Adjust arrow size */
+    color: #3e2723; /* Arrow color matching text */
+}
+
+/* Dropdown focus effect */
+.sign-in-container select:focus {
+    border-color: #ff9800; /* Highlight border with an orange color on focus */
+    box-shadow: 0 0 10px rgba(255, 152, 0, 0.5); /* Glow effect for focus */
+    outline: none; /* Remove default outline */
+    transform: scale(1.02); /* Slightly enlarge the select */
+}
+
+/* Button styling */
+.sign-in-container button {
+    display: block;
+    font-family: 'Impact', 'Haettenschweiler', 'Arial Narrow Bold', sans-serif;
+    width: 100%; /* Full width button */
+    padding: 15px;
+    background: linear-gradient(45deg, #1efc05, #ffdd00); /* Gradient from bright green to yellow */
+    color: rgb(0, 0, 0); /* Dark text for better contrast */
+    border: none; /* Remove the border for a cleaner look */
+    border-radius: 30px; /* More rounded corners */
+    cursor: pointer;
+    font-size: 3rem; /* Button font size */
+    margin-top: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+}
+
+/* Button hover effect */
+.sign-in-container button:hover {
+    background: linear-gradient(45deg, #ffdd00, #1efc05); /* Inverted gradient on hover */
+    transform: scale(1.05); /* Slightly grow on hover */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5); /* Increase shadow on hover for depth */
+}
+
+/* Button focus effect */
+.sign-in-container button:focus {
+    outline: none; /* Remove default outline */
+    background: linear-gradient(45deg, #6200ea, #ff00b3); /* Change to a vibrant purple to pink gradient on focus */
+    box-shadow: 0 0 15px rgba(98, 0, 234, 0.5); /* Glow effect for focus */
+    color: #fff; /* Change text color to white for contrast */
+    border-radius: 30px; /* Maintain rounded corners */
+}
+
+/* Make the form responsive */
+@media (max-width: 600px) {
+    .sign-in-container {
+        padding: 20px; 
+        max-width: 100%; /* Full width on small screens */
+    }
+
+    .sign-in-container h2 {
+        font-size: 2rem; /* Smaller font size on small screens */
+    }
+
+    .sign-in-container button {
+        font-size: 1.2rem; /* Adjust button size */
+    }
+
+    .sign-in-container label {
+        font-size: 2em; /* Adjust label size for smaller screens */
+        margin-left: 100px;
+        margin-right: 100px;
+    }
+
+    .sign-in-container input,
+    .sign-in-container select {
+        font-size: 1.5em; /* Adjust input and select font size */
+    }
+}
+
+/* Toggle button styling */
+.toggle-button {
+    background: none;
+    border: none;
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.toggle-button:hover {
+    color: darkblue;
+}
+
+/* ----- Added Styles Below ----- */
+
+/* Password input container */
+.password-input-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px; /* Space below the container */
+    position: relative; /* Keep relative positioning */
+}
+
+/* Password input field */
+.password-input-container input {
+    flex: 1; /* Input takes the full remaining width */
+    padding-right: 50px; /* Add padding on the right to prevent overlap with the button */
+    padding-left: 15px;
+    border: 2px solid #f57c00; /* Orange border */
+    border-radius: 20px; /* Rounded input corners */
+    font-size: 2em; /* Font size for input text */
+    background-color: rgb(20, 218, 192); /* Soft teal background */
+    font-family: 'Geneva', sans-serif;
+    margin-bottom: 20px; /* Space between inputs */
+    box-sizing: border-box; /* Include padding in width */
+    transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s; /* Transition effects */
+    text-align: center; /* Center text */
+}
+
+/* Toggle password visibility button */
+.toggle-password-button {
+    background: none;
+    border: none;
+    color: #1e88e5;
+    cursor: pointer;
+    font-size: 1rem; /* Adjust button font size */
+    padding: 5px 10px; /* Padding around the button */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px; /* Space between input and button */
+    height: 30px; /* Fixed height */
+    width: auto; /* Adjusts width based on content */
+    background-color: rgba(255, 255, 255, 0.7); /* Light background for visibility */
+    border-radius: 12px; /* Slightly rounded corners */
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+    position: absolute; /* Align it absolutely relative to the container */
+    right: 15px; /* Position it towards the right */
+}
+
+/* Button hover effect */
+.toggle-password-button:hover {
+    background-color: rgba(255, 255, 255, 1); /* Opaque background on hover */
+    transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+
+
+/* Password strength meter styling */
+.password-strength {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.strength-bar {
+    width: 100px;
+    height: 10px;
+    background-color: #ddd;
+    border-radius: 5px;
+    margin-right: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.strength-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.strength-1::after {
+    width: 20%;
+    background-color: red;
+}
+
+.strength-2::after {
+    width: 40%;
+    background-color: orange;
+}
+
+.strength-3::after {
+    width: 60%;
+    background-color: yellow;
+}
+
+.strength-4::after {
+    width: 80%;
+    background-color: lightgreen;
+}
+
+.strength-5::after {
+    width: 100%;
+    background-color: green;
+}
+
+.password-strength span {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Password requirements styling */
+.password-requirements {
+    margin-bottom: 15px;
+}
+
+.password-requirements p {
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: bold;
+}
+
+.password-requirements ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.password-requirements li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    font-size: 1rem;
+}
+
+.password-requirements li.valid {
+    color: green;
+}
+
+.password-requirements li.invalid {
+    color: red;
+}
+
+/* Optional: Icons for valid and invalid states */
+.password-requirements li.valid::before {
+    content: '✔';
+    margin-right: 8px;
+    color: green;
+}
+
+.password-requirements li.invalid::before {
+    content: '✖';
+    margin-right: 8px;
+    color: red;
+}

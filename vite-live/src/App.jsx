@@ -19,6 +19,9 @@ import CreateArtist from './artists/CreateArtist';
 import TourList from './tours/TourList';  // Import TourList component
 import CreateTour from './tours/CreateTour';  // Import CreateTour component
 
+import SignIn from './signin/SignIn.jsx';
+import SignOut from './signin/SignOut.jsx';
+
 import './App.css'
 
 function App() {
@@ -45,6 +48,10 @@ function App() {
         {/* Tour-related routes */}
         <Route path="/tours" element={<TourList />} />  {/* Route for TourList */}
         <Route path="/create-tour" element={<CreateTour />} />  {/* Route for CreateTour */}
+        
+        {/* SignIn-related routes */}
+        <Route path="/signin" element={<SignIn />} /> {/* SignIn Route */}
+        <Route path="/signout" element={<SignOut />} /> {/* SignOut Route */}
       </Routes>
     </div>
   )
