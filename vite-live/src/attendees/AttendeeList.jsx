@@ -16,12 +16,16 @@ function AttendeeList() {
     favorite_event_ids: [],
     favorite_event_types: [],
     favorite_artist_ids: [],
+    social_media: "", // Add social media field here
   });
+
   const [searchTerm, setSearchTerm] = useState(""); // For attendee search
   const [eventSearchTerm, setEventSearchTerm] = useState(""); // For favorite events search
   const [artistSearchTerm, setArtistSearchTerm] = useState(""); // For favorite artists search
-  const navigate = useNavigate();
   const [artists, setArtists] = useState([]);
+  const [displayLimit, setDisplayLimit] = useState(5); // Limit number of attendees displayed by default
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch artists
@@ -114,7 +118,6 @@ function AttendeeList() {
   };
 
   const handleEdit = (attendee) => {
-    console.log("Editing attendee:", attendee);
     setEditingId(attendee.id);
     setEditData({
       first_name: attendee.first_name,
@@ -129,6 +132,7 @@ function AttendeeList() {
       favorite_artist_ids: attendee.favorite_artists
         ? attendee.favorite_artists.map((artist) => artist.id)
         : [],
+      social_media: attendee.social_media || "", // Add social media field here
     });
   };
 
@@ -149,6 +153,33 @@ function AttendeeList() {
     }));
   };
 
+  const handleSocialMediaChange = (e) => {
+    const { value } = e.target;
+  
+    // Split by commas to get each social media entry, then split by colon to get platform and URL
+    const socialMediaArray = value.split(",").map((entry) => {
+      const [platform, url] = entry.split(":").map(part => part.trim());
+      return { platform, url };
+    });
+  
+    // Update editData with the structured array of social media entries
+    setEditData({ ...editData, social_media: socialMediaArray });
+  };
+
+  const renderSocialMediaLinks = (socialMediaArray) => {
+    return socialMediaArray.map((entry, index) => {
+      return (
+        <span key={index}>
+          <strong>{entry.platform}</strong>:{" "}
+          <a href={entry.url} target="_blank" rel="noopener noreferrer">
+            {entry.url}
+          </a>
+          {index < socialMediaArray.length - 1 && ", "}
+        </span>
+      );
+    });
+  };
+
   const handleSave = (id) => {
     const updatedAttendee = {
       first_name: editData.first_name,
@@ -157,9 +188,8 @@ function AttendeeList() {
       favorite_event_ids: editData.favorite_event_ids,
       favorite_event_types: editData.favorite_event_types,
       favorite_artist_ids: editData.favorite_artist_ids,
+      social_media: editData.social_media, // Include social media here
     };
-
-    console.log("Updated Attendee Data:", updatedAttendee); // Log for debugging
 
     fetch(`http://localhost:5001/attendees/${id}`, {
       method: "PATCH",
@@ -169,7 +199,6 @@ function AttendeeList() {
       body: JSON.stringify(updatedAttendee),
     })
       .then((response) => {
-        console.log("Response status:", response.status); // Log response status
         if (!response.ok) {
           return response.json().then((errorData) => {
             console.error("Error response from server:", errorData);
@@ -179,7 +208,6 @@ function AttendeeList() {
         return response.json();
       })
       .then((data) => {
-        console.log("Data returned from the server:", data); // Log returned data
         setAttendees((prevAttendees) =>
           prevAttendees.map((attendee) =>
             attendee.id === id ? { ...data } : attendee
@@ -197,18 +225,20 @@ function AttendeeList() {
   };
 
   const handleSearchChange = (e) => {
-    const value = e.target.value;
-    setSearchTerm(value);
+    setSearchTerm(e.target.value);
   };
 
   const handleEventSearchChange = (e) => {
-    const value = e.target.value;
-    setEventSearchTerm(value); // Update search term for events
+    setEventSearchTerm(e.target.value);
   };
 
   const handleArtistSearchChange = (e) => {
-    const value = e.target.value;
-    setArtistSearchTerm(value); // Update search term for artists
+    setArtistSearchTerm(e.target.value);
+  };
+
+  // Load more attendees when the button is clicked
+  const loadMoreAttendees = () => {
+    setDisplayLimit((prevLimit) => prevLimit + 5); // Increase limit by 5
   };
 
   if (loading) {
@@ -243,247 +273,270 @@ function AttendeeList() {
         <p id="error">No Matching Criteria.</p>
       ) : (
         <div className="table-container">
-
-        <table className="attendee-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Email</th>
-              <th>Favorite Events</th>
-              <th>Favorite Event Types</th>
-              <th>Favorite Artists</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {attendees.map((attendee) => (
-              <tr key={attendee.id}>
-                <td>{attendee.id}</td>
-                <td>
-                  {editingId === attendee.id ? (
-                    <input
-                      className="editattendee"
-                      type="text"
-                      name="first_name"
-                      value={editData.first_name}
-                      onChange={handleInputChange}
-                    />
-                  ) : (
-                    attendee.first_name
-                  )}
-                </td>
-                <td>
-                  {editingId === attendee.id ? (
-                    <input
-                      className="editattendee"
-                      type="text"
-                      name="last_name"
-                      value={editData.last_name}
-                      onChange={handleInputChange}
-                    />
-                  ) : (
-                    attendee.last_name
-                  )}
-                </td>
-                <td>
-                  {editingId === attendee.id ? (
-                    <input
-                      className="editattendee"
-                      type="email"
-                      name="email"
-                      value={editData.email}
-                      onChange={handleInputChange}
-                    />
-                  ) : (
-                    attendee.email
-                  )}
-                </td>
-                <td className="favorite-event-column">
-                  {editingId === attendee.id ? (
-                    <>
-                      {/* Search bar for favorite events */}
-                      <input
-                        className="editattendee"
-                        type="text"
-                        placeholder="Search favorite events..."
-                        value={eventSearchTerm}
-                        onChange={handleEventSearchChange}
-                      />
-                      <div
-                        className="event-checkboxes"
-                        style={{
-                          maxHeight: "150px",
-                          overflowY: "scroll",
-                          border: "1px solid #ccc",
-                          padding: "5px",
-                        }}
-                      >
-                        {filteredEvents.map((event) => (
-                          <div key={event.id}>
-                            <label>
-                              <input
-                                type="checkbox"
-                                value={event.id}
-                                checked={editData.favorite_event_ids.includes(
-                                  event.id
-                                )}
-                                onChange={handleEventSelection}
-                              />
-                              {event.name}
-                            </label>
-                          </div>
-                        ))}
-                      </div>
-                    </>
-                  ) : (
-                    <ul>
-                      {attendee.favorite_events &&
-                      attendee.favorite_events.length > 0 ? (
-                        attendee.favorite_events.map((event) => (
-                          <li key={event.id}>{event.name}</li>
-                        ))
-                      ) : (
-                        <li>No favorite events</li>
-                      )}
-                    </ul>
-                  )}
-                </td>
-                <td>
-                  {editingId === attendee.id ? (
-                    <>
-                      {/* Search bar for favorite event types */}
-                      <input
-                        className="editattendee"
-                        type="text"
-                        placeholder="Search favorite event types..."
-                        value={eventSearchTerm}
-                        onChange={handleEventSearchChange}
-                      />
-                      <div
-                        className="event-checkboxes"
-                        style={{
-                          maxHeight: "150px",
-                          overflowY: "scroll",
-                          border: "1px solid #ccc",
-                          padding: "5px",
-                        }}
-                      >
-                        {eventTypes.map((eventType) => (
-                          <div key={eventType}>
-                            <label>
-                              <input
-                                type="checkbox"
-                                value={eventType}
-                                checked={editData.favorite_event_types.includes(
-                                  eventType
-                                )}
-                                onChange={handleEventTypeSelection}
-                              />
-                              {eventType}
-                            </label>
-                          </div>
-                        ))}
-                      </div>
-                    </>
-                  ) : (
-                    <ul>
-                      {Array.isArray(attendee.favorite_event_types) &&
-                      attendee.favorite_event_types.length > 0 ? (
-                        attendee.favorite_event_types.map((type) => (
-                          <li key={type}>{type}</li>
-                        ))
-                      ) : (
-                        <li>No favorite event types</li>
-                      )}
-                    </ul>
-                  )}
-                </td>
-                <td>
-                  {editingId === attendee.id ? (
-                    <>
-                      {/* Search bar for favorite artists */}
-                      <input
-                        className="editattendee"
-                        type="text"
-                        placeholder="Search favorite artists..."
-                        value={artistSearchTerm}
-                        onChange={handleArtistSearchChange}
-                      />
-                      <div
-                        className="event-checkboxes"
-                        style={{
-                          maxHeight: "150px",
-                          overflowY: "scroll",
-                          border: "1px solid #ccc",
-                          padding: "5px",
-                        }}
-                      >
-                        {filteredArtists.map((artist) => (
-                          <div key={artist.id}>
-                            <label>
-                              <input
-                                type="checkbox"
-                                value={artist.id}
-                                checked={editData.favorite_artist_ids.includes(
-                                  artist.id
-                                )}
-                                onChange={(e) => handleArtistSelection(e)} // Pass the event object
-                              />
-                              {artist.name}
-                            </label>
-                          </div>
-                        ))}
-                      </div>
-                    </>
-                  ) : (
-                    <ul>
-                      {attendee.favorite_artists &&
-                      attendee.favorite_artists.length > 0 ? (
-                        attendee.favorite_artists.map((artist) => (
-                          <li key={artist.id}>{artist.name}</li>
-                        ))
-                      ) : (
-                        <li>No favorite artists</li>
-                      )}
-                    </ul>
-                  )}
-                </td>
-                <td>
-                  {editingId === attendee.id ? (
-                    <>
-                      <button
-                        className="Saveme"
-                        onClick={() => handleSave(attendee.id)}
-                      >
-                        Save
-                      </button>
-                      <button className="Cancelme" onClick={handleCancel}>
-                        Cancel
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <button
-                        className="editbutton"
-                        onClick={() => handleEdit(attendee)}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        className="deletebutton"
-                        onClick={() => handleDelete(attendee.id)}
-                      >
-                        Delete
-                      </button>
-                    </>
-                  )}
-                </td>
+          <table className="attendee-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Favorite Events</th>
+                <th>Favorite Event Types</th>
+                <th>Favorite Artists</th>
+                <th>Social Media</th> {/* Add Social Media column here */}
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {attendees.slice(0, displayLimit).map((attendee) => (
+                <tr key={attendee.id}>
+                  <td>{attendee.id}</td>
+                  <td>
+                    {editingId === attendee.id ? (
+                      <input
+                        className="editattendee"
+                        type="text"
+                        name="first_name"
+                        value={editData.first_name}
+                        onChange={handleInputChange}
+                      />
+                    ) : (
+                      attendee.first_name
+                    )}
+                  </td>
+                  <td>
+                    {editingId === attendee.id ? (
+                      <input
+                        className="editattendee"
+                        type="text"
+                        name="last_name"
+                        value={editData.last_name}
+                        onChange={handleInputChange}
+                      />
+                    ) : (
+                      attendee.last_name
+                    )}
+                  </td>
+                  <td>
+                    {editingId === attendee.id ? (
+                      <input
+                        className="editattendee"
+                        type="email"
+                        name="email"
+                        value={editData.email}
+                        onChange={handleInputChange}
+                      />
+                    ) : (
+                      attendee.email
+                    )}
+                  </td>
+
+                  <td className="favorite-event-column">
+                    {editingId === attendee.id ? (
+                      <>
+                        {/* Search bar for favorite events */}
+                        <input
+                          className="editattendee"
+                          type="text"
+                          placeholder="Search favorite events..."
+                          value={eventSearchTerm}
+                          onChange={handleEventSearchChange}
+                        />
+                        <div
+                          className="event-checkboxes"
+                          style={{
+                            maxHeight: "150px",
+                            overflowY: "scroll",
+                            border: "1px solid #ccc",
+                            padding: "5px",
+                          }}
+                        >
+                          {filteredEvents.map((event) => (
+                            <div key={event.id}>
+                              <label>
+                                <input
+                                  type="checkbox"
+                                  value={event.id}
+                                  checked={editData.favorite_event_ids.includes(
+                                    event.id
+                                  )}
+                                  onChange={handleEventSelection}
+                                />
+                                {event.name}
+                              </label>
+                            </div>
+                          ))}
+                        </div>
+                      </>
+                    ) : (
+                      <ul>
+                        {attendee.favorite_events &&
+                        attendee.favorite_events.length > 0 ? (
+                          attendee.favorite_events.map((event) => (
+                            <li key={event.id}>{event.name}</li>
+                          ))
+                        ) : (
+                          <li>No favorite events</li>
+                        )}
+                      </ul>
+                    )}
+                  </td>
+
+                  <td>
+                    {editingId === attendee.id ? (
+                      <>
+                        {/* Search bar for favorite event types */}
+                        <input
+                          className="editattendee"
+                          type="text"
+                          placeholder="Search favorite event types..."
+                          value={eventSearchTerm}
+                          onChange={handleEventSearchChange}
+                        />
+                        <div
+                          className="event-checkboxes"
+                          style={{
+                            maxHeight: "150px",
+                            overflowY: "scroll",
+                            border: "1px solid #ccc",
+                            padding: "5px",
+                          }}
+                        >
+                          {eventTypes.map((eventType) => (
+                            <div key={eventType}>
+                              <label>
+                                <input
+                                  type="checkbox"
+                                  value={eventType}
+                                  checked={editData.favorite_event_types.includes(
+                                    eventType
+                                  )}
+                                  onChange={handleEventTypeSelection}
+                                />
+                                {eventType}
+                              </label>
+                            </div>
+                          ))}
+                        </div>
+                      </>
+                    ) : (
+                      <ul>
+                        {Array.isArray(attendee.favorite_event_types) &&
+                        attendee.favorite_event_types.length > 0 ? (
+                          attendee.favorite_event_types.map((type) => (
+                            <li key={type}>{type}</li>
+                          ))
+                        ) : (
+                          <li>No favorite event types</li>
+                        )}
+                      </ul>
+                    )}
+                  </td>
+                  <td>
+                    {editingId === attendee.id ? (
+                      <>
+                        {/* Search bar for favorite artists */}
+                        <input
+                          className="editattendee"
+                          type="text"
+                          placeholder="Search favorite artists..."
+                          value={artistSearchTerm}
+                          onChange={handleArtistSearchChange}
+                        />
+                        <div
+                          className="event-checkboxes"
+                          style={{
+                            maxHeight: "150px",
+                            overflowY: "scroll",
+                            border: "1px solid #ccc",
+                            padding: "5px",
+                          }}
+                        >
+                          {filteredArtists.map((artist) => (
+                            <div key={artist.id}>
+                              <label>
+                                <input
+                                  type="checkbox"
+                                  value={artist.id}
+                                  checked={editData.favorite_artist_ids.includes(
+                                    artist.id
+                                  )}
+                                  onChange={handleArtistSelection}
+                                />
+                                {artist.name}
+                              </label>
+                            </div>
+                          ))}
+                        </div>
+                      </>
+                    ) : (
+                      <ul>
+                        {attendee.favorite_artists &&
+                        attendee.favorite_artists.length > 0 ? (
+                          attendee.favorite_artists.map((artist) => (
+                            <li key={artist.id}>{artist.name}</li>
+                          ))
+                        ) : (
+                          <li>No favorite artists</li>
+                        )}
+                      </ul>
+                    )}
+                  </td>
+                  <td>
+                    {editingId === attendee.id ? (
+                      <input
+                        className="editattendee"
+                        type="text"
+                        name="social_media"
+                        value={editData.social_media}
+                        onChange={handleInputChange}
+                        placeholder="Enter social media URL"
+                      />
+                    ) : (
+                      attendee.social_media || "No social media provided"
+                    )}
+                  </td>
+                  <td>
+                    {editingId === attendee.id ? (
+                      <>
+                        <button
+                          className="Saveme"
+                          onClick={() => handleSave(attendee.id)}
+                        >
+                          Save
+                        </button>
+                        <button className="Cancelme" onClick={handleCancel}>
+                          Cancel
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <button
+                          className="editbutton"
+                          onClick={() => handleEdit(attendee)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="deletebutton"
+                          onClick={() => handleDelete(attendee.id)}
+                        >
+                          Delete
+                        </button>
+                      </>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          {/* Load More button */}
+          {displayLimit < attendees.length && (
+            <button onClick={loadMoreAttendees} className="load-more-button">
+              Load More
+            </button>
+          )}
         </div>
       )}
     </div>

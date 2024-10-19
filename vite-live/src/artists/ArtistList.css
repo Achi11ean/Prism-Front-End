@@ -57,8 +57,15 @@
     text-align: left; /* Align text to the left */
     background-color: rgba(217, 131, 70, 0.875); /* Slightly transparent white background for readability */
     color: #41024c; /* Text color */
-    font-size: 26px; /* Font size for the table content */
+    font-size: 24px; /* Font size for the table content */
     font-family: 'geneva';
+    max-width: 300px;
+    max-height: 100px; /* Set the max height for the cell */
+    overflow-y: auto;  /* Enable vertical scrolling */
+    word-wrap: break-word;
+    overflow-x: auto;
+    
+
 }
 
 /* Input field for search */
@@ -196,7 +203,7 @@
         box-sizing: border-box; /* Ensure padding doesn’t affect the width */
 }
 .inputartists {
-    font-size: 35px;
+    font-size: 25px;
     border-radius: 30px;
     background-color: rgb(98, 98, 81);
     border: 3px solid rgb(0, 0, 0); /* Light border */

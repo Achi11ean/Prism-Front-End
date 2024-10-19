@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './CreateArtist.css';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import "./CreateArtist.css";
 
 function CreateArtist() {
   const [events, setEvents] = useState([]); // State for events
   const [formData, setFormData] = useState({
-    name: '',
-    age: '',
-    background: '',
-    songs: '',
+    name: "",
+    age: "",
+    background: "",
+    songs: "",
     event_ids: [],
   });
-  const [eventSearchTerm, setEventSearchTerm] = useState('');
-  const [ageError, setAgeError] = useState(''); // State for age validation error
+  const [eventSearchTerm, setEventSearchTerm] = useState("");
+  const [ageError, setAgeError] = useState(""); // State for age validation error
   const navigate = useNavigate();
 
   // Fetch available events from the backend
   useEffect(() => {
-    fetch('http://localhost:5001/events')
-      .then(response => response.json())
-      .then(data => setEvents(data))
-      .catch(error => console.error('Error fetching events:', error));
+    fetch("http://localhost:5001/events")
+      .then((response) => response.json())
+      .then((data) => setEvents(data))
+      .catch((error) => console.error("Error fetching events:", error));
   }, []);
 
   const validateAge = (age) => {
@@ -32,7 +32,7 @@ function CreateArtist() {
 
     // Ensure the age is valid before submitting
     if (!validateAge(Number(formData.age))) {
-      setAgeError('Artist must be at least 18 years old.');
+      setAgeError("Artist must be at least 18 years old.");
       return;
     }
 
@@ -42,19 +42,19 @@ function CreateArtist() {
       event_ids: formData.event_ids.map(Number),
     };
 
-    fetch('http://localhost:5001/artists', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    fetch("http://localhost:5001/artists", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedFormData),
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Artist created:', data);
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Artist created:", data);
         navigate("/artists"); // Redirect to artist list
       })
-      .catch(error => {
-        console.error('Error creating artist:', error);
-        alert('Failed to create artist');
+      .catch((error) => {
+        console.error("Error creating artist:", error);
+        alert("Failed to create artist");
       });
   };
 
@@ -63,8 +63,8 @@ function CreateArtist() {
     setFormData({ ...formData, [name]: value });
 
     // Clear the age error when user starts typing again
-    if (name === 'age' && ageError) {
-      setAgeError('');
+    if (name === "age" && ageError) {
+      setAgeError("");
     }
   };
 
@@ -108,7 +108,8 @@ function CreateArtist() {
           value={formData.age}
           onChange={handleChange}
           required
-          min={18} // HTML5 constraint to block ages below 18
+          min={18}
+          max={100} // HTML5 constraint to block ages below 18
         />
         {ageError && <p className="error-message">{ageError}</p>}
 
@@ -123,9 +124,8 @@ function CreateArtist() {
         ></textarea>
 
         <label htmlFor="artistSongs">Songs</label>
-        <input
+        <textarea
           placeholder="[Enter song names or links or N/A]"
-          type="text"
           id="artistSongs"
           name="songs"
           value={formData.songs}
@@ -141,7 +141,15 @@ function CreateArtist() {
           onChange={(e) => setEventSearchTerm(e.target.value)}
           className="event-search"
         />
-        <div className="event-checkboxes" style={{ maxHeight: '150px', overflowY: 'scroll', border: '1px solid #ccc', padding: '5px' }}>
+        <div
+          className="event-checkboxes"
+          style={{
+            maxHeight: "150px",
+            overflowY: "scroll",
+            border: "1px solid #ccc",
+            padding: "5px",
+          }}
+        >
           {filteredEvents.map((event) => (
             <div key={event.id}>
               <label>

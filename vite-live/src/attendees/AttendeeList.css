@@ -169,6 +169,7 @@
     background-color: rgba(255, 255, 255, 0.9); /* Light background */
     color: #000; /* Text color */
     margin-bottom: 20px; /* Space below select */
+
 }
 
 /* Hover effect for select boxes */
@@ -200,7 +201,8 @@
 }
 .editattendee {
     font-size: 25px;
-    width: 375px;
+    width: 300px;
     border: 2px solid green;
     border-radius: 30px;
+    height: 40px;
 }

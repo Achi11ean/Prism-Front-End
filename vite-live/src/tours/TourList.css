@@ -34,10 +34,10 @@
     padding: 8px; /* Padding inside the input */
     font-size: 60px; /* Adjusted font size for better fit */
     text-align: center; /* Center text in input */
-    border: 1px solid #FF4500; /* Orange-red border */
-    border-radius: 10px; /* Rounded corners */
+    border: 1px solid #e5ff00; /* Orange-red border */
+    border-radius: 30px; /* Rounded corners */
     margin-bottom: 20px; /* Space below the input */
-    background-color: rgba(255, 182, 193, 0.7); /* Light pink background */
+    background-color: rgba(255, 136, 0, 0.7); /* Light pink background */
     width: 1820px; /* Full width input field */
     box-sizing: border-box; /* Ensure padding doesn’t affect the width */
 }
@@ -62,7 +62,6 @@
 /* Style for the table */
 .tour-table {
     width: 100%; /* Ensure the table takes up full width of its container */
-    border-collapse: collapse; /* Collapse borders to avoid double lines */
 }
 .tour-table th:hover {
     background-color: #45a049; /* Darker green on hover */
@@ -80,7 +79,7 @@
     border: 3.5px solid #FF8C00; /* Border for table cells in vibrant orange */
     padding: 8px; /* Padding inside cells for better readability */
     text-align: left; /* Align text to the left */
-    background-color: rgba(144, 238, 144, 0.875); /* Light green background for readability */
+    background-color: rgba(240, 163, 255, 0.875); /* Light green background for readability */
     color: #000; /* Text color */
     font-size: 30px; /* Adjusted font size for better readability */
     font-family: 'Geneva';

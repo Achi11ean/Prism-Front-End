@@ -10,13 +10,14 @@ function CreateAttendee() {
     preferred_event_type: '',
     favorite_event_types: [],
     favorite_artist_ids: [],
-    favorite_event_ids: [], // New field for favorite event IDs
+    favorite_event_ids: [],  // New field for favorite event IDs
+    social_media: ''         // Added social media field
   });
   const [eventTypes, setEventTypes] = useState([]);
   const [artists, setArtists] = useState([]);
-  const [events, setEvents] = useState([]); // New state for events
-  const [artistSearchTerm, setArtistSearchTerm] = useState(''); // State for artist search term
-  const [eventSearchTerm, setEventSearchTerm] = useState(''); // State for event search term
+  const [events, setEvents] = useState([]);  // New state for events
+  const [artistSearchTerm, setArtistSearchTerm] = useState('');  // State for artist search term
+  const [eventSearchTerm, setEventSearchTerm] = useState('');  // State for event search term
   const navigate = useNavigate();
 
   // Fetch available event types, artists, and events on component load
@@ -31,7 +32,7 @@ function CreateAttendee() {
       .then((data) => setArtists(data))
       .catch((error) => console.error('Error fetching artists:', error));
 
-    fetch('http://localhost:5001/events') // Fetch events for the event selection
+    fetch('http://localhost:5001/events')  // Fetch events for the event selection
       .then((response) => response.json())
       .then((data) => setEvents(data))
       .catch((error) => console.error('Error fetching events:', error));
@@ -57,10 +58,8 @@ function CreateAttendee() {
     const newFavoriteArtists = [...newAttendee.favorite_artist_ids];
 
     if (currentIndex === -1) {
-      // If the artist is not selected, add it
       newFavoriteArtists.push(artistId);
     } else {
-      // If the artist is already selected, remove it
       newFavoriteArtists.splice(currentIndex, 1);
     }
 
@@ -72,10 +71,8 @@ function CreateAttendee() {
     const newFavoriteEvents = [...newAttendee.favorite_event_ids];
 
     if (currentIndex === -1) {
-      // If the event is not selected, add it
       newFavoriteEvents.push(eventId);
     } else {
-      // If the event is already selected, remove it
       newFavoriteEvents.splice(currentIndex, 1);
     }
 
@@ -92,7 +89,7 @@ function CreateAttendee() {
     })
       .then((response) => response.json())
       .then(() => {
-        navigate('/attendees'); // Redirect to the attendees list after creation
+        navigate('/attendees');  // Redirect to the attendees list after creation
       })
       .catch((error) => console.error('Error creating attendee:', error));
   };
@@ -134,6 +131,16 @@ function CreateAttendee() {
           required
         />
 
+        <label htmlFor="social_media">Social Media</label>
+        <input
+          placeholder='[Enter Social Media URL]'
+          type="text"
+          name="social_media"
+          id="social_media"
+          value={newAttendee.social_media}
+          onChange={handleInputChange}
+        />
+
         <label>Favorite Event Types:</label>
         <select
           className="attendee-select-event-type" 
@@ -150,17 +157,14 @@ function CreateAttendee() {
 
         <label>Favorite Artists:</label>
         <input
-          
           type="text"
           placeholder="Search Artists"
           value={artistSearchTerm}
-          onChange={(e) => setArtistSearchTerm(e.target.value)} // Capture search term
+          onChange={(e) => setArtistSearchTerm(e.target.value)}
         />
         <div className="event-checkboxes">
           {artists
-            .filter(artist => 
-              artist.name.toLowerCase().includes(artistSearchTerm.toLowerCase())
-            )
+            .filter(artist => artist.name.toLowerCase().includes(artistSearchTerm.toLowerCase()))
             .map((artist) => (
               <div key={artist.id}>
                 <input
@@ -180,15 +184,13 @@ function CreateAttendee() {
           type="text"
           placeholder="Search Events"
           value={eventSearchTerm}
-          onChange={(e) => setEventSearchTerm(e.target.value)} // Capture search term
+          onChange={(e) => setEventSearchTerm(e.target.value)}
         />
         <div className="event-checkboxes">
           {events
-            .filter(event => 
-              event.name.toLowerCase().includes(eventSearchTerm.toLowerCase())
-            )
+            .filter(event => event.name.toLowerCase().includes(eventSearchTerm.toLowerCase()))
             .map((event) => (
-              <div key={event.id} >
+              <div key={event.id}>
                 <input
                   type="checkbox"
                   id={`event-${event.id}`}

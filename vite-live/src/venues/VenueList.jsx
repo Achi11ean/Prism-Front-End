@@ -11,9 +11,11 @@ function VenueList() {
     organizer: '',
     email: '',
     earnings: '',
+    description: ''  // Added description field
   });
-  const [errorMessage, setErrorMessage] = useState(''); // This line defines the error message state
+  const [errorMessage, setErrorMessage] = useState(''); // Error message state
   const [emailError, setEmailError] = useState(''); // State for email validation error
+  const [displayLimit, setDisplayLimit] = useState(5); // State to limit number of displayed venues
 
   const navigate = useNavigate();
 
@@ -51,6 +53,7 @@ function VenueList() {
       organizer: venue.organizer,
       email: venue.email,
       earnings: venue.earnings,
+      description: venue.description  // Populate the description field
     });
   };
 
@@ -104,6 +107,11 @@ function VenueList() {
       .catch((error) => console.error('Error deleting venue:', error));
   };
 
+  // Load more venues when the button is clicked
+  const loadMoreVenues = () => {
+    setDisplayLimit((prevLimit) => prevLimit + 5); // Increase limit by 5
+  };
+
   return (
     <div className="venue-list-container">
       <h2>Venue List</h2>
@@ -131,7 +139,6 @@ function VenueList() {
         </p>
       )} {/* Email validation error display */}
       
-      
       <table border="1" cellPadding="10" className="venue-table">
         <thead>
           <tr>
@@ -140,11 +147,12 @@ function VenueList() {
             <th>Organizer</th>
             <th>Email</th>
             <th>Earnings</th>
+            <th>Description</th>  {/* New Description column */}
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {venues.map((venue) => (
+          {venues.slice(0, displayLimit).map((venue) => (  // Limit venues displayed by displayLimit
             <tr key={venue.id}>
               {editingVenueId === venue.id ? (
                 <>
@@ -186,6 +194,15 @@ function VenueList() {
                     />
                   </td>
                   <td>
+                    <textarea
+                      className='editvenue'
+                      name="description"
+                      value={editFormData.description}
+                      onChange={handleEditChange}
+                      rows="3"
+                    />
+                  </td>
+                  <td>
                     <button className="Saveme" onClick={() => handleSaveClick(venue.id)}>Save</button>
                     <button className="Cancelme" onClick={handleCancelClick}>Cancel</button>
                   </td>
@@ -197,6 +214,7 @@ function VenueList() {
                   <td>{venue.organizer}</td>
                   <td>{venue.email}</td>
                   <td>{venue.earnings}</td>
+                  <td>{venue.description}</td>  {/* Displaying description */}
                   <td>
                     <button className="editbutton" onClick={() => handleEditClick(venue)}>Edit</button>
                     <button className="deletebutton" onClick={() => handleDeleteClick(venue.id)}>Delete</button>
@@ -207,7 +225,13 @@ function VenueList() {
           ))}
         </tbody>
       </table>
+
+      {/* Load More button */}
+      {displayLimit < venues.length && (
+        <button onClick={loadMoreVenues} className="load-more-button">Load More</button>
+      )}
     </div>
   );
 }
+
 export default VenueList;

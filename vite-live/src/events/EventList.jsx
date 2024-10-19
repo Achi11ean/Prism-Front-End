@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import "./EventList.css";
 
 function EventList() {
@@ -22,12 +21,21 @@ function EventList() {
   const [errorMessage, setErrorMessage] = useState("");
   const [artistSearchTerm, setArtistSearchTerm] = useState("");
   const [venueSearchTerm, setVenueSearchTerm] = useState(""); // State for venue search input
+  const [displayLimit, setDisplayLimit] = useState(5); // Limit number of events displayed by default
 
   const formatTimeTo12Hour = (time24) => {
     const [hours, minutes] = time24.split(":");
     const period = +hours >= 12 ? "PM" : "AM";
     const hours12 = +hours % 12 || 12; // Convert to 12-hour format
     return `${hours12}:${minutes} ${period}`;
+  };
+
+  const formatDateString = (dateString) => {
+    const date = new Date(dateString);
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const day = String(date.getUTCDate()).padStart(2, '0');
+    const year = date.getUTCFullYear();
+    return `${month}/${day}/${year}`;
   };
 
   const navigate = useNavigate();
@@ -76,7 +84,7 @@ function EventList() {
     setEditingEventId(event.id);
     setEditFormData({
       name: event.name,
-      date: new Date(event.date).toISOString().split("T")[0],
+      date: new Date(event.date).toISOString().split('T')[0],
       time: event.time,
       location: event.location,
       description: event.description,
@@ -117,22 +125,9 @@ function EventList() {
         return;
       }
 
-      // Parse the date correctly without UTC conversion
-      const dateParts = editFormData.date.split("-");
-      const localDate = new Date(
-        parseInt(dateParts[0]), // Year
-        parseInt(dateParts[1]) - 1, // Month (0-based index)
-        parseInt(dateParts[2]) // Day
-      );
-
-      // Format the date as YYYY-MM-DD without using toISOString()
-      const formattedDate = `${localDate.getFullYear()}-${String(
-        localDate.getMonth() + 1
-      ).padStart(2, "0")}-${String(localDate.getDate()).padStart(2, "0")}`;
-
       const updatedFormData = {
         ...editFormData,
-        date: formattedDate, // No UTC shift, date stays consistent
+        date: editFormData.date, // Use the date as-is
         time: editFormData.time,
       };
 
@@ -169,6 +164,11 @@ function EventList() {
         setEvents(events.filter((event) => event.id !== eventId));
       })
       .catch((error) => console.error("Error deleting event:", error));
+  };
+
+  // Load more events when the button is clicked
+  const loadMoreEvents = () => {
+    setDisplayLimit((prevLimit) => prevLimit + 5); // Increase limit by 5
   };
 
   // Filter artists based on search input
@@ -222,7 +222,7 @@ function EventList() {
             </tr>
           </thead>
           <tbody>
-            {events.map((event) => (
+            {events.slice(0, displayLimit).map((event) => (
               <tr key={event.id}>
                 {editingEventId === event.id ? (
                   <>
@@ -385,7 +385,7 @@ function EventList() {
                   <>
                     <td>{event.id}</td>
                     <td>{event.name}</td>
-                    <td>{new Date(event.date).toLocaleDateString()}</td>
+                    <td>{formatDateString(event.date)}</td>
                     <td>{formatTimeTo12Hour(event.time)}</td>
                     <td>{event.location}</td>
                     <td>{event.description}</td>
@@ -414,6 +414,13 @@ function EventList() {
             ))}
           </tbody>
         </table>
+
+        {/* Load More button */}
+        {displayLimit < events.length && (
+          <button onClick={loadMoreEvents} className="load-more-button">
+            Load More
+          </button>
+        )}
       </div>
     </div>
   );

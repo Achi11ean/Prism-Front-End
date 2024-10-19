@@ -19,13 +19,7 @@ function CreateTour() {
   const [eventSearchTerm, setEventSearchTerm] = useState(''); // State for event search term
   const [venueSearchTerm, setVenueSearchTerm] = useState(''); // State for venue search term
   const [artistSearchTerm, setArtistSearchTerm] = useState(''); // State for artist search term
-  const formatDate = (date) => {
-    const parsedDate = new Date(date);
-    const month = String(parsedDate.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
-    const day = String(parsedDate.getDate()).padStart(2, '0');
-    const year = parsedDate.getFullYear();
-    return `${month}/${day}/${year}`; // Format as MM/DD/YYYY
-  };
+
   const navigate = useNavigate();
 
   // Fetch available events, venues, and artists from the backend
@@ -52,8 +46,8 @@ function CreateTour() {
     // Ensure event_ids are integers and format dates
     const updatedFormData = {
       ...formData,
-      start_date: formatDate(formData.start_date),
-      end_date: formatDate(formData.end_date),
+      start_date: formData.start_date,
+      end_date: formData.end_date,
       event_ids: formData.event_ids.map(Number), // Convert strings to numbers
     };
   

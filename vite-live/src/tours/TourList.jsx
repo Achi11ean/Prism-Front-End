@@ -26,18 +26,19 @@ function TourList() {
   const [originalFormData, setOriginalFormData] = useState(null);
 
   const navigate = useNavigate();
-  const formatDate = (date) => {
-    const parsedDate = new Date(date); 
-    const month = String(parsedDate.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
-    const day = String(parsedDate.getDate()).padStart(2, '0');
-    const year = parsedDate.getFullYear();
-    return `${month}/${day}/${year}`; // Format as MM/DD/YYYY
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(date.getUTCDate()).padStart(2, '0');
+    const year = date.getUTCFullYear();
+    return `${month}/${day}/${year}`;
   };
+  
   
   // Fetch tours, events, venues, and artists from the backend
   useEffect(() => {
     const url = searchTerm
-      ? `http://127.0.0.1:5001/tours/search?query=${searchTerm}`
+      ? `http://127.0.0.1:5001/tours/search?name=${searchTerm}`
       : "http://127.0.0.1:5001/tours";
 
     fetch(url)
@@ -80,35 +81,71 @@ function TourList() {
 
   // Handle the edit button click to edit a tour
   const handleEditClick = (tour) => {
-    setEditingTourId(tour.id);
-    setEditFormData({
+    // Extract the original event and creator data
+    const originalEventIds = tour.events ? tour.events.map((event) => event.id) : [];
+    const originalCreatedById = tour.created_by_id || null;
+    const originalCreatedByArtistId = tour.created_by_artist_id || null;
+  
+    // Save the original form data for potential rollback or comparison
+    setOriginalFormData({
       name: tour.name,
-      start_date: new Date(`${editFormData.start_date}T10:00:00`).toLocaleDateString("en-US"), 
-      end_date: new Date(`${editFormData.end_date}T10:00:00`).toLocaleDateString("en-US"), 
+      start_date: tour.start_date,
+      end_date: tour.end_date,
       description: tour.description,
       social_media_handles: tour.social_media_handles,
-      event_ids: tour.events.map((event) => event.id), 
-      created_by_id: tour.created_by_id, // For venue
-      created_by_artist_id: tour.created_by_artist_id, 
+      event_ids: originalEventIds,
+      created_by_id: originalCreatedById,
+      created_by_artist_id: originalCreatedByArtistId,
     });
-  };
   
+    // Populate the edit form data with the same original tour data for editing purposes
+    setEditFormData({
+      name: tour.name,
+      start_date: new Date(tour.start_date).toISOString().split('T')[0],
+      end_date: new Date(tour.end_date).toISOString().split('T')[0],
+      description: tour.description,
+      social_media_handles: tour.social_media_handles,
+      event_ids: originalEventIds, // Prepopulate with original event IDs
+      created_by_id: originalCreatedById, // Prepopulate with original venue ID
+      created_by_artist_id: originalCreatedByArtistId, // Prepopulate with original artist ID
+    });
+  
+    // Set the editing tour ID to track the tour being edited
+    setEditingTourId(tour.id);
+  };
   // Handle input changes for editing
   const handleEditChange = (e) => {
     const { name, value } = e.target;
-    setEditFormData({ ...editFormData, [name]: value });
+    let newValue = value;
+  
+    // Ensure only one creator is selected
+    if (name === "created_by_id" || name === "created_by_artist_id") {
+      newValue = value ? Number(value) : null;
+    }
+  
+    setEditFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: newValue,
+      ...(name === "created_by_id" && newValue ? { created_by_artist_id: null } : {}),
+      ...(name === "created_by_artist_id" && newValue ? { created_by_id: null } : {}),
+    }));
   };
 
   // Save the updated tour data
 // Save the updated tour data
 const handleSaveClick = (tourId) => {
+  // Convert event_ids to numbers and filter out NaN
+  const updatedEventIds = editFormData.event_ids
+    .map(Number)
+    .filter((id) => !isNaN(id));
+
   const updatedFormData = {
     name: editFormData.name,
-    start_date: new Date(`${editFormData.start_date}T10:00:00`).toLocaleDateString("en-US"), // Convert to MM/DD/YYYY, setting time to 10 AM
-    end_date: new Date(`${editFormData.end_date}T10:00:00`).toLocaleDateString("en-US"), // Convert to MM/DD/YYYY, setting time to 10 AM
+    start_date: editFormData.start_date,
+    end_date: editFormData.end_date,
     description: editFormData.description,
     social_media_handles: editFormData.social_media_handles,
-    event_ids: editFormData.event_ids.map(Number),
+    event_ids: updatedEventIds,
     created_by_id: editFormData.created_by_id,
     created_by_artist_id: editFormData.created_by_artist_id,
   };
@@ -122,9 +159,8 @@ const handleSaveClick = (tourId) => {
                          `Social Media Handles: ${updatedFormData.social_media_handles}\n` +
                          `Events: ${updatedFormData.event_ids.join(", ")}`;
 
-  // Show the confirmation dialog
   if (window.confirm(confirmMessage)) {
-    console.log("Updating tour:", updatedFormData); // Log the data being sent
+    console.log("Updating tour:", updatedFormData);
 
     fetch(`http://127.0.0.1:5001/tours/${tourId}`, {
       method: "PATCH",
@@ -133,25 +169,30 @@ const handleSaveClick = (tourId) => {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Failed to update tour");
+          return response.json().then((errorData) => {
+            throw new Error(
+              errorData.message || "Failed to update tour due to server error."
+            );
+          });
         }
         return response.json();
       })
       .then((updatedTour) => {
-        console.log("Updated tour response:", updatedTour); // Log the response
+        console.log("Updated tour response:", updatedTour);
         setTours(
           tours.map((tour) => (tour.id === tourId ? updatedTour : tour))
         );
-        setEditingTourId(null); // Exit editing mode
+        setEditingTourId(null);
       })
       .catch((error) => {
         console.error("Error updating tour:", error);
-        alert("Failed to update tour");
+        alert("Failed to update tour: " + error.message);
       });
   } else {
-    console.log("Update canceled by user."); // Optional: log the cancellation
+    console.log("Update canceled by user.");
   }
 };
+
   // Handle canceling the edit
   const handleCancelClick = () => {
     setEditingTourId(null);
@@ -169,6 +210,26 @@ const handleSaveClick = (tourId) => {
       })
       .catch((error) => console.error("Error deleting tour:", error));
   };
+
+  const handleEventSelection = (eventId) => {
+    const numericEventId = Number(eventId);
+    if (isNaN(numericEventId)) {
+      console.error('Invalid event ID:', eventId);
+      return; // Exit the function if the eventId is not a valid number
+    }
+  
+    setEditFormData((prevState) => {
+      const isSelected = prevState.event_ids.includes(numericEventId);
+      return {
+        ...prevState,
+        event_ids: isSelected
+          ? prevState.event_ids.filter((id) => id !== numericEventId)
+          : [...prevState.event_ids, numericEventId],
+      };
+    });
+  };
+  
+  
 
   return (
     <div className="tour-list-container">
@@ -269,36 +330,40 @@ const handleSaveClick = (tourId) => {
                       value={eventSearchTerm}
                       onChange={(e) => setEventSearchTerm(e.target.value)}
                     />
-                    <div className="event-checkboxes">
+                    <div
+                      className="event-checkboxes"
+                      style={{
+                        maxHeight: "150px",
+                        overflowY: "scroll",
+                        border: "1px solid #ccc",
+                        padding: "5px",
+                      }}
+                    >
                       {events
                         .filter(event =>
                           event.name.toLowerCase().includes(eventSearchTerm.toLowerCase())
                         )
                         .map((event) => (
                           <div key={event.id}>
-                            <input
-                              type="checkbox"
-                              id={`event-${event.id}`}
-                              value={event.id}
-                              checked={editFormData.event_ids.includes(event.id)}
-                              onChange={(e) => {
-                                const selectedEventId = parseInt(e.target.value);
-                                const updatedEventIds = editFormData.event_ids.includes(selectedEventId)
-                                  ? editFormData.event_ids.filter(id => id !== selectedEventId) // Uncheck the box
-                                  : [...editFormData.event_ids, selectedEventId]; // Check the box
-
-                                setEditFormData({ ...editFormData, event_ids: updatedEventIds });
-                              }}
-                            />
-                            <label htmlFor={`event-${event.id}`}>{event.name}</label>
+                            <label>
+                              <input
+                                type="checkbox"
+                                value={event.id}
+                                checked={editFormData.event_ids.includes(Number(event.id))}
+                                onChange={() => handleEventSelection(event.id)}
+                              />
+                              {event.name}
+                            </label>
                           </div>
                         ))}
                     </div>
                   </td>
+
+
                   <td>
                     {/* Search input for venues */}
                     <input
-                      placeholder="search for venues"
+                      placeholder="Search Venues..."
                       type="text"
                       value={venueSearchTerm}
                       onChange={(e) => setVenueSearchTerm(e.target.value)}
@@ -312,21 +377,17 @@ const handleSaveClick = (tourId) => {
                       onChange={handleEditChange}
                     >
                       <option value="">Select Venue</option>
-                      {venues
-                        .filter(venue =>
-                          venue.name.toLowerCase().includes(venueSearchTerm.toLowerCase())
-                        )
-                        .map((venue) => (
-                          <option key={venue.id} value={venue.id}>
-                            {venue.name}
-                          </option>
-                        ))}
+                      {venues.map((venue) => (
+                        <option key={venue.id} value={venue.id}>
+                          {venue.name}
+                        </option>
+                      ))}
                     </select>
                     <br />
                     {/* Search input for artists */}
                     <input
                       type="text"
-                      placeholder="Search Artists"
+                      placeholder="Search Artists..."
                       value={artistSearchTerm}
                       onChange={(e) => setArtistSearchTerm(e.target.value)}
                       className="searchedit"
@@ -339,17 +400,15 @@ const handleSaveClick = (tourId) => {
                       onChange={handleEditChange}
                     >
                       <option value="">Select Artist</option>
-                      {artists
-                        .filter(artist =>
-                          artist.name.toLowerCase().includes(artistSearchTerm.toLowerCase())
-                        )
-                        .map((artist) => (
-                          <option key={artist.id} value={artist.id}>
-                            {artist.name}
-                          </option>
-                        ))}
+                      {artists.map((artist) => (
+                        <option key={artist.id} value={artist.id}>
+                          {artist.name}
+                        </option>
+                      ))}
                     </select>
                   </td>
+
+
                   <td>
                     <button
                       className="Saveme"
@@ -366,8 +425,8 @@ const handleSaveClick = (tourId) => {
                 <>
                   <td>{tour.id}</td>
                   <td>{tour.name}</td>
-                  <td>{tour.start_date}</td>
-                  <td>{tour.end_date}</td>
+                  <td>{formatDate(tour.start_date)}</td>
+                  <td>{formatDate(tour.end_date)}</td>
                   <td>{tour.description}</td>
                   <td>{tour.social_media_handles}</td>
                   <td>

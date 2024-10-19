@@ -7,7 +7,8 @@ function CreateVenue() {
         name: '',
         organizer: '',
         email: '',
-        earnings: ''
+        earnings: '',
+        description: ''  // Added description field
     });
     const [emailError, setEmailError] = useState(''); // State for email validation error
     const navigate = useNavigate();
@@ -56,10 +57,11 @@ function CreateVenue() {
             <h2>Create New Venue</h2>
             <form className="venue-form" onSubmit={handleSubmit}>
                 <div>
-                    <label>Venue Name:</label>
+                    <label htmlFor="venueName">Venue Name:</label>
                     <br />
                     <input
                         placeholder='CT: Zen Bar'
+                        id="venueName"
                         type="text"
                         name="name"
                         value={newVenue.name}
@@ -69,11 +71,12 @@ function CreateVenue() {
                 </div>
                 <br />
                 <div>
-                    <label>Organizer:</label>
+                    <label htmlFor="venueOrganizer">Organizer:</label>
                     <br />
                     <input
                         placeholder='[Enter Primary Event Organizer First and Last Name]'
                         type="text"
+                        id="venueOrganizer"
                         name="organizer"
                         value={newVenue.organizer}
                         onChange={handleInputChange}
@@ -82,11 +85,12 @@ function CreateVenue() {
                 </div>
                 <br />
                 <div>
-                    <label>Email:</label>
+                    <label htmlFor="email">Email:</label>
                     <br />
                     <input
                         placeholder='[Enter Your email Address Here]'
                         type="email"
+                        id="email"
                         name="email"
                         value={newVenue.email}
                         onChange={handleInputChange}
@@ -100,14 +104,29 @@ function CreateVenue() {
                 </div>
                 <br />
                 <div>
-                    <label>Earnings:</label>
+                    <label htmlFor="earnings">Earnings:</label>
                     <br />
                     <input
                         placeholder='[Average Artist Earning: $100, Free Shots, Door Cover]'
                         type="text"
+                        id="earnings"
                         name="earnings"
                         value={newVenue.earnings}
                         onChange={handleInputChange}
+                        required
+                    />
+                </div>
+                <br />
+                <div>
+                    <label htmlFor="description">Description:</label>
+                    <br />
+                    <textarea
+                        placeholder='[Describe the venue details, ambiance, etc.]'
+                        id="description"
+                        name="description"
+                        value={newVenue.description}
+                        onChange={handleInputChange}
+                        rows="4"
                         required
                     />
                 </div>

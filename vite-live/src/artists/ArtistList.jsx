@@ -16,6 +16,7 @@ function ArtistList() {
   });
   const [events, setEvents] = useState([]); // For holding events
   const [errorMessage, setErrorMessage] = useState("");
+  const [displayLimit, setDisplayLimit] = useState(5); // Limit number of artists displayed by default
 
   const navigate = useNavigate();
 
@@ -60,7 +61,7 @@ function ArtistList() {
       age: artist.age,
       background: artist.background,
       songs: artist.songs.join(", "), // Assuming songs is an array
-      event_ids: artist.event_ids || [], // Link associated events
+      event_ids: artist.events ? artist.events.map(event => event.id) : [], // Extract event IDs from the events array
     });
   };
 
@@ -124,6 +125,31 @@ function ArtistList() {
       .catch((error) => console.error("Error deleting artist:", error));
   };
 
+  // Load more artists when the button is clicked
+  const loadMoreArtists = () => {
+    setDisplayLimit((prevLimit) => prevLimit + 5); // Increase limit by 5
+  };
+
+  const renderSongs = (songs) => {
+    return songs.split(",").map((song, index) => {
+      const parts = song.split(" ");
+      return (
+        <span key={index}>
+          {parts.map((part, i) =>
+            part.startsWith("https://") ? (
+              <a key={i} href={part} target="_blank" rel="noopener noreferrer">
+                {part}
+              </a>
+            ) : (
+              <span key={i}>{part} </span>
+            )
+          )}
+          {index < songs.length - 1 && ", "}
+        </span>
+      );
+    });
+  };
+
   return (
     <div className="artist-list-container">
       <h2>Artist List</h2>
@@ -147,7 +173,7 @@ function ArtistList() {
           {errorMessage}
         </p>
       )}
-      <div class="table-container">
+      <div className="table-container">
         <table border="1" cellPadding="10" className="artist-table">
           <thead>
             <tr>
@@ -162,7 +188,7 @@ function ArtistList() {
             </tr>
           </thead>
           <tbody>
-            {artists.map((artist) => (
+            {artists.slice(0, displayLimit).map((artist) => (  // Limit artists displayed by displayLimit
               <tr key={artist.id}>
                 {editingArtistId === artist.id ? (
                   <>
@@ -183,25 +209,28 @@ function ArtistList() {
                         name="age"
                         value={editFormData.age}
                         onChange={handleEditChange}
+                        min="18"
+                        max="100"
                       />
                     </td>
                     <td>
-                      <input
-                        className="inputartists"
-                        type="text"
+                      <textarea
+                        className="limit"
                         name="background"
                         value={editFormData.background}
                         onChange={handleEditChange}
+                        placeholder="Enter background information"
+                        rows="4"
+                        maxLength={500}
                       />
                     </td>
                     <td>
-                      <input
-                        className="inputartists"
-                        type="text"
+                      <textarea
                         name="songs"
                         value={editFormData.songs}
                         onChange={handleEditChange}
-                        placeholder="e.g. Song1, Song2"
+                        placeholder="e.g. Song1: https://example.com, Song2: https://example.com"
+                        rows="4"
                       />
                     </td>
                     <td>
@@ -212,7 +241,6 @@ function ArtistList() {
                         value={eventSearchTerm}
                         onChange={(e) => setEventSearchTerm(e.target.value)}
                       />
-                      {/* Scrollable events container */}
                       <div
                         className="event-checkboxes"
                         style={{ maxHeight: "150px", overflowY: "auto" }}
@@ -262,10 +290,7 @@ function ArtistList() {
                       </div>
                     </td>
                     <td>
-                      <button
-                        className="Saveme"
-                        onClick={() => handleSaveClick(artist.id)}
-                      >
+                      <button className="Saveme" onClick={() => handleSaveClick(artist.id)}>
                         Save
                       </button>
                       <button className="Cancelme" onClick={handleCancelClick}>
@@ -279,7 +304,7 @@ function ArtistList() {
                     <td>{artist.name}</td>
                     <td>{artist.age}</td>
                     <td>{artist.background}</td>
-                    <td>{artist.songs.join(", ")}</td>
+                    <td>{renderSongs(artist.songs.join(", "))}</td>
                     <td>
                       {artist.events
                         ? artist.events.map((event) => event.name).join(", ")
@@ -291,8 +316,7 @@ function ArtistList() {
                             .map((attendee) => attendee.name)
                             .join(", ")
                         : "No Favorites"}
-                    </td>{" "}
-                    {/* List of attendees who favorited the artist */}
+                    </td>
                     <td>
                       <button
                         className="editbutton"
@@ -313,6 +337,11 @@ function ArtistList() {
             ))}
           </tbody>
         </table>
+
+        {/* Load More button */}
+        {displayLimit < artists.length && (
+          <button onClick={loadMoreArtists} className="load-more-button">Load More</button>
+        )}
       </div>
     </div>
   );
