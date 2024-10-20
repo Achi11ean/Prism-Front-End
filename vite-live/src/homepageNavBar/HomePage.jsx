@@ -6,7 +6,7 @@ function HomePage() {
         <div className="homepage">
 
             <span id="rainbow2"> <h1 id="rainbow">PRISM</h1></span>
-            <p>💡Bringing Artists, Venues, and Fans together to share the light💡</p>
+            <p className="light">💡Bringing Artists, Venues, and Fans together to share the light💡</p>
         </div>
     );
 }

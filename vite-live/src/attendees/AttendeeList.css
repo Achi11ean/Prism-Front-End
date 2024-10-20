@@ -3,7 +3,7 @@
     background-color: rgba(255, 165, 0, 0.662); /* Vibrant orange background with transparency */
     padding: 20px;
     width: 2600px;
-    max-width: 2600px; /* Max width for the attendee list container */
+    max-width: 1800px; /* Max width for the attendee list container */
     margin: 40px auto; /* Center the container horizontally */
     border-radius: 40px; /* Rounded corners for a nice look */
     box-shadow: 20px 18px 20px rgba(239, 236, 236, 0.895); /* Add a shadow */
@@ -194,7 +194,7 @@
     width: 100%; /* Full width input field */
     box-sizing: border-box; /* Ensure padding doesn’t affect width */
     font-family: 'Franklin', sans-serif; /* Change to a fun font */
-    max-width: 1900px;
+    max-width: 1800px;
     color: black; /* Text color */
     padding: 8px; /* Padding */
     background-color: rgba(255, 255, 224, 0.8); /* Light yellow background */

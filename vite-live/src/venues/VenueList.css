@@ -46,7 +46,7 @@
   text-align: center; /* Center text in input */
   border: 2px solid #ff1493; /* Deep pink border */
   border-radius: 10px; /* Rounded corners */
-  width:1500px;
+  width:1300px;
   margin-bottom: 20px; /* Space below the search input */
   background-color: rgb(173, 216, 230); /* Light blue background */
   box-sizing: border-box; /* Ensure padding doesn’t affect the width */

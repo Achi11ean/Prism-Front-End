@@ -2,7 +2,7 @@
 .event-list-container {
   background-color: rgba(255, 218, 185, 0.662); /* Light peach background with transparency */
   padding: 20px;
-  max-width: 2900px; /* Max width for the event list container */
+  max-width: 1800px; /* Max width for the event list container */
   margin: 40px auto; /* Center the container horizontally */
   border-radius: 40px; /* Rounded corners for a nice look */
   box-shadow: 20px 18px 20px rgba(239, 236, 236, 0.895); /* Add a shadow */
@@ -208,7 +208,7 @@
  .searchme {
     padding: 8px; /* Padding inside the input */
     text-align: center;
-    width: 1820px;
+    width: 1220px;
     font-size: 60px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     border: 2px solid #FF1493; /* Deep pink border */

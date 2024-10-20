@@ -33,7 +33,6 @@ function SignOut() {
         }
       } catch (error) {
         console.error('Error during sign out:', error);
-        alert('An error occurred while signing out. Please try again.');
         // Optionally, redirect to an error page or stay on the current page
       }
     };
