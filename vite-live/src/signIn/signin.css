@@ -8,83 +8,111 @@
 
 /* Container styling */
 .sign-in-container {
-    background-color: rgba(255, 192, 203, 0.8); /* Background with transparency */
+    background-color: rgba(0, 255, 200, 0.681); /* Background with transparency */
     padding: 40px;
     width: 1900px;
     max-width: 1500px; /* Width of the form container */
     margin: 50px auto; /* Center the form on the page */
-    border-radius: 12px; /* Rounded corners */
-    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    border-radius: 40px; /* Rounded corners */
+    box-shadow: 20px 20px 20px rgba(255, 255, 255, 0.878); /* Subtle shadow */
     color: #3e2723; /* Darker text color for better contrast */
 }
 
 /* Form header styling */
 .sign-in-container h2 {
     text-align: center;
-    background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
-    background-clip: text; /* Ensures the gradient is clipped to the text */
-    -webkit-text-fill-color: transparent; /* Makes the inside of the text transparent, showing the gradient */
-    font-family: Trebuchet;
+    font-family:cursive;
     font-weight: 700;
-    font-size: 4rem; /* Increased font size for the header */
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Shadow effect for the title */
+    color:#6200ea;
+    font-size: 6rem; /* Increased font size for the header */
+    text-shadow: 10px 10px 10px rgb(236, 0, 0); /* Shadow effect for the title */
 }
 
 /* Label styling */
 .sign-in-container label {
     display: block;
     font-size: 3em; /* Large font for labels */
-    margin-left: 220px;
+    margin-left: 420px;
     margin-right: 250px;
     border-radius: 60px;
     margin-bottom: 10px;
+    width: 600px;
     text-align: center;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    color: rgb(76, 78, 74); /* Dark grey color for labels */
-    transition: background-color 0.3s; /* Smooth transition for hover */
+    color: #6600ff; /* White text for labels */
+    background: linear-gradient(135deg, #ffffff 0%, #0062ff8d 100%); /* Vibrant gradient background */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
+    padding: 15px 20px; /* Padding for better spacing */
+    transition: all 0.3s ease; /* Smooth transition for hover and effects */
+    cursor: pointer; /* Make labels clickable */
 }
 
-/* Label hover effect */
+/* Hover effect */
 .sign-in-container label:hover {
-    background-color: rgba(255, 182, 193, 0.7); /* Light pink on hover */
+    background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); /* Change gradient on hover */
+    color: #fff; /* Keep white text */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4); /* Deeper shadow on hover */
+    transform: scale(1.05); /* Slight zoom-in on hover */
 }
-
+.signin {
+    text-align: center;
+    color:#ffffff;
+    font-family: cursive;
+    border-radius: 40px;
+    
+}
 /* Input and textarea field styling */
 .sign-in-container input[type="text"],
 .sign-in-container input[type="number"],
 .sign-in-container input[type="password"],
 .sign-in-container textarea {
-    width: 100%; /* Make inputs longer */
-    padding: 15px; /* Increased padding for inputs */
-    font-size: 2em; /* Font size for input text */
-    background-color: rgb(20, 218, 192); /* Soft teal background */
+    width: 100%; /* Full-width input */
+    padding: 15px; /* Increased padding for comfort */
+    font-size: 2em; /* Larger font size */
     font-family: 'Geneva', sans-serif;
     margin-bottom: 20px; /* Space between inputs */
-    border: 2px solid #f57c00; /* Orange border */
-    border-radius: 20px; /* Rounded input corners */
-    box-sizing: border-box; /* Include padding in width */
-    transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s; /* Transition effects */
-    text-align: center; /* Center text */
+    border: 2px solid #ffffff; /* White border */
+    border-radius: 40px; /* Rounded corners */
+    box-sizing: border-box; /* Padding and width inclusion */
+    text-align: center; /* Center-align text */
+    transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s; /* Smooth transitions */
+
+    /* Vibrant background gradient */
+    background: linear-gradient(135deg, #a49bf6, #f77088); /* Gradient from pastel pink to peach */
+    color: #333; /* Dark text color for readability */
 }
 
-/* Input focus effect with animation */
-.sign-in-container input:focus,
+/* Hover effect with different colors */
+.sign-in-container input[type="text"]:hover,
+.sign-in-container input[type="number"]:hover,
+.sign-in-container input[type="password"]:hover,
+.sign-in-container textarea:hover {
+    border-color: #ff77a9; /* Pink border on hover */
+    box-shadow: 0 0 15px rgba(230, 0, 255, 0.6); /* Pink glow effect */
+    transform: translateY(-3px); /* Lift input on hover */
+}
+
+/* Focus effect for inputs */
+.sign-in-container input[type="text"]:focus,
+.sign-in-container input[type="number"]:focus,
+.sign-in-container input[type="password"]:focus,
 .sign-in-container textarea:focus {
-    border-color: #ff9800; /* Bright orange on focus */
-    box-shadow: 0 0 8px rgba(255, 152, 0, 0.5); /* Glow effect on focus */
-    outline: none; /* Remove default outline */
-    transform: scale(1.02); /* Slightly enlarge the input */
+    background: linear-gradient(135deg, #a1c4fd, #c2e9fb); /* Soft blue gradient on focus */
+    border-color: #0078ff; /* Blue border on focus */
+    box-shadow: 0 0 10px rgba(0, 120, 255, 0.7); /* Blue glow effect */
+    color: #000; /* Darker text for focus */
 }
 
 /* Dropdown (select) styling */
 .sign-in-container input,
 .sign-in-container select {
+    text-align: center;
     width: 100%; /* Full width dropdown */
     padding: 15px; /* Padding for dropdown */
     font-size: 2.5em; /* Font size for select text */
     margin-bottom: 20px; /* Space between dropdowns */
     background: linear-gradient(45deg, #ff6b6b, #ffdd00); /* Gradient background from pink to yellow */
-    border: 3px solid #ff5722; /* Orange border */
+    border: 3px solid #ffffff; /* Orange border */
     border-radius: 20px; /* More rounded corners */
     box-sizing: border-box; /* Include padding in width */
     color: #3e2723; /* Darker text color for contrast */
@@ -109,7 +137,7 @@
 /* Dropdown focus effect */
 .sign-in-container select:focus {
     border-color: #ff9800; /* Highlight border with an orange color on focus */
-    box-shadow: 0 0 10px rgba(255, 152, 0, 0.5); /* Glow effect for focus */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Glow effect for focus */
     outline: none; /* Remove default outline */
     transform: scale(1.02); /* Slightly enlarge the select */
 }
@@ -118,15 +146,18 @@
 .sign-in-container button {
     display: block;
     font-family: 'Impact', 'Haettenschweiler', 'Arial Narrow Bold', sans-serif;
-    width: 100%; /* Full width button */
+    width: 600px; /* Full width button */
     padding: 15px;
-    background: linear-gradient(45deg, #1efc05, #ffdd00); /* Gradient from bright green to yellow */
+    background: linear-gradient(45deg, #f37979, #b874ef); /* Gradient from bright green to yellow */
     color: rgb(0, 0, 0); /* Dark text for better contrast */
     border: none; /* Remove the border for a cleaner look */
     border-radius: 30px; /* More rounded corners */
     cursor: pointer;
+    color:white;
+    text-decoration: none;
+    margin-left: 450px;    
     font-size: 3rem; /* Button font size */
-    margin-top: 20px;
+    margin-top: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
 }
 
@@ -181,6 +212,7 @@
     text-decoration: underline;
     cursor: pointer;
     font-size: 1.2rem;
+    
 }
 
 .toggle-button:hover {
@@ -194,25 +226,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 20px; /* Space below the container */
+    margin-bottom: 10px; /* Space below the container */
     position: relative; /* Keep relative positioning */
 }
 
-/* Password input field */
-.password-input-container input {
-    flex: 1; /* Input takes the full remaining width */
-    padding-right: 50px; /* Add padding on the right to prevent overlap with the button */
-    padding-left: 15px;
-    border: 2px solid #f57c00; /* Orange border */
-    border-radius: 20px; /* Rounded input corners */
-    font-size: 2em; /* Font size for input text */
-    background-color: rgb(20, 218, 192); /* Soft teal background */
-    font-family: 'Geneva', sans-serif;
-    margin-bottom: 20px; /* Space between inputs */
-    box-sizing: border-box; /* Include padding in width */
-    transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s; /* Transition effects */
-    text-align: center; /* Center text */
-}
+
 
 /* Toggle password visibility button */
 .toggle-password-button {
@@ -342,4 +360,8 @@
     content: '✖';
     margin-right: 8px;
     color: red;
+}
+.signout {
+    border-radius: 40px;
+    font-family: cursive;
 }

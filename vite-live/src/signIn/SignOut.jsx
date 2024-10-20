@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './SignIn.css';
 
 function SignOut() {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ function SignOut() {
         if (response.ok) {
           const data = await response.json();
           console.log('Sign out successful:', data);
+          alert('You have been successfully signed out.');
           // Redirect to the home page or login page after sign out
           navigate('/');
         } else {
@@ -40,9 +42,11 @@ function SignOut() {
   }, [navigate]);
 
   return (
+    <span className="signout">
     <div className="signout-container">
       <p>Signing out...</p>
     </div>
+    </span>
   );
 }
 

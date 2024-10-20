@@ -192,7 +192,9 @@ function SignIn() {
             required
             aria-describedby="password-error"
           />
-          <button type="button" className="toggle-password-button" onClick={togglePasswordVisibility}>
+          </div>
+          <div>
+          <button type="button" className="toggle" onClick={togglePasswordVisibility}>
             {showPassword ? 'Hide' : 'Show'}
           </button>
         </div>
@@ -250,13 +252,14 @@ function SignIn() {
 
         <button type="submit">{isSignUp ? 'Sign Up' : 'Sign In'}</button>
       </form>
-
+        <span className="signin">
       <p>
         {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
         <button className="toggle-button" onClick={handleToggle}>
           {isSignUp ? 'Sign In' : 'Sign Up'}
         </button>
       </p>
+      </span>
     </div>
   );
 }
