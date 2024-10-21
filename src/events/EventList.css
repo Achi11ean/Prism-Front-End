@@ -66,6 +66,7 @@
   background-color: rgba(255, 228, 196, 0.764); /* Slightly transparent light peach background for readability */
   color: #8A2BE2; /* Text color - BlueViolet */
   font-size: 20px;
+  max-width:240px;
 }
 
 /* Input field for search */
@@ -170,7 +171,7 @@
 .selecteventtypes,
 .selectevent {
   width: 100%; /* Make select boxes full width */
-  padding: 15px; /* Add padding for better spacing */
+  padding: 10px; /* Add padding for better spacing */
   font-size: 22px; /* Increase font size */
   border: 2px solid #FF69B4; /* Bright pink border */
   border-radius: 8px; /* Rounded corners */
@@ -222,7 +223,7 @@
   }
  
 .inputedit {
-  font-size: 20px;
+  font-size: 16px;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   background-color: rgba(0, 191, 255, 0.8); /* Light blue background */
   border-radius: 30px; /* Rounded corners */
