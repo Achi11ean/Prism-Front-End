@@ -38,8 +38,8 @@ function TourList() {
   // Fetch tours, events, venues, and artists from the backend
   useEffect(() => {
     const url = searchTerm
-      ? `http://127.0.0.1:5001/tours/search?name=${searchTerm}`
-      : "http://127.0.0.1:5001/tours";
+      ? `https://phase4project-xp0u.onrender.com/tours/search?name=${searchTerm}`
+      : "https://phase4project-xp0u.onrender.com/tours";
 
     fetch(url)
       .then((response) => {
@@ -62,18 +62,18 @@ function TourList() {
       });
 
     // Fetch available events for selection
-    fetch("http://127.0.0.1:5001/events")
+    fetch("https://phase4project-xp0u.onrender.com/events")
       .then((response) => response.json())
       .then((data) => setEvents(data))
       .catch((error) => console.error("Error fetching events:", error));
 
     // Fetch venues and artists
-    fetch("http://127.0.0.1:5001/venues")
+    fetch("https://phase4project-xp0u.onrender.com/venues")
       .then((response) => response.json())
       .then((data) => setVenues(data))
       .catch((error) => console.error("Error fetching venues:", error));
 
-    fetch("http://127.0.0.1:5001/artists")
+    fetch("https://phase4project-xp0u.onrender.com/artists")
       .then((response) => response.json())
       .then((data) => setArtists(data))
       .catch((error) => console.error("Error fetching artists:", error));
@@ -170,7 +170,7 @@ const handleSaveClick = (tourId) => {
   if (window.confirm(confirmMessage)) {
     console.log("Updating tour:", updatedFormData);
 
-    fetch(`http://127.0.0.1:5001/tours/${tourId}`, {
+    fetch(`https://phase4project-xp0u.onrender.com/tours/${tourId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedFormData),
@@ -210,7 +210,7 @@ const handleSaveClick = (tourId) => {
 
   // Handle deleting a tour
   const handleDeleteClick = (tourId) => {
-    fetch(`http://127.0.0.1:5001/tours/${tourId}`, {
+    fetch(`https://phase4project-xp0u.onrender.com/tours/${tourId}`, {
       method: "DELETE",
     })
       .then(() => {

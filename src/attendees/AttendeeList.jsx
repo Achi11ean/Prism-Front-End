@@ -29,7 +29,7 @@ function AttendeeList() {
 
   useEffect(() => {
     // Fetch artists
-    fetch("http://localhost:5001/artists")
+    fetch("https://phase4project-xp0u.onrender.com/artists")
       .then((response) => response.json())
       .then((data) => {
         setArtists(data);
@@ -41,8 +41,8 @@ function AttendeeList() {
 
   useEffect(() => {
     const url = searchTerm
-      ? `http://localhost:5001/attendees/search?name=${searchTerm}`
-      : "http://localhost:5001/attendees";
+      ? `https://phase4project-xp0u.onrender.com/attendees/search?name=${searchTerm}`
+      : "https://phase4project-xp0u.onrender.com/attendees";
 
     fetch(url)
       .then((response) => response.json())
@@ -62,12 +62,12 @@ function AttendeeList() {
         console.error("Error fetching attendees:", error);
       });
 
-    fetch("http://localhost:5001/events")
+    fetch("https://phase4project-xp0u.onrender.com/events")
       .then((response) => response.json())
       .then((data) => setEvents(data))
       .catch((error) => console.error("Error fetching events:", error));
 
-    fetch("http://localhost:5001/event-types")
+    fetch("https://phase4project-xp0u.onrender.com/event-types")
       .then((response) => response.json())
       .then((data) => {
         console.log("Fetched event types:", data); // Debugging log
@@ -77,7 +77,7 @@ function AttendeeList() {
   }, [searchTerm]);
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:5001/attendees/${id}`, {
+    fetch(`https://phase4project-xp0u.onrender.com/attendees/${id}`, {
       method: "DELETE",
     })
       .then((response) => {
@@ -191,7 +191,7 @@ function AttendeeList() {
       social_media: editData.social_media, // Include social media here
     };
 
-    fetch(`http://localhost:5001/attendees/${id}`, {
+    fetch(`https://phase4project-xp0u.onrender.com/attendees/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

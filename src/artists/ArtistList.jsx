@@ -23,8 +23,8 @@ function ArtistList() {
   // Fetch artists and events from the backend
   useEffect(() => {
     const url = searchTerm
-      ? `http://127.0.0.1:5001/artists/search?name=${searchTerm}`
-      : "http://127.0.0.1:5001/artists";
+      ? `https://phase4project-xp0u.onrender.com/artists/search?name=${searchTerm}`
+      : "https://phase4project-xp0u.onrender.com/artists";
 
     fetch(url)
       .then((response) => {
@@ -47,7 +47,7 @@ function ArtistList() {
       });
 
     // Fetch available events for selection
-    fetch("http://127.0.0.1:5001/events")
+    fetch("https://phase4project-xp0u.onrender.com/events")
       .then((response) => response.json())
       .then((data) => setEvents(data))
       .catch((error) => console.error("Error fetching events:", error));
@@ -84,7 +84,7 @@ function ArtistList() {
       event_ids: editFormData.event_ids.map(Number), // Convert to numbers
     };
 
-    fetch(`http://127.0.0.1:5001/artists/${artistId}`, {
+    fetch(`https://phase4project-xp0u.onrender.com/artists/${artistId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedFormData), // Send the updated form data
@@ -116,7 +116,7 @@ function ArtistList() {
 
   // Handle deleting an artist
   const handleDeleteClick = (artistId) => {
-    fetch(`http://127.0.0.1:5001/artists/${artistId}`, {
+    fetch(`https://phase4project-xp0u.onrender.com/artists/${artistId}`, {
       method: "DELETE",
     })
       .then(() => {

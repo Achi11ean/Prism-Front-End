@@ -21,8 +21,8 @@ function VenueList() {
 
   useEffect(() => {
     const url = searchTerm
-      ? `http://127.0.0.1:5001/venues/search?name=${searchTerm}`
-      : 'http://127.0.0.1:5001/venues';
+      ? `https://phase4project-xp0u.onrender.com/venues/search?name=${searchTerm}`
+      : 'https://phase4project-xp0u.onrender.com/venues';
   
     fetch(url)
       .then((response) => {
@@ -78,7 +78,7 @@ function VenueList() {
       return;
     }
 
-    fetch(`http://127.0.0.1:5001/venues/${venueId}`, {
+    fetch(`https://phase4project-xp0u.onrender.com/venues/${venueId}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(editFormData),
@@ -98,7 +98,7 @@ function VenueList() {
 
   // Handle deleting a venue
   const handleDeleteClick = (venueId) => {
-    fetch(`http://127.0.0.1:5001/venues/${venueId}`, {
+    fetch(`https://phase4project-xp0u.onrender.com/venues/${venueId}`, {
       method: 'DELETE',
     })
       .then(() => {

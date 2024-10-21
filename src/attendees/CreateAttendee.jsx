@@ -22,17 +22,17 @@ function CreateAttendee() {
 
   // Fetch available event types, artists, and events on component load
   useEffect(() => {
-    fetch('http://localhost:5001/event-types')
+    fetch('https://phase4project-xp0u.onrender.com/event-types')
       .then((response) => response.json())
       .then((data) => setEventTypes(data))
       .catch((error) => console.error('Error fetching event types:', error));
 
-    fetch('http://localhost:5001/artists')
+    fetch('https://phase4project-xp0u.onrender.com/artists')
       .then((response) => response.json())
       .then((data) => setArtists(data))
       .catch((error) => console.error('Error fetching artists:', error));
 
-    fetch('http://localhost:5001/events')  // Fetch events for the event selection
+    fetch('https://phase4project-xp0u.onrender.com/events')  // Fetch events for the event selection
       .then((response) => response.json())
       .then((data) => setEvents(data))
       .catch((error) => console.error('Error fetching events:', error));
@@ -82,7 +82,7 @@ function CreateAttendee() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch('http://localhost:5001/attendees', {
+    fetch('https://phase4project-xp0u.onrender.com/attendees', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newAttendee),

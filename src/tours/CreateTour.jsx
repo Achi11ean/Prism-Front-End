@@ -24,17 +24,17 @@ function CreateTour() {
 
   // Fetch available events, venues, and artists from the backend
   useEffect(() => {
-    fetch('http://localhost:5001/events')
+    fetch('https://phase4project-xp0u.onrender.com/events')
       .then(response => response.json())
       .then(data => setEvents(data))
       .catch(error => console.error('Error fetching events:', error));
 
-    fetch('http://localhost:5001/venues')
+    fetch('https://phase4project-xp0u.onrender.com/venues')
       .then(response => response.json())
       .then(data => setVenues(data))
       .catch(error => console.error('Error fetching venues:', error));
 
-    fetch('http://localhost:5001/artists')
+    fetch('https://phase4project-xp0u.onrender.com/artists')
       .then(response => response.json())
       .then(data => setArtists(data))
       .catch(error => console.error('Error fetching artists:', error));
@@ -69,7 +69,7 @@ function CreateTour() {
     if (!updatedFormData.created_by_artist_id) delete updatedFormData.created_by_artist_id;
   
     // Submit tour creation request to the backend
-    fetch('http://localhost:5001/tours', {
+    fetch('https://phase4project-xp0u.onrender.com/tours', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updatedFormData),

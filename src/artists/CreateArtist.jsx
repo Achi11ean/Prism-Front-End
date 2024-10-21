@@ -17,7 +17,7 @@ function CreateArtist() {
 
   // Fetch available events from the backend
   useEffect(() => {
-    fetch("http://localhost:5001/events")
+    fetch("https://phase4project-xp0u.onrender.com/events")
       .then((response) => response.json())
       .then((data) => setEvents(data))
       .catch((error) => console.error("Error fetching events:", error));
@@ -42,7 +42,7 @@ function CreateArtist() {
       event_ids: formData.event_ids.map(Number),
     };
 
-    fetch("http://localhost:5001/artists", {
+    fetch("https://phase4project-xp0u.onrender.com/artists", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedFormData),

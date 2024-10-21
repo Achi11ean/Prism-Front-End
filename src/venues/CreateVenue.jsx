@@ -38,7 +38,7 @@ function CreateVenue() {
             return; // Stop submission if the email is invalid
         }
 
-        fetch('http://127.0.0.1:5001/venues', {
+        fetch('https://phase4project-xp0u.onrender.com/venues', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

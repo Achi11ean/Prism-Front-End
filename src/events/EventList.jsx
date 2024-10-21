@@ -43,8 +43,8 @@ function EventList() {
   // Fetch events, venues, and artists from the backend
   useEffect(() => {
     const url = searchTerm
-      ? `http://127.0.0.1:5001/events/search?searchTerm=${searchTerm}`
-      : "http://127.0.0.1:5001/events";
+      ? `https://phase4project-xp0u.onrender.com/events/search?searchTerm=${searchTerm}`
+      : "https://phase4project-xp0u.onrender.com/events";
 
     fetch(url)
       .then((response) => {
@@ -67,13 +67,13 @@ function EventList() {
       });
 
     // Fetch venues for dropdown selection during editing
-    fetch("http://127.0.0.1:5001/venues")
+    fetch("https://phase4project-xp0u.onrender.com/venues")
       .then((response) => response.json())
       .then((data) => setVenues(data))
       .catch((error) => console.error("Error fetching venues:", error));
 
     // Fetch artists for checkbox selection
-    fetch("http://127.0.0.1:5001/artists")
+    fetch("https://phase4project-xp0u.onrender.com/artists")
       .then((response) => response.json())
       .then((data) => setArtists(data))
       .catch((error) => console.error("Error fetching artists:", error));
@@ -131,7 +131,7 @@ function EventList() {
         time: editFormData.time,
       };
 
-      fetch(`http://127.0.0.1:5001/events/${eventId}`, {
+      fetch(`https://phase4project-xp0u.onrender.com/events/${eventId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedFormData),
@@ -157,7 +157,7 @@ function EventList() {
 
   // Handle deleting an event
   const handleDeleteClick = (eventId) => {
-    fetch(`http://127.0.0.1:5001/events/${eventId}`, {
+    fetch(`https://phase4project-xp0u.onrender.com/events/${eventId}`, {
       method: "DELETE",
     })
       .then(() => {

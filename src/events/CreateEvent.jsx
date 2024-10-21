@@ -23,17 +23,17 @@ function CreateEvent() {
 
   // Fetch available venues, event types, and artists from the backend
   useEffect(() => {
-    fetch('http://127.0.0.1:5001/venues')
+    fetch('https://phase4project-xp0u.onrender.com/venues')
       .then((response) => response.json())
       .then((data) => setVenues(data))
       .catch((error) => console.error('Error fetching venues:', error));
 
-    fetch('http://127.0.0.1:5001/event-types')
+    fetch('https://phase4project-xp0u.onrender.com/event-types')
       .then((response) => response.json())
       .then((data) => setEventTypes(data))
       .catch((error) => console.error('Error fetching event types:', error));
 
-    fetch('http://127.0.0.1:5001/artists')
+    fetch('https://phase4project-xp0u.onrender.com/artists')
       .then((response) => response.json())
       .then((data) => setArtists(data))
       .catch((error) => console.error('Error fetching artists:', error));
@@ -44,7 +44,7 @@ function CreateEvent() {
     e.preventDefault();
     setErrorMessage(''); // Clear previous error message
     // Submit event creation request to the backend
-    fetch('http://127.0.0.1:5001/events', {
+    fetch('https://phase4project-xp0u.onrender.com/events', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
