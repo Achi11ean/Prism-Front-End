@@ -6,8 +6,8 @@ nav {
     /* position: sticky; */
     top: 0;
     z-index: 10;
-    border-top: 8px solid aqua;
-    border-bottom: 8px solid aqua;
+    border-top: 8px solid rgb(255, 255, 255);
+    border-bottom: 8px solid rgb(255, 255, 255);
 }
 
 nav ul {
