@@ -24,6 +24,7 @@ function AttendeeList() {
   const [artistSearchTerm, setArtistSearchTerm] = useState(""); // For favorite artists search
   const [artists, setArtists] = useState([]);
   const [displayLimit, setDisplayLimit] = useState(5); // Limit number of attendees displayed by default
+  const [eventTypeSearchTerm, setEventTypeSearchTerm] = useState(""); // New state for event types search
 
   const navigate = useNavigate();
 
@@ -155,13 +156,13 @@ function AttendeeList() {
 
   const handleSocialMediaChange = (e) => {
     const { value } = e.target;
-  
+
     // Split by commas to get each social media entry, then split by colon to get platform and URL
     const socialMediaArray = value.split(",").map((entry) => {
-      const [platform, url] = entry.split(":").map(part => part.trim());
+      const [platform, url] = entry.split(":").map((part) => part.trim());
       return { platform, url };
     });
-  
+
     // Update editData with the structured array of social media entries
     setEditData({ ...editData, social_media: socialMediaArray });
   };
@@ -350,7 +351,7 @@ function AttendeeList() {
                             border: "1px solid #ccc",
                             padding: "5px",
                             fontSize: "20px",
-                            width: "200px"
+                            width: "200px",
                           }}
                         >
                           {filteredEvents.map((event) => (
@@ -392,8 +393,10 @@ function AttendeeList() {
                           className="editattendee"
                           type="text"
                           placeholder="Search favorite event types..."
-                          value={eventSearchTerm}
-                          onChange={handleEventSearchChange}
+                          value={eventTypeSearchTerm} // Use the new state variable
+                          onChange={(e) =>
+                            setEventTypeSearchTerm(e.target.value)
+                          } // Update the correct state
                         />
                         <div
                           className="event-checkboxes"
@@ -403,24 +406,30 @@ function AttendeeList() {
                             border: "1px solid #ccc",
                             padding: "5px",
                             fontSize: "20px",
-                            width: "200px"
+                            width: "200px",
                           }}
                         >
-                          {eventTypes.map((eventType) => (
-                            <div key={eventType}>
-                              <label>
-                                <input
-                                  type="checkbox"
-                                  value={eventType}
-                                  checked={editData.favorite_event_types.includes(
-                                    eventType
-                                  )}
-                                  onChange={handleEventTypeSelection}
-                                />
-                                {eventType}
-                              </label>
-                            </div>
-                          ))}
+                          {eventTypes
+                            .filter((eventType) =>
+                              eventType
+                                .toLowerCase()
+                                .includes(eventTypeSearchTerm.toLowerCase())
+                            )
+                            .map((eventType) => (
+                              <div key={eventType}>
+                                <label>
+                                  <input
+                                    type="checkbox"
+                                    value={eventType}
+                                    checked={editData.favorite_event_types.includes(
+                                      eventType
+                                    )}
+                                    onChange={handleEventTypeSelection}
+                                  />
+                                  {eventType}
+                                </label>
+                              </div>
+                            ))}
                         </div>
                       </>
                     ) : (
@@ -455,7 +464,7 @@ function AttendeeList() {
                             border: "1px solid #ccc",
                             padding: "5px",
                             fontSize: "20px",
-                            width: "200px"
+                            width: "200px",
                           }}
                         >
                           {filteredArtists.map((artist) => (

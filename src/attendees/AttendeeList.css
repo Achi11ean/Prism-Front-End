@@ -38,6 +38,7 @@
     font-size: 20px; /* Font size for the table content */
     font-family: 'Franklin', sans-serif; /* Change to a fun font */
     font-weight: 900; /* Bold text */
+    max-width: 210px;
     
 }
 .attendee-table th {
@@ -209,7 +210,7 @@
 }
 .editattendee {
     font-size: 20px;
-    max-width: 200px;
+    max-width: 150px;
     border: 2px solid green;
     border-radius: 30px;
     height: 40px;
