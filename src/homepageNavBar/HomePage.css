@@ -87,27 +87,28 @@ h2 {
 
     .homepage {
         width: 100%; /* Adjust width to fit smaller screen */
-        padding: 10px; /* Increase padding for mobile */
+
     }
 
     .homepage h1 {
-        font-size: 5rem; /* Reduce font size */
+        font-size: 4rem; /* Reduce font size */
         padding-bottom: 50px;
         padding: 15px; /* Adjust padding */
     }
 
     #rainbow {
-        font-size: 150px; /* Scale down large font */
+        font-size: 130px; /* Scale down large font */
         background-clip: text;
         -webkit-text-fill-color: transparent;
+        margin-left: 70px;
     }
 
     .homepage p {
-        font-size: 2em; /* Scale down text */
+        font-size: 3em; /* Scale down text */
         margin-bottom: 50px; /* Reduce bottom margin */
-        margin-left: 10px; /* Align better on smaller screen */
+        margin-left: 60px; /* Align better on smaller screen */
         padding: 10px;
-        width: 90%; /* Adjust width for mobile */
+        width: 70%; /* Adjust width for mobile */
         text-align: center; /* Center-align text on mobile */
     }
 
