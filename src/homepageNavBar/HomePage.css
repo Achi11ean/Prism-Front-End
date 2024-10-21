@@ -19,11 +19,10 @@
 .homepage p {
     color: rgb(255, 255, 255);
     font-size: 3.2em;
-    margin-top: 70px;
     margin-bottom: 290px;
     background: linear-gradient(45deg, pink, rgb(9, 238, 219),rgb(85, 225, 63), rgb(255, 54, 255));
     width: fit-content;
-    margin-left: 220px;
+    margin-left: 200px;
     font-weight: 700;
     font-style:italic;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -51,7 +50,7 @@
 
 .homepage h1 {
     font-size: 8rem;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     padding-bottom: 95px;
     background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
     padding: 20px; /* Padding inside the h1 to give space around the text */
