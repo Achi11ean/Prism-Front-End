@@ -93,14 +93,14 @@ h2 {
     .homepage h1 {
         font-size: 4rem; /* Reduce font size */
         padding-bottom: 50px;
-        padding: 15px; /* Adjust padding */
+        padding: 5px; /* Adjust padding */
     }
 
     #rainbow {
         font-size: 110px; /* Scale down large font */
         background-clip: text;
         -webkit-text-fill-color: transparent;
-        margin-left: 20px;
+        margin-left: 10px;
     }
 
     .homepage p {
