@@ -82,3 +82,49 @@ h2 {
     font-size: 60px;
     text-decoration: underline double ;
 }
+/* Media query for iPhone 15 (or similar smaller screens) */
+@media only screen and (max-width: 1179px) {
+
+    .homepage {
+        width: 100%; /* Adjust width to fit smaller screen */
+        padding: 10px; /* Increase padding for mobile */
+    }
+
+    .homepage h1 {
+        font-size: 5rem; /* Reduce font size */
+        padding-bottom: 50px;
+        padding: 15px; /* Adjust padding */
+    }
+
+    #rainbow {
+        font-size: 150px; /* Scale down large font */
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .homepage p {
+        font-size: 2em; /* Scale down text */
+        margin-bottom: 50px; /* Reduce bottom margin */
+        margin-left: 10px; /* Align better on smaller screen */
+        padding: 10px;
+        width: 90%; /* Adjust width for mobile */
+        text-align: center; /* Center-align text on mobile */
+    }
+
+    #rainbow2 {
+        padding-top: 100px;
+        border-radius: 50px;
+        padding-right: 10px;
+        padding-left: 10px;
+        padding-bottom: 10px;
+        box-shadow: 10px 10px 5px; /* Reduce shadow size */
+    }
+
+    h2 {
+        font-size: 40px; /* Adjust h2 size */
+    }
+
+    #welcome {
+        font-size: 40px; /* Reduce font size for better fit */
+    }
+}
