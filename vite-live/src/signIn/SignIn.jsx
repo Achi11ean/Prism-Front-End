@@ -278,8 +278,9 @@ function SignIn() {
         <button type="submit">{isSignUp ? 'Sign Up' : 'Sign In'}</button>
       </form>
       <p>
-        {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
-        <button className="toggle-button" onClick={handleToggle}>
+        <span className="toggle-button">
+        {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}</span>
+        <button  onClick={handleToggle}>
           {isSignUp ? 'Sign In' : 'Sign Up'}
         </button>
       </p>

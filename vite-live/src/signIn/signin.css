@@ -202,6 +202,7 @@
 .toggle-button {
     background: none;
     border: none;
+    margin-left: 640px;
     color: blue;
     text-decoration: underline;
     cursor: pointer;
