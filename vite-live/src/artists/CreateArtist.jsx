@@ -88,7 +88,7 @@ function CreateArtist() {
     <div className="create-artist-container">
       <h2>Create Artist</h2>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="artistName">Artist Name</label>
+        <label className="labels" htmlFor="artistName">Artist Name</label>
         <input
           placeholder="[Enter Stage Name]"
           type="text"
@@ -99,7 +99,7 @@ function CreateArtist() {
           required
         />
 
-        <label htmlFor="artistAge">Age</label>
+        <label className="labels" htmlFor="artistAge">Age</label>
         <input
           placeholder="[Enter Age]"
           type="number"
@@ -113,7 +113,7 @@ function CreateArtist() {
         />
         {ageError && <p className="error-message">{ageError}</p>}
 
-        <label htmlFor="artistBackground">Background</label>
+        <label className="labels" htmlFor="artistBackground">Background</label>
         <textarea
           placeholder="[Social Media: @HarmonicEssence | Performance Goals:...]"
           id="artistBackground"
@@ -123,7 +123,7 @@ function CreateArtist() {
           required
         ></textarea>
 
-        <label htmlFor="artistSongs">Songs</label>
+        <label className="labels" htmlFor="artistSongs">Songs</label>
         <textarea
           placeholder="[Enter song names or links or N/A]"
           id="artistSongs"
@@ -133,7 +133,7 @@ function CreateArtist() {
           required
         />
 
-        <label htmlFor="eventSelect">Events</label>
+        <label className="labels" htmlFor="eventSelect">Events</label>
         <input
           type="text"
           placeholder="Search Events..."

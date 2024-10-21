@@ -121,25 +121,50 @@ function SignIn() {
         if (data.error) {
           alert(data.error);
         } else {
+          const userType = data.user_type; // Use the user_type from backend response
           // Redirect based on user_type
-          switch (data.user_type) {
-            case 'artist':
-              navigate('/create-artist');
-              break;
-            case 'attendee':
-              navigate('/create-attendee');
-              break;
-            case 'event':
-              navigate('/create-event');
-              break;
-            case 'tour':
-              navigate('/create-tour');
-              break;
-            case 'venue':
-              navigate('/create-venue');
-              break;
-            default:
-              navigate('/');
+          if (isSignUp) {
+            // Redirect to "create" page for the user type if signing up
+            switch (userType) {
+              case 'artist':
+                navigate('/create-artist');
+                break;
+              case 'attendee':
+                navigate('/create-attendee');
+                break;
+              case 'event':
+                navigate('/create-event');
+                break;
+              case 'tour':
+                navigate('/create-tour');
+                break;
+              case 'venue':
+                navigate('/create-venue');
+                break;
+              default:
+                navigate('/');
+            }
+          } else {
+            // Redirect to "list" page for the user type if signing in
+            switch (userType) {
+              case 'artist':
+                navigate('/artists');
+                break;
+              case 'attendee':
+                navigate('/attendees');
+                break;
+              case 'event':
+                navigate('/events');
+                break;
+              case 'tour':
+                navigate('/tours');
+                break;
+              case 'venue':
+                navigate('/venues');
+                break;
+              default:
+                navigate('/');
+            }
           }
         }
       })
@@ -192,8 +217,8 @@ function SignIn() {
             required
             aria-describedby="password-error"
           />
-          </div>
-          <div>
+        </div>
+        <div>
           <button type="button" className="toggle" onClick={togglePasswordVisibility}>
             {showPassword ? 'Hide' : 'Show'}
           </button>
@@ -252,14 +277,12 @@ function SignIn() {
 
         <button type="submit">{isSignUp ? 'Sign Up' : 'Sign In'}</button>
       </form>
-        <span className="signin">
       <p>
         {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
         <button className="toggle-button" onClick={handleToggle}>
           {isSignUp ? 'Sign In' : 'Sign Up'}
         </button>
       </p>
-      </span>
     </div>
   );
 }

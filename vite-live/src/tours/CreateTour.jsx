@@ -39,15 +39,22 @@ function CreateTour() {
       .then(data => setArtists(data))
       .catch(error => console.error('Error fetching artists:', error));
   }, []);
-
+  const formatToMMDDYYYY = (dateString) => {
+    const date = new Date(dateString);
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${month}/${day}/${year}`;  // Return in mm/dd/yyyy format
+  };
+  
   const handleSubmit = (e) => {
     e.preventDefault();
   
     // Ensure event_ids are integers and format dates
     const updatedFormData = {
       ...formData,
-      start_date: formData.start_date,
-      end_date: formData.end_date,
+      start_date: formatToMMDDYYYY(formData.start_date),  // Convert to mm/dd/yyyy
+      end_date: formatToMMDDYYYY(formData.end_date),
       event_ids: formData.event_ids.map(Number), // Convert strings to numbers
     };
   

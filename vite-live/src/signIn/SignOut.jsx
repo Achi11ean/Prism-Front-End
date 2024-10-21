@@ -28,7 +28,6 @@ function SignOut() {
         } else {
           const errorData = await response.json();
           console.error('Sign out failed:', errorData);
-          alert('Failed to sign out. Please try again.');
           // Optionally, redirect to an error page or stay on the current page
         }
       } catch (error) {

@@ -117,7 +117,7 @@ function VenueList() {
       <h2>Venue List</h2>
   
       {/* Create button */}
-      <button className="Createvenue" onClick={() => navigate("/create-venue")}>Create New Venue</button>
+      <button className="Createvenue" onClick={() => navigate("/create-venue")}>Create Venue</button>
       {/* Search input */}
       <input
         className='search-venue'

@@ -1,5 +1,5 @@
 nav {
-    background-color: #f8f9fa;
+    background: linear-gradient(45deg, rgb(246, 78, 78),  rgb(254, 254, 135), rgb(45, 202, 255), violet);
     padding: 10px 0;
     width: 100%;
     box-sizing: border-box;
@@ -7,7 +7,7 @@ nav {
     top: 0;
     z-index: 10;
     border-top: 8px solid aqua;
-    border-bottom: 8px solid aqua
+    border-bottom: 8px solid aqua;
 }
 
 nav ul {
@@ -26,6 +26,7 @@ nav li {
 
 nav a {
     text-decoration: none;
+    font-family: cursive;
     border-radius: 10px;
     color: black;
     font-size: 42px;
@@ -35,21 +36,21 @@ nav a {
 }
 
 nav a:hover {
-    color: rgb(0, 255, 0);
+    color: rgb(255, 255, 255);
+    
 }
 
 .signin {
     font-size: 40px;
-    border: 2px solid black;
-    background-color: rgb(76, 118, 255);
-    color: white;
-    padding: 3px;
+    border-radius: 40px;
+    background-color: rgb(199, 247, 144);
+    color: rgb(0, 0, 0);
+    padding: 5px;
 }
 .signout {
     font-size: 40px;
-    border: 2px solid black;
-    background-color: rgb(255, 0, 0);
-    color: white;
-    padding: 3px;
+    background-color: rgb(254, 121, 121);
+    color: rgb(0, 0, 0);
+    padding: 5px;
 
 }

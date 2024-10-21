@@ -54,13 +54,7 @@
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4); /* Deeper shadow on hover */
     transform: scale(1.05); /* Slight zoom-in on hover */
 }
-.signin {
-    text-align: center;
-    color:#ffffff;
-    font-family: cursive;
-    border-radius: 40px;
-    
-}
+
 /* Input and textarea field styling */
 .sign-in-container input[type="text"],
 .sign-in-container input[type="number"],

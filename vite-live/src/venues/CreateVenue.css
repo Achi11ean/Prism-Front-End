@@ -2,8 +2,8 @@
 .create-venue-container {
   background-color: rgba(255, 158, 97, 0.8); /* Warm coral background with transparency */
   padding: 40px;
-  width:1800px;
-  max-width: 2500px;
+  width:1400px;
+  max-width: 1400px;
   margin: 50px auto;
   border-radius: 15px;
   box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
@@ -17,25 +17,27 @@
   margin-bottom: 30px;
   font-size: 5rem;
   color: #ffde7d; /* Fun yellow for title */
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  text-shadow: 10px 10px 10px rgba(0, 0, 0, 0.845);
 }
 
 /* Label styling */
 .create-venue-container label {
   display: block;
-  padding: 10px 20px;
+  padding: 5px 20px;
   border-radius: 50px;
-  background-color: rgba(159, 236, 255, 0.8); /* Light blue background */
+  background: linear-gradient(45deg, red,violet);
   margin: 10px auto;
   text-align: center;
   font-size: 2.5rem;
-  color: rgb(92, 41, 222); /* Bold purple text */
+  color: rgb(251, 251, 251); /* Bold purple text */
   transition: background-color 0.3s;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 /* Label hover effect */
 .create-venue-container label:hover {
-  background-color: rgba(100, 210, 255, 0.9); /* Slightly deeper blue on hover */
+
+  background: linear-gradient(45deg, rgb(9, 238, 219),rgb(85, 225, 63));
 }
 
 /* Input and select field styling */
@@ -44,9 +46,11 @@
 .create-venue-container input[type="number"],
 .create-venue-container select,
 .create-venue-container textarea {
-  width: 100%;
+  width: 1300px;
+  margin-left: 30px;
   padding: 15px;
   font-size: 2rem;
+  text-align: center;
   margin-bottom: 20px;
   border: 2px solid #ff6f61; /* Coral border */
   border-radius: 20px;

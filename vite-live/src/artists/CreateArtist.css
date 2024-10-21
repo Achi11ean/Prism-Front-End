@@ -32,10 +32,14 @@
     margin-bottom: 10px;
     text-align: center;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    color: rgb(76, 78, 74); /* Dark grey color for labels */
+    color: rgb(255, 255, 255); /* Dark grey color for labels */
     transition: background-color 0.3s; /* Smooth transition for hover */
 }
 
+.labels {
+    background: linear-gradient(45deg, rgb(9, 238, 219),rgb(85, 225, 63));
+
+}
 /* Label hover effect */
 .create-artist-container label:hover {
     background-color: rgba(255, 182, 193, 0.7); /* Light pink on hover */
@@ -48,10 +52,11 @@
     width: 100%; /* Make inputs longer */
     padding: 15px; /* Increased padding for inputs */
     font-size: 2em; /* Font size for input text */
-    background-color: rgb(20, 218, 192); /* Soft teal background */
+    background-color: #ebfaca; /* Soft teal background */
     font-family: 'Geneva', sans-serif;
     margin-bottom: 20px; /* Space between inputs */
     border: 2px solid #f57c00; /* Orange border */
+    color:black;
     border-radius: 20px; /* Rounded input corners */
     box-sizing: border-box; /* Include padding in width */
     transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s; /* Transition effects */

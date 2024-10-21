@@ -2,7 +2,7 @@
 .attendee-list-container {
     background-color: rgba(255, 165, 0, 0.662); /* Vibrant orange background with transparency */
     padding: 20px;
-    width: 2600px;
+    width: 1900px;
     max-width: 1800px; /* Max width for the attendee list container */
     margin: 40px auto; /* Center the container horizontally */
     border-radius: 40px; /* Rounded corners for a nice look */
@@ -29,27 +29,35 @@
     border-collapse: collapse; /* Collapse borders to avoid double lines */
 }
 
-.attendee-table th, .attendee-table td {
+.attendee-table td {
     border: 2px solid #f761b1; /* Bright pink border for table cells */
     padding: 6px; /* Padding inside cells for better readability */
     text-align: left; /* Align text to the left */
     background-color: rgba(100, 149, 237, 0.764); /* Slightly transparent cornflower blue background */
     color: #ffee00; /* White text color */
-    font-size: 30px; /* Font size for the table content */
+    font-size: 20px; /* Font size for the table content */
     font-family: 'Franklin', sans-serif; /* Change to a fun font */
     font-weight: 900; /* Bold text */
     
 }
-.attendee-table th:hover {
-    background-color: #4f9b38; /* Darker green on hover */
-  }
 .attendee-table th {
-    background-color: #2fb056; /* Darker header row */
-    color: #feffff; /* Cyan header text */
+    border: 2px solid #f761b1; /* Bright pink border for table cells */
+    padding: 6px; /* Padding inside cells for better readability */
+    text-align: left; /* Align text to the left */
+    background: linear-gradient(45deg, violet, cyan, lime); /* Gradient background */
+    color: #000000; /* White text color */
+    font-size: 20px; /* Font size for the table content */
+    font-family: 'Franklin', sans-serif; /* Change to a fun font */
+    font-weight: 900; /* Bold text */ 
+    border-top-left-radius: 15px;  
+    border-top-right-radius: 15px;  
+    text-align: center;
     position: sticky; /* Enable sticky positioning */
     top: 0; /* Stick to the top of the container */
     z-index: 10; /* Ensure it is above other content when scrolling */
 }
+
+
 .attendee-table tr:nth-child(even) {
     background-color: #f2f2f2; /* Light gray background for even rows */
 }
@@ -161,9 +169,9 @@
 /* Styling for select boxes */
 .selecteventtypes,
 .selectevent {
-    width: 100%; /* Make select boxes full width */
+    width:100px; /* Make select boxes full width */
     padding: 15px; /* Add padding for better spacing */
-    font-size: 22px; /* Increase font size */
+    font-size: 15px; /* Increase font size */
     border: 2px solid #FF69B4; /* Bright pink border */
     border-radius: 8px; /* Rounded corners */
     background-color: rgba(255, 255, 255, 0.9); /* Light background */
@@ -194,14 +202,14 @@
     width: 100%; /* Full width input field */
     box-sizing: border-box; /* Ensure padding doesn’t affect width */
     font-family: 'Franklin', sans-serif; /* Change to a fun font */
-    max-width: 1800px;
+    max-width: 1300px;
     color: black; /* Text color */
     padding: 8px; /* Padding */
     background-color: rgba(255, 255, 224, 0.8); /* Light yellow background */
 }
 .editattendee {
-    font-size: 25px;
-    width: 300px;
+    font-size: 20px;
+    max-width: 200px;
     border: 2px solid green;
     border-radius: 30px;
     height: 40px;

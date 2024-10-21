@@ -34,17 +34,20 @@
   }
 /* Style for the table */
 .artist-table {
+    border-collapse: collapse; /* Collapse borders to avoid double lines */
     width: 100%; /* Ensure the table takes up full width of its container */
 }
 .artist-table th {
-    background-color: #b64c9f; /* A green background color */
-    color: rgb(244, 236, 7); /* White text color */
+    background: linear-gradient(45deg, rgb(79, 79, 252), orange, rgb(191, 50, 191)); /* Gradient background */
+    color: rgb(255, 255, 255); /* White text color */
     font-size: 26px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     min-width: 50px;
     position: sticky; /* Enable sticky positioning */
     top: 0; /* Stick to the top of the container */
     z-index: 10; /* Ensure it is above other content when scrolling */
-    text-align: left; /* Align text to the left */
+    text-align: center; /* Align text to the left */
     font-weight: bold; /* Make the text bold */
     border-bottom: 2px solid #ddd; /* Add a bottom border */
     transition: background-color 0.3s; /* Smooth transition for hover effect */
@@ -55,7 +58,7 @@
     border: .1px solid #6200ff; /* Border for table cells */
     padding: 5px; /* Padding inside cells for better readability */
     text-align: left; /* Align text to the left */
-    background-color: rgba(217, 131, 70, 0.875); /* Slightly transparent white background for readability */
+    background-color: rgba(253, 242, 94, 0.875); /* Slightly transparent white background for readability */
     color: #41024c; /* Text color */
     font-size: 24px; /* Font size for the table content */
     font-family: 'geneva';
@@ -203,9 +206,9 @@
         box-sizing: border-box; /* Ensure padding doesn’t affect the width */
 }
 .inputartists {
-    font-size: 25px;
-    border-radius: 30px;
-    background-color: rgb(98, 98, 81);
+    font-size: 20px;
+    border-radius: 20px;
+    background-color: blue;
     border: 3px solid rgb(0, 0, 0); /* Light border */
 
 

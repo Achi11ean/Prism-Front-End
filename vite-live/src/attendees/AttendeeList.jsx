@@ -267,7 +267,7 @@ function AttendeeList() {
       />
       {errorMessage && <p>{errorMessage}</p>}
       <button className="Createme" onClick={() => navigate("/create-attendee")}>
-        Create New Attendee
+        Create Attendee
       </button>
       {attendees.length === 0 ? (
         <p id="error">No Matching Criteria.</p>
@@ -349,6 +349,8 @@ function AttendeeList() {
                             overflowY: "scroll",
                             border: "1px solid #ccc",
                             padding: "5px",
+                            fontSize: "20px",
+                            width: "200px"
                           }}
                         >
                           {filteredEvents.map((event) => (
@@ -400,6 +402,8 @@ function AttendeeList() {
                             overflowY: "scroll",
                             border: "1px solid #ccc",
                             padding: "5px",
+                            fontSize: "20px",
+                            width: "200px"
                           }}
                         >
                           {eventTypes.map((eventType) => (
@@ -450,6 +454,8 @@ function AttendeeList() {
                             overflowY: "scroll",
                             border: "1px solid #ccc",
                             padding: "5px",
+                            fontSize: "20px",
+                            width: "200px"
                           }}
                         >
                           {filteredArtists.map((artist) => (

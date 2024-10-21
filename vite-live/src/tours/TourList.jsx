@@ -139,10 +139,18 @@ const handleSaveClick = (tourId) => {
     .map(Number)
     .filter((id) => !isNaN(id));
 
+      // Format the dates as 'mm/dd/yyyy'
+  const formatDateForBackend = (dateString) => {
+    const date = new Date(dateString);
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(date.getUTCDate()).padStart(2, '0');
+    const year = date.getUTCFullYear();
+    return `${month}/${day}/${year}`;
+  };
   const updatedFormData = {
     name: editFormData.name,
-    start_date: editFormData.start_date,
-    end_date: editFormData.end_date,
+    start_date: formatDateForBackend(editFormData.start_date),  // Format date
+    end_date: formatDateForBackend(editFormData.end_date), 
     description: editFormData.description,
     social_media_handles: editFormData.social_media_handles,
     event_ids: updatedEventIds,
@@ -236,7 +244,7 @@ const handleSaveClick = (tourId) => {
       <h2>Tour List</h2>
       {/* Create button */}
       <button className="CreateTour" onClick={() => navigate("/create-tour")}>
-        Create New Tour
+        Create Tour
       </button>
       {/* Search input */}
       <input
@@ -376,7 +384,7 @@ const handleSaveClick = (tourId) => {
                       value={editFormData.created_by_id || ""}
                       onChange={handleEditChange}
                     >
-                      <option value="">Select Venue</option>
+                      <option value="">Venues</option>
                       {venues.map((venue) => (
                         <option key={venue.id} value={venue.id}>
                           {venue.name}
@@ -399,7 +407,7 @@ const handleSaveClick = (tourId) => {
                       value={editFormData.created_by_artist_id || ""}
                       onChange={handleEditChange}
                     >
-                      <option value="">Select Artist</option>
+                      <option value="">Artists</option>
                       {artists.map((artist) => (
                         <option key={artist.id} value={artist.id}>
                           {artist.name}

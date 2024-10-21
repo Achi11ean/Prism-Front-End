@@ -105,7 +105,7 @@ function CreateEvent() {
         </p>
       )} {/* Display error message */}
       <form onSubmit={handleSubmit}>
-        <label htmlFor="eventDate">Date</label>
+        <label className="labelss"  htmlFor="eventDate">Date:</label>
         <input
           type="date"
           id="eventDate"
@@ -115,7 +115,7 @@ function CreateEvent() {
           required
         />
 
-        <label htmlFor="eventTime">Time</label>
+        <label className="labelss"  htmlFor="eventTime">Time:</label>
         <input
           type="time"
           id="eventTime"
@@ -125,7 +125,7 @@ function CreateEvent() {
           required
         />
 
-        <label htmlFor="venueSelect">Venue</label>
+        <label className="labelss"  htmlFor="venueSelect">Venue:</label>
         {/* Search input for venues */}
         <input
           type="text"
@@ -149,7 +149,7 @@ function CreateEvent() {
           ))}
         </select>
 
-        <label htmlFor="eventName">Event Name</label>
+        <label className="labelss" htmlFor="eventName">Event Name:</label>
         <input
           placeholder='[Enter Event Name]'
           type="text"
@@ -160,7 +160,7 @@ function CreateEvent() {
           required
         />
 
-        <label htmlFor="eventLocation">Location</label>
+        <label className="labelss"  htmlFor="eventLocation">Location:</label>
         <input
           placeholder='[CT, New Haven: 122 Broadway Road]'
           type="text"
@@ -171,7 +171,7 @@ function CreateEvent() {
           required
         />
 
-        <label htmlFor="eventDescription">Description</label>
+        <label className="labelss"  htmlFor="eventDescription">Description:</label>
         <textarea
           placeholder='[Example: Discover the captivating world of contemporary art...]'
           id="eventDescription"
@@ -181,7 +181,7 @@ function CreateEvent() {
           required
         ></textarea>
 
-        <label htmlFor="eventTypeSelect">Event Type</label>
+        <label className="labelss" htmlFor="eventTypeSelect">Event Type:</label>
         <select
           id="eventTypeSelect"
           name="event_type"
@@ -197,7 +197,7 @@ function CreateEvent() {
           ))}
         </select>
 
-        <label htmlFor="artistSelect">Artists</label>
+        <label className="labelss" htmlFor="artistSelect">Artists</label>
         {/* Search input for artists */}
         <input
           type="text"

@@ -188,7 +188,7 @@ function EventList() {
         className="CreateButton"
         onClick={() => navigate("/create-event")}
       >
-        Create New Event
+        Create  Event
       </button>
       <input
         className="searchme"
@@ -348,6 +348,7 @@ function EventList() {
                           overflowY: "scroll",
                           border: "1px solid #ccc",
                           padding: "5px",
+                          fontSize: "20px"
                         }}
                       >
                         {filteredArtists.map((artist) => (

@@ -2,19 +2,16 @@
 .event-list-container {
   background-color: rgba(255, 218, 185, 0.662); /* Light peach background with transparency */
   padding: 20px;
-  max-width: 1800px; /* Max width for the event list container */
+  max-width: fit-content; /* Max width for the event list container */
   margin: 40px auto; /* Center the container horizontally */
   border-radius: 40px; /* Rounded corners for a nice look */
   box-shadow: 20px 18px 20px rgba(239, 236, 236, 0.895); /* Add a shadow */
 }   
 
-.inputedit {
-  max-width: 300px;
-}
 
 /* Header for the event list */
 .event-list-container h2 {
-  color: rgb(255, 69, 0); /* Fun vibrant red color */
+  color:rgb(35, 115, 13); /* Fun vibrant red color */
   text-align: center; /* Center the header */
   font-family: 'Fantasy';
   margin-bottom: 20px; /* Space between header and content */
@@ -28,15 +25,17 @@
 
 /* Style for the table */
 .event-table {
-  max-width: 2500px;
+  max-width: 1900px;
+  border-collapse: collapse; /* Collapse borders to avoid double lines */
+
   width: 100%; /* Ensure the table takes up full width of its container */
 }
 .event-table th {
-  background-color: #4CAF50; /* A green background color */
-  color: white; /* White text color */
-  padding: 20px; /* Add padding for spacing */
-  text-align: left; /* Align text to the left */
-  font-size: 35px; /* Set font size to 35px */
+  background: linear-gradient(45deg, lightblue, yellow, orange, rgb(255, 100, 100)); /* Gradient background */
+  color: rgb(13, 10, 10); /* White text color */
+  padding: 10px; /* Add padding for spacing */
+  text-align: center; /* Align text to the left */
+  font-size: 20px; /* Set font size to 35px */
   font-weight: bold; /* Make the text bold */
   border-bottom: 3px solid #ddd; /* Add a bottom border */
   transition: background-color 0.3s; /* Smooth transition for hover effect */
@@ -61,12 +60,12 @@
   background-color: #ddd; /* Gray background on row hover */
 }
  .event-table td {
-  border: 2px solid #FF69B4; /* Bright pink border for table cells */
+  border: 2px solid #ffffff; /* Bright pink border for table cells */
   padding: 10px; /* Padding inside cells for better readability */
   text-align: left; /* Align text to the left */
   background-color: rgba(255, 228, 196, 0.764); /* Slightly transparent light peach background for readability */
   color: #8A2BE2; /* Text color - BlueViolet */
-  font-size: 35px;
+  font-size: 20px;
 }
 
 /* Input field for search */
@@ -106,15 +105,17 @@
 /* Create button styles */
 .CreateButton {
   display: inline-block;
-  background-color: #FF69B4; /* Hot pink background */
+  background-color: #f8730c; /* Hot pink background */
   color: rgb(255, 255, 255); /* White text */
   padding: 12px 25px; /* Padding for the button */
   font-size: 60px; /* Slightly larger font size */
   border: none; /* Remove borders */
+  margin-right: 10px;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   border-radius: 20px; /* Rounded corners */
   cursor: pointer; /* Pointer cursor to indicate it's clickable */
   margin-bottom: 20px; /* Space below the button */
-  box-shadow: 10px 10px 12px rgba(252, 252, 252, 0.3); /* Stronger shadow on focus */
+  box-shadow: 20px 18px 10px rgba(79, 44, 255, 0.731); /* Add a subtle shadow */
 }
 
 /* Hover effect for the Create button */
@@ -203,15 +204,16 @@
   max-height: 800px; /* Set the maximum height for the table */
   overflow-y: auto; /* Enable vertical scrolling */
   overflow-x: hidden; /* Prevent horizontal scrolling unless necessary */
-  border: 2px solid #f761b1; /* Optional: Pink border around the container */
+  border: 2px solid #5b00e3; /* Optional: Pink border around the container */
 }
  .searchme {
-    padding: 8px; /* Padding inside the input */
+    padding: 12px; /* Padding inside the input */
     text-align: center;
-    width: 1220px;
-    font-size: 60px;
+    width: 1460px;
+    margin-left: 10px;
+    font-size: 50px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    border: 2px solid #FF1493; /* Deep pink border */
+    border: 4px solid #FF1493; /* Deep pink border */
     border-radius: 30px; /* Rounded corners */
     margin-bottom: 20px; /* Space below the input */
     box-sizing: border-box; /* Ensure padding doesn’t affect width */
@@ -220,20 +222,23 @@
   }
  
 .inputedit {
-  font-size: 35px;
+  font-size: 20px;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  background-color: rgba(173, 216, 230, 0.8); /* Light blue background */
+  background-color: rgba(0, 191, 255, 0.8); /* Light blue background */
   border-radius: 30px; /* Rounded corners */
   padding: 10px;
 }
 .searcheventsedit {
-  font-size: 35px;
-  background-color: rgba(173, 216, 230, 0.8); /* Light blue background */
+  font-size: 20px;
+  margin-top: 10px;
+  background-color: rgba(24, 192, 249, 0.8); /* Light blue background */
   color: #8B0000; /* Dark red text color */
   border-radius: 30px; /* Rounded corners */
 
 }
 .selectedit {
-  font-size: 30px;
+  font-size: 20px;
   max-width: 200px;
+  border-radius: 20px;
+  background-color:blue;
 }

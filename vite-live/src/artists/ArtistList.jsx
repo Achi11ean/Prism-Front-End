@@ -155,7 +155,7 @@ function ArtistList() {
       <h2>Artist List</h2>
       {/* Create button */}
       <button className="Create" onClick={() => navigate("/create-artist")}>
-        Create New Artist
+        Create Artist
       </button>
       {/* Search input */}
       <input
@@ -215,7 +215,7 @@ function ArtistList() {
                     </td>
                     <td>
                       <textarea
-                        className="limit"
+                        className="limit inputartists"
                         name="background"
                         value={editFormData.background}
                         onChange={handleEditChange}
@@ -226,6 +226,7 @@ function ArtistList() {
                     </td>
                     <td>
                       <textarea
+                        className="limit inputartists"
                         name="songs"
                         value={editFormData.songs}
                         onChange={handleEditChange}
