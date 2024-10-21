@@ -210,11 +210,11 @@
 }
 .editattendee {
     font-size: 18px;
-    max-width: 172px;
+    max-width: 160px;
     border: 2px solid green;
     border-radius: 30px;
     height: 40px;
-    background-color:rgb(0, 255, 76);
+    background-color:rgb(5, 146, 47);
     color:rgb(0, 0, 0);
 
 }
