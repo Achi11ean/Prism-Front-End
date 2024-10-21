@@ -351,7 +351,7 @@ function AttendeeList() {
                             border: "1px solid #ccc",
                             padding: "5px",
                             fontSize: "20px",
-                            width: "200px",
+                            width: "150px",
                           }}
                         >
                           {filteredEvents.map((event) => (
@@ -406,7 +406,7 @@ function AttendeeList() {
                             border: "1px solid #ccc",
                             padding: "5px",
                             fontSize: "20px",
-                            width: "200px",
+                            width: "150px",
                           }}
                         >
                           {eventTypes
@@ -464,7 +464,7 @@ function AttendeeList() {
                             border: "1px solid #ccc",
                             padding: "5px",
                             fontSize: "20px",
-                            width: "200px",
+                            width: "150px",
                           }}
                         >
                           {filteredArtists.map((artist) => (
