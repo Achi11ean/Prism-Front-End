@@ -32,7 +32,7 @@
 /* Input field for search */
 .search-input {
     padding: 12px; /* Padding inside the input */
-    font-size: 60px; /* Adjusted font size for better fit */
+    font-size: 45px; /* Adjusted font size for better fit */
     text-align: center; /* Center text in input */
     border: 1px solid #e5ff00; /* Orange-red border */
     border-radius: 30px; /* Rounded corners */
