@@ -39,7 +39,7 @@
     margin-left: 10px;
     margin-bottom: 20px; /* Space below the input */
     background-color: rgba(247, 128, 255, 0.7); /* Light pink background */
-    width:1180px; /* Full width input field */
+    width:1280px; /* Full width input field */
     box-sizing: border-box; /* Ensure padding doesn’t affect the width */
 }
 

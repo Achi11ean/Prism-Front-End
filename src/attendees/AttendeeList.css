@@ -2,8 +2,8 @@
 .attendee-list-container {
     background-color: rgba(255, 165, 0, 0.662); /* Vibrant orange background with transparency */
     padding: 20px;
-    width: 1900px;
-    max-width: 1800px; /* Max width for the attendee list container */
+    width: 1600px;
+    max-width: 1700px; /* Max width for the attendee list container */
     margin: 40px auto; /* Center the container horizontally */
     border-radius: 40px; /* Rounded corners for a nice look */
     box-shadow: 20px 18px 20px rgba(239, 236, 236, 0.895); /* Add a shadow */
@@ -111,7 +111,7 @@
     background-color: #FFD700; /* Gold background */
     color: #000; /* Black text */
     padding: 12px 25px; /* Padding for the button */
-    font-size: 55px; /* Slightly larger font size */
+    font-size: 40px; /* Slightly larger font size */
     border: none; /* Remove borders */
     border-radius: 20px; /* Rounded corners */
     cursor: pointer; /* Pointer cursor to indicate it's clickable */
@@ -194,7 +194,7 @@
 }
 .Searchme {
 /* Input field for search */
-    font-size: 60px; /* Font size */
+    font-size: 45px; /* Font size */
     text-align: center; /* Center text in input */
     border: 2px solid #FF69B4; /* Bright pink border */
     border-radius: 10px; /* Rounded corners */
@@ -202,7 +202,7 @@
     width: 100%; /* Full width input field */
     box-sizing: border-box; /* Ensure padding doesn’t affect width */
     font-family: 'Franklin', sans-serif; /* Change to a fun font */
-    max-width: 1300px;
+    max-width: 1150px;
     color: black; /* Text color */
     padding: 8px; /* Padding */
     background-color: rgba(255, 255, 224, 0.8); /* Light yellow background */
