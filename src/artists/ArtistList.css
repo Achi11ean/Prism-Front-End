@@ -3,7 +3,7 @@
     background-color: rgba(102, 107, 0, 0.434); /* Background with transparency for better readability */
     padding: 20px;
     font-weight: 700;
-    max-width: 2400px; /* Max width for the artist list container */
+    max-width: 1700px; /* Max width for the artist list container */
     margin: 40px auto; /* Center the container horizontally with some margin at the top */
     border-radius: 40px; /* Rounded corners for a nicer look */
     box-shadow: 20px 18px 20px rgba(239, 236, 236, 0.895); /* Add a subtle shadow */
@@ -202,7 +202,7 @@
         margin-bottom: 60px; /* Space below the input */
         margin-left:15px;
         background-color: rgb(220, 214, 28);
-        width: 1360px; /* Full width input field */
+        width: 1160px; /* Full width input field */
         box-sizing: border-box; /* Ensure padding doesn’t affect the width */
 }
 .inputartists {
