@@ -209,13 +209,13 @@ function VenueList() {
         </>
       ) : (
         <>
-          <td data-label="ID">{venue.id}</td>
-          <td data-label="Name">{venue.name}</td>
-          <td data-label="Organizer">{venue.organizer}</td>
-          <td data-label="Email">{venue.email}</td>
-          <td data-label="Earnings">{venue.earnings}</td>
-          <td data-label="Description">{venue.description}</td>
-          <td data-label="Actions">
+          <td data-label="ID:">{venue.id}</td>
+          <td data-label="Name:">{venue.name}</td>
+          <td data-label="Organizer:">{venue.organizer}</td>
+          <td data-label="Email:">{venue.email}</td>
+          <td data-label="Earnings:">{venue.earnings}</td>
+          <td data-label="Description:">{venue.description}</td>
+          <td data-label="Actions:">
             <button className="editbutton" onClick={() => handleEditClick(venue)}>Edit</button>
             <button className="deletebutton" onClick={() => handleDeleteClick(venue.id)}>Delete</button>
           </td>

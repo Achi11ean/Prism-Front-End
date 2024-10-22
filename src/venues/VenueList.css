@@ -277,8 +277,10 @@
     font-weight: bold;
     text-align: left;
     padding-right: 10px;
-    color: #ffffff;
+    color: #ddf500;
     display: inline-block;
+    font-family: monospace;
+    text-align: center;
     flex: 1;
   }
 

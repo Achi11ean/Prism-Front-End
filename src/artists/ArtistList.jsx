@@ -183,7 +183,7 @@ function ArtistList() {
               <th>Background</th>
               <th>Songs</th>
               <th>Events</th> {/* New column for Events */}
-              <th>Favorited By</th> {/* New column for Favorited By */}
+              <th>Fans</th> {/* New column for Favorited By */}
               <th>Actions</th>
             </tr>
           </thead>
@@ -301,17 +301,17 @@ function ArtistList() {
                   </>
                 ) : (
                   <>
-                    <td>{artist.id}</td>
-                    <td>{artist.name}</td>
-                    <td>{artist.age}</td>
-                    <td>{artist.background}</td>
-                    <td>{renderSongs(artist.songs.join(", "))}</td>
-                    <td>
+                    <td data-label="ID:" >{artist.id}</td>
+                    <td data-label="Name:">{artist.name}</td>
+                    <td data-label="Age:">{artist.age}</td>
+                    <td data-label="Background:">{artist.background}</td>
+                    <td data-label="Songs:">{renderSongs(artist.songs.join(", "))}</td>
+                    <td data-label="Events:">
                       {artist.events
                         ? artist.events.map((event) => event.name).join(", ")
                         : "No Events"}
                     </td>
-                    <td>
+                    <td data-label="Fans">
                       {artist.favorited_by.length > 0
                         ? artist.favorited_by
                             .map((attendee) => attendee.name)

@@ -239,7 +239,7 @@
       width:400px;
 
     }
-  
+    
     /* Adjust table-container and table for small screens */
     .table-container {
       max-height: fit-content;
@@ -264,6 +264,7 @@
         text-align: right;
         text-align: right;
         flex: 3;
+        display: inline-block;
         margin-left: 4px;
         font-size: 23px;
         margin-bottom:  5px;
@@ -301,7 +302,7 @@
       font-family: 'Geneva';
       height:30px;
       border: 1px solid red;
-      font-size: 10px;
+      font-size: 12px;
       overflow-y: auto; /* Enable horizontal scrolling */
       border-radius: 12px;
       text-align: left;
@@ -318,10 +319,12 @@
     .artist-table td:before {
       content: attr(data-label); /* Use the header as a label for each cell */
       font-weight: bold;
+      font-size: 13px;
       text-align: left;
-      color: #fff; /* Make the labels stand out */
+      color: #ff0000; /* Make the labels stand out */
       display: inline-block;
       padding-right: 10px;
+      text-decoration: underline;
       flex:1
     }
   
