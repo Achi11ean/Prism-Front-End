@@ -9,6 +9,10 @@ function NavBar() {
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
     };
+
+    const closeMenu = () => {
+        setMenuOpen(false); // Function to close the menu
+    };
     return (
         <nav>
             <button className="menu-toggle" onClick={toggleMenu}>
@@ -16,13 +20,13 @@ function NavBar() {
             </button>
             <ul className={menuOpen ? 'open' : ''}>                
                 <li><Link to="/">Home</Link></li>
-                <li><Link to="/venues">Venues</Link></li>
-                <li><Link to="/artists">Artists</Link></li>
-                <li><Link to="/events">Events</Link></li>
-                <li><Link to="/tours">Tours</Link></li>
-                <li><Link to="/attendees">Attendees</Link></li>
-                <li><Link to='/SignIn' className="signin">Sign In</Link></li>
-                <li><Link to='/SignOut' className="signout">Sign Out</Link></li>
+                <li><Link to="/venues" onClick={closeMenu}>Venues</Link></li>
+                <li><Link to="/artists" onClick={closeMenu}>Artists</Link></li>
+                <li><Link to="/events" onClick={closeMenu}>Events</Link></li>
+                <li><Link to="/tours" onClick={closeMenu}>Tours</Link></li>
+                <li><Link to="/attendees" onClick={closeMenu}>Attendees</Link></li>
+                <li><Link to='/SignIn' onClick={closeMenu} className="signin">Sign In</Link></li>
+                <li><Link to='/SignOut' onClick={closeMenu} className="signout">Sign Out</Link></li>
             </ul>
         </nav>
     );
