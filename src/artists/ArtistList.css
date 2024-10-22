@@ -279,7 +279,7 @@
     .artist-table tbody {
       display: block; /* Stack table rows as blocks */
       width: 100%;
-      padding: 10px;
+      padding: 5px;
       margin-bottom: 30px; /* Space between rows */
       flex-direction: row;
       display: flex;
