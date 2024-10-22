@@ -266,7 +266,7 @@
         flex: 3;
         display: inline-block;
         margin-left: 4px;
-        font-size: 23px;
+        font-size:15px;
         margin-bottom:  5px;
         border-bottom-right-radius: 10px;
         border-bottom-right-radius: 10px;
@@ -302,7 +302,7 @@
       font-family: 'Geneva';
       height:30px;
       border: 1px solid red;
-      font-size: 18px;
+      font-size: 14.5px;
       overflow-y: auto; /* Enable horizontal scrolling */
       border-radius: 12px;
       text-align: left;
@@ -319,7 +319,7 @@
     .artist-table td:before {
       content: attr(data-label); /* Use the header as a label for each cell */
       font-weight: bold;
-      font-size: 13px;
+      font-size: 18px;
       text-align: left;
       color: #ff0000; /* Make the labels stand out */
       display: inline-block;
