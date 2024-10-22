@@ -310,7 +310,7 @@
       color: #41024c;
       word-wrap: break-word; /* Allow wrapping of long content */
       border: 1px solid #6200ff;
-      margin-bottom: 5px;
+      margin-bottom: 10px;
     }
   
     /* Use data-label to display table headers on small screens */
