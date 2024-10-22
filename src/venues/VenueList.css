@@ -286,19 +286,18 @@
     text-align: right;
     flex: 3;
     margin-bottom: 31px;
-    margin-left: 300px;
   }
   .venue-list-container h2 {
     text-align: center; /* Center the header */
     margin-bottom: 20px; /* Space between header and content */
     font-family: 'Fantasy';
-    width:500px;
+    width:400px;
     margin-left: 5px;
     color: rgb(83, 141, 250); /* Fun pink color */
     text-decoration: underline dotted yellow; /* Underline style */
-    font-size: 6em; /* Match the size of artist list */
+    font-size: 3em; /* Match the size of artist list */
     margin-bottom: 40px; /* Space below the header */
-    border: 4px solid orange; /* Bright border color */
+    border: 4px solid rgb(255, 255, 255); /* Bright border color */
     border-radius: 80px; /* Rounded corners */
     padding-top: 10px; /* Padding at the top */
     background: linear-gradient(45deg, rgb(196, 37, 196), pink, rgb(255, 179, 1)); /* Gradient background */
@@ -307,11 +306,11 @@
 
   .search-venue {
     padding: 8px; /* Padding inside the input */
-    font-size: 30px; /* Font size for search */
+    font-size: 25px; /* Font size for search */
     text-align: center; /* Center text in input */
     border: 2px solid #ff1493; /* Deep pink border */
     border-radius: 10px; /* Rounded corners */
-    width:30rem;
+    width:24rem;
     margin-left: 5px;
     margin-bottom: 20px; /* Space below the search input */
     background-color: rgb(173, 216, 230); /* Light blue background */
@@ -338,9 +337,9 @@
     background-color: #FF69B4; /* Hot pink background */
     color: rgb(0, 0, 0); /* Black text */
     padding: 12px 25px; /* Padding for the button */
-    font-size: 45px; /* Slightly larger font size */
+    font-size: 25px; /* Slightly larger font size */
     margin-right: 12px;
-    width:470px;
+    width:370px;
     margin-left: 5px;
     border: 2px solid #FF1493; /* Deep pink border */
     border-radius: 12px; /* Rounded corners */
