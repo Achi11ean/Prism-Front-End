@@ -92,7 +92,7 @@ h2 {
 
     .homepage h1 {
         font-size: 4rem; /* Reduce font size */
-        padding-bottom: 50px;
+        padding-bottom: 30px;
         padding: 5px; /* Adjust padding */
     }
 
@@ -101,6 +101,7 @@ h2 {
         background-clip: text;
         -webkit-text-fill-color: transparent;
         margin-left: 10px;
+        margin-top: 10px;
     }
 
     .homepage p {
