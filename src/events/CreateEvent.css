@@ -165,6 +165,7 @@
     /* Adjust input and textarea fields for smaller screens */
     .create-event-container input[type="text"],
     .create-event-container input[type="number"],
+    .create-event-container input,
     .create-event-container textarea,
     .create-event-container select {
       width:90%; /* Adjust input width */
