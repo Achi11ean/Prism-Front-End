@@ -107,6 +107,7 @@ function CreateEvent() {
       <form onSubmit={handleSubmit}>
         <label className="labelss"  htmlFor="eventDate">Date:</label>
         <input
+          className="date"
           type="date"
           id="eventDate"
           name="date"
@@ -117,6 +118,7 @@ function CreateEvent() {
 
         <label className="labelss"  htmlFor="eventTime">Time:</label>
         <input
+          className="date"
           type="time"
           id="eventTime"
           name="time"

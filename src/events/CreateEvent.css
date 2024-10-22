@@ -208,4 +208,7 @@
         background: linear-gradient(45deg, rgb(9, 238, 219),rgb(85, 225, 63));
     
     }
+    .date {
+        width: 100%;
+    }
   }
