@@ -160,4 +160,71 @@
         font-size: 1.2rem; /* Adjust button size */
     }
 }
+@media (max-width: 450px) {
+    /* Adjust form container for smaller screens */
+    .create-artist-container {
+      padding: 20px; /* Reduce padding */
+      max-width: 100%; /* Full width for smaller screens */
+      background-color: rgba(255, 192, 203, 0.8); /* Light pink background */
+      border-radius: 15px; /* Reduce border radius */
+      box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+      color: #3e2723; /* Darker text color for contrast */
+    }
+  
+    /* Adjust header for smaller screens */
+    .create-artist-container h2 {
+      font-size: 2rem; /* Smaller font size */
+      text-align: center;
+    }
+  
+    /* Adjust input and textarea fields for smaller screens */
+    .create-artist-container input[type="text"],
+    .create-artist-container input[type="number"],
+    .create-artist-container textarea,
+    .create-artist-container select {
+      width: 15rem; /* Adjust input width */
+      font-size: 1em; /* Adjust font size */
+      text-align: center;
+      border: 2px solid #f57c00; /* Orange border */
+      border-radius: 20px; /* Rounded corners */
+      background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
+      color: #3e2723; /* Darker text color */
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+  
+    /* Adjust buttons for smaller screens */
+    .create-artist-container button {
+      font-size: 1.2rem; /* Smaller font size for buttons */
+      padding: 10px 15px;
+      background: linear-gradient(45deg, #1efc05, #ffdd00); /* Bright gradient */
+      color: #000;
+      border-radius: 20px; /* Rounded corners */
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+      cursor: pointer;
+    }
+  
+    /* Button hover and focus effects for smaller screens */
+    .create-artist-container button:hover {
+      background: linear-gradient(45deg, #ffdd00, #1efc05); /* Inverted gradient on hover */
+      transform: scale(1.05); /* Slightly grow on hover */
+    }
+  
+    .create-artist-container button:focus {
+      outline: none;
+      background: linear-gradient(45deg, #6200ea, #ff00b3); /* Change gradient on focus */
+      box-shadow: 0 0 10px rgba(98, 0, 234, 0.5); /* Focus glow */
+    }
+    .create-artist-container label {
+        display: block;
+        font-size: 2em; /* Large font for labels */
+        margin-left: 220px;
+        margin-right: 250px;
+        border-radius: 60px;
+        margin-bottom: 10px;
+        text-align: center;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        color: rgb(106, 0, 255); /* Dark grey color for labels */
+        transition: background-color 0.3s; /* Smooth transition for hover */
+    }
+  }
 
