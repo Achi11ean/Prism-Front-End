@@ -422,10 +422,10 @@
 
     .CreateTour {
         display: inline-block;
-        background-color: #ff2adffa; /* Light blue background */
-        color: rgb(8, 0, 255); /* White text */
+        background-color: linear-gradient( #38ff2afa, pink), ; /* Light blue background */
+        color: rgb(0, 255, 119); /* White text */
         padding: 11px 15px; /* Padding for the button */
-        font-size: 25px; /* Slightly larger font size */
+        font-size: 30px; /* Slightly larger font size */
         border: white; /* Remove borders */
         width: 100%;
         font-family: 'Trebuchet';

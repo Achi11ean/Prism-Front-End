@@ -138,3 +138,81 @@
         font-size: 1.2rem; /* Adjust button size */
     }
 }
+@media (max-width: 450px) {
+    /* Adjust form container for smaller screens */
+    .create-attendee-container {
+      padding: 20px; /* Reduce padding */
+      max-width: 80%; /* Full width for smaller screens */
+      background-color: rgba(255, 192, 203, 0.8); /* Light pink background */
+      border-radius: 15px; /* Reduce border radius */
+      box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+      color: #3e2723; /* Darker text color for contrast */
+    }
+  
+    /* Adjust header for smaller screens */
+    .create-attendee-container h2 {
+      font-size: 2rem; /* Smaller font size */
+      text-align: center;
+    }
+  
+    /* Adjust input and textarea fields for smaller screens */
+    .create-attendee-container input[type="text"],
+    .create-attendee-container input[type="number"],
+    .create-attendee-container textarea,
+    .create-attendee-container select {
+      width:90%; /* Adjust input width */
+      font-size: 1em; /* Adjust font size */
+      text-align: center;
+      margin-left: 15px;
+      border: 2px solid #f57c00; /* Orange border */
+      border-radius: 20px; /* Rounded corners */
+      background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
+      color: #3e2723; /* Darker text color */
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .create-attendee-container select {
+        text-align: center;
+
+    }
+  
+    /* Adjust buttons for smaller screens */
+    .create-attendee-container button {
+      font-size: 1.2rem; /* Smaller font size for buttons */
+      padding: 10px 15px;
+      background: linear-gradient(45deg, #1efc05, #ffdd00); /* Bright gradient */
+      color: #000;
+      border-radius: 20px; /* Rounded corners */
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+      cursor: pointer;
+    }
+  
+    /* Button hover and focus effects for smaller screens */
+    .create-attendee-container button:hover {
+      background: linear-gradient(45deg, #ffdd00, #1efc05); /* Inverted gradient on hover */
+      transform: scale(1.05); /* Slightly grow on hover */
+    }
+  
+    .create-attendee-container button:focus {
+      outline: none;
+      background: linear-gradient(45deg, #6200ea, #ff00b3); /* Change gradient on focus */
+      box-shadow: 0 0 10px rgba(98, 0, 234, 0.5); /* Focus glow */
+    }
+    .create-attendee-container label {
+        display: inline-block;
+        font-size: 1.2em; /* Large font for labels */
+        border-radius: 60px;
+        width: 4rem;
+        margin-left: 10px;
+        margin-bottom: 10px;
+        padding-right: 220px;
+        padding-left: 10px;
+        text-align: left;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        color: rgb(106, 0, 255); /* Dark grey color for labels */
+        transition: background-color 0.3s; /* Smooth transition for hover */
+    }
+    .labelss {
+        background: linear-gradient(45deg, rgb(9, 238, 219),rgb(85, 225, 63));
+    
+    }
+  }

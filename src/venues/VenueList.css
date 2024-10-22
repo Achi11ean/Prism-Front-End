@@ -219,6 +219,7 @@
     white-space: nowrap; /* Prevent wrapping of table elements */
     width: 100%; /* Full width of container */
     display: flex;
+    max-height: fit-content;
     border-radius: 20px;
     align-items: center;
     justify-content: center;

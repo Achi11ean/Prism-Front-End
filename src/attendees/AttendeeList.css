@@ -218,3 +218,163 @@
     color:rgb(0, 0, 0);
 
 }
+
+@media only screen and (max-width: 450px) {
+    /* Style adjustments for the artist-list-container */
+    .attendee-list-container {
+      padding: 10px;
+      max-width: 24rem; /* Make it full width for smaller screens */
+      margin: 20px auto;
+      border-radius: 20px;
+      box-shadow: 10px 10px 10px rgba(239, 236, 236, 0.895);
+    }
+  
+    .attendee-list-container h1 {
+      font-size: 2em; /* Adjust font size for smaller screens */
+      padding-top: 5px;
+      border-radius: 40px;
+      margin-bottom: 20px;
+      width:92%;
+
+    }
+    
+    /* Adjust table-container and table for small screens */
+    .attendee-table-container {
+      max-height: fit-content;
+      overflow-y: auto;
+      overflow-x: hidden; /* Prevent horizontal scrolling */
+      border: 1px solid #f761b1;
+      border-radius: 40px; /* Rounded corners for a nice look */
+      max-width: 24rem; /* Max width for the event list container */
+
+    }
+  
+    .attendee-table {
+      overflow-x: auto; /* Enable horizontal scrolling */
+      overflow-y: 400px; /* Enable horizontal scrolling */
+      align-items: center;
+      border-radius: 20px;
+      justify-content: center;
+      display: flex; /* Stack table cells vertically */
+      width: 100%; /* Make sure the table takes up full width */
+    }
+    .attendee-table th {        
+        text-align: right;
+        text-align: right;
+        flex: 3;
+        min-height: 30px;
+        display: inline-block;
+        margin-left: 4px;
+        margin-bottom: 7px;
+
+        font-size:15px;
+        border-bottom-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+
+    }
+    .attendee-table thead {
+      display: vertical; /* Hide the header on small screens */
+    }
+  
+    .attendee-table tbody {
+      display: block; /* Stack table rows as blocks */
+      width: 100%;
+      flex-direction: row;
+      display: flex;
+      grid-template-columns: minmax(150px, 1fr) minmax(200px, 2fr); /* Define grid columns */
+
+    }
+  
+    .attendee-table tr {
+      display: flex;
+      flex-direction: column; /* Stack rows vertically */
+      background-color: pink;
+      padding: 10px;
+    }
+  
+    .attendee-table td {
+      display: block; /* Stack cells vertically */
+      width: 13rem;
+      padding: 5px;
+      
+      font-family: 'Geneva';
+      height:45px;
+      border: 1px solid red;
+      font-size: 14.5px;
+      overflow-y: auto; /* Enable horizontal scrolling */
+      border-radius: 12px;
+      text-align: left;
+      white-space: normal; /* Allow wrapping */
+      background-color: rgba(255, 248, 148, 0.875);
+      color: #41024c;
+      word-wrap: break-word; /* Allow wrapping of long content */
+      border: 1px solid #6200ff;
+      margin-bottom: 10px;
+    }
+  
+    /* Use data-label to display table headers on small screens */
+    .attendee-table td:before {
+      content: attr(data-label); /* Use the header as a label for each cell */
+      font-weight: bold;
+      font-size: 18px;
+      text-align: left;
+      color: #ff0000; /* Make the labels stand out */
+      display: inline-block;
+      padding-right: 10px;
+      flex:1
+    }
+  
+    /* Style buttons for smaller screens */
+    .Createme,
+    .editbutton,
+    .deletebutton,
+    .Saveme,
+    .Cancelme {
+      width: 100%; /* Full width buttons */
+      font-size: 10px; /* Reduce font size */
+      padding: 8px;
+    }
+  
+    /* Style for the search input */
+    .Searchme {
+      font-size: 25px;
+      padding: 10px;
+      text-align: center; /* Center text in input */
+
+      width: 24rem; /* Full width for smaller screens */
+      margin-bottom: 20px;
+    }
+  
+    .selecteventtypes,
+    .selectevent {
+      width: 100%; /* Make select boxes full width */
+      padding: 10px;
+      font-size: 18px;
+    }
+
+    .Createme {
+        display: inline-block;
+        background-color: #2af1fffa; /* Light blue background */
+        color: rgb(140, 0, 255); /* White text */
+        padding: 11px 15px; /* Padding for the button */
+        font-size: 25px; /* Slightly larger font size */
+        border: white; /* Remove borders */
+        font-family: 'Trebuchet';
+        border-radius: 40px; /* Rounded corners */
+        cursor: pointer; /* Pointer cursor to indicate it's clickable */
+        margin-bottom: 20px; /* Space below the button */
+        transition: background-color 0.3s ease; /* Smooth background color change */
+        box-shadow: 10px 10px 12px rgb(252, 252, 252); /* Stronger shadow on focus */
+    }
+
+  }
+
+
+
+
+
+
+
+
+
+
