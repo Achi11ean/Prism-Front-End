@@ -412,7 +412,7 @@
 @media (max-width: 450px) {
     .sign-in-container {
         padding: 20px;
-        max-width: 100%; /* Full width on smaller screens */
+        max-width: 80%; /* Full width on smaller screens */
         width: auto; /* Adapt width */
     }
 
