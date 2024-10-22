@@ -384,15 +384,15 @@ function EventList() {
                   </>
                 ) : (
                   <>
-                    <td>{event.id}</td>
-                    <td>{event.name}</td>
-                    <td>{formatDateString(event.date)}</td>
-                    <td>{formatTimeTo12Hour(event.time)}</td>
-                    <td>{event.location}</td>
-                    <td>{event.description}</td>
-                    <td>{event.venue.name}</td>
-                    <td>{event.event_type}</td>
-                    <td>
+                    <td data-label="ID:">{event.id}</td>
+                    <td data-label="Name:">{event.name}</td>
+                    <td data-label="Date:">{formatDateString(event.date)}</td>
+                    <td data-label="Time:">{formatTimeTo12Hour(event.time)}</td>
+                    <td data-label="Location:">{event.location}</td>
+                    <td data-label="Description:">{event.description}</td>
+                    <td data-label="Venue Name:">{event.venue.name}</td>
+                    <td data-label="Event Type:">{event.event_type}</td>
+                    <td data-label="Artists Performing:">
                       {event.artists.map((artist) => artist.name).join(", ")}
                     </td>
                     <td>
