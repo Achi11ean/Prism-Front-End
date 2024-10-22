@@ -324,7 +324,7 @@
   color: #41024c;
   word-wrap: break-word; /* Allow wrapping of long content */
   border: 1px solid #6200ff;
-  margin-bottom: 20px;
+  margin-bottom: 23px;
 }
 
 .event-table td:before {
@@ -359,6 +359,21 @@
 
   width: 24rem; /* Full width for smaller screens */
   margin-bottom: 20px;
+}
+
+.inputedit {
+  font-size: 10px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  background-color: rgba(0, 191, 255, 0.8); /* Light blue background */
+  border-radius: 30px; /* Rounded corners */
+  padding: 10px;
+}
+.searcheventsedit {
+  font-size: 10px;
+  background-color: rgba(24, 192, 249, 0.8); /* Light blue background */
+  color: #8B0000; /* Dark red text color */
+  border-radius: 30px; /* Rounded corners */
+
 }
 
 }
