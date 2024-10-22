@@ -104,11 +104,11 @@ h2 {
     }
 
     .homepage p {
-        font-size: 3em; /* Scale down text */
+        font-size: 1em; /* Scale down text */
         margin-bottom: 50px; /* Reduce bottom margin */
-        margin-left: 60px; /* Align better on smaller screen */
+        margin-left:40px; /* Align better on smaller screen */
         padding: 10px;
-        width: 70%; /* Adjust width for mobile */
+        width: 80%; /* Adjust width for mobile */
         text-align: center; /* Center-align text on mobile */
     }
 
