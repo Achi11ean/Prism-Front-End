@@ -219,7 +219,7 @@
       box-shadow: 0 0 10px rgba(98, 0, 234, 0.5); /* Focus glow */
     }
     .create-artist-container label {
-        display: block;
+        display: inline-block;
         font-size: 1.2em; /* Large font for labels */
         border-radius: 60px;
         margin-left: 5px;
