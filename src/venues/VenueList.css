@@ -217,7 +217,7 @@
     display: block;
     overflow-x: auto; /* Enable horizontal scrolling */
     white-space: nowrap; /* Prevent wrapping of table elements */
-    width: 120%; /* Full width of container */
+    width: 100%; /* Full width of container */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -261,6 +261,10 @@
     text-align: left;
     white-space: normal; /* Allow wrapping */
     overflow-y: auto; /* Enable horizontal scrolling */
+    text-align: right;
+    flex: 3;
+    margin-bottom: 10px;
+    height:fit-content;
 
   }
 
@@ -276,12 +280,7 @@
   }
 
   /* Align the data next to the header */
-  .venue-table td {
-    text-align: right;
-    flex: 3;
-    margin-bottom: 10px;
-    height:fit-content;
-  }
+
 
   .venue-table th {
     text-align: right;
@@ -294,7 +293,7 @@
     margin-bottom: 20px; /* Space between header and content */
     font-family: 'Fantasy';
     width:500px;
-    margin-left: 20px;
+    margin-left: 5px;
     color: rgb(83, 141, 250); /* Fun pink color */
     text-decoration: underline dotted yellow; /* Underline style */
     font-size: 6em; /* Match the size of artist list */
@@ -313,7 +312,7 @@
     border: 2px solid #ff1493; /* Deep pink border */
     border-radius: 10px; /* Rounded corners */
     width:30rem;
-    margin-left: 30px;
+    margin-left: 5px;
     margin-bottom: 20px; /* Space below the search input */
     background-color: rgb(173, 216, 230); /* Light blue background */
     box-sizing: border-box; /* Ensure padding doesn’t affect the width */
@@ -321,7 +320,7 @@
   .venue-list-container {
     background-color: rgba(255, 218, 185, 0.662); /* Light peach background with transparency */
     padding: 100px;
-    max-width: 450px; /* Max width for the event list container */
+    max-width: 430px; /* Max width for the event list container */
     border-radius: 40px; /* Rounded corners for a nice look */
     box-shadow: 20px 18px 20px rgba(239, 236, 236, 0.895); /* Add a shadow */
     max-height:fit-content;
@@ -342,7 +341,7 @@
     font-size: 45px; /* Slightly larger font size */
     margin-right: 12px;
     width:470px;
-    margin-left: 30px;
+    margin-left: 5px;
     border: 2px solid #FF1493; /* Deep pink border */
     border-radius: 12px; /* Rounded corners */
     cursor: pointer; /* Pointer cursor to indicate it's clickable */
