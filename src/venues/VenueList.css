@@ -246,7 +246,6 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 60px;
-    padding-bottom: 40px;
   }
 
   /* Make each table cell a block */
@@ -359,4 +358,11 @@
     background-color: blue;
   }
   
+  .venue-table tr:nth-child(even) {
+    background-color: #fdff71; /* Light gray background for even rows */
+  }
+  
+  .venue-table tr:hover {
+    background-color: #ff85e9; /* Gray background on row hover */
+  }
 }

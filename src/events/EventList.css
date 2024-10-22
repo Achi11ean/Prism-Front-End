@@ -243,3 +243,116 @@
   border-radius: 20px;
   background-color:blue;
 }
+@media only screen and (max-width: 450px) {
+  .event-list-container h2 {
+    color:rgb(35, 115, 13); /* Fun vibrant red color */
+    text-align: center; /* Center the header */
+    font-family: 'Fantasy';
+    margin-bottom: 20px; /* Space between header and content */
+    font-size: 3em; /* Increased font size for emphasis */
+    text-decoration: underline dotted cyan; /* Underline style */
+    border: 4px solid lime; /* Bright lime border color */
+    border-radius: 80px; /* Rounded corners */
+    background: linear-gradient(45deg, yellow, orange, red); /* Gradient background */
+  }
+
+  .event-list-container {
+    background-color: rgba(255, 218, 185, 0.662); /* Light peach background with transparency */
+    padding: 20px;
+    max-width:24rem; /* Max width for the event list container */
+    margin: 40px auto; /* Center the container horizontally */
+    border-radius: 40px; /* Rounded corners for a nice look */
+    box-shadow: 20px 18px 20px rgba(239, 236, 236, 0.895); /* Add a shadow */
+  }   
+  .event-table {
+    overflow-x: auto; /* Enable horizontal scrolling */
+    overflow-y: 400px; /* Enable horizontal scrolling */
+    align-items: center;
+    border-radius: 20px;
+    justify-content: center;
+    display: flex; /* Stack table cells vertically */
+    width: 100%; /* Make sure the table takes up full width */
+  }
+  .event-table th {        
+    text-align: right;
+    text-align: right;
+    flex: 3;
+    display: inline-block;
+    margin-left: 4px;
+    font-size:20px;
+    margin-bottom:  14px;
+    border-bottom-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+}
+.event-table thead {
+  display: vertical; /* Hide the header on small screens */
+}
+.event-table tbody {
+  display: block; /* Stack table rows as blocks */
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 30px; /* Space between rows */
+  flex-direction: row;
+  display: flex;
+  margin-top: 10px;
+  grid-template-columns: minmax(150px, 1fr) minmax(200px, 2fr); /* Define grid columns */
+
+}
+.event-table tr {
+  display: flex;
+  flex-direction: column; /* Stack rows vertically */
+  margin-bottom: 20px;
+  background-color: pink;
+  padding: 10px;
+}
+
+.event-table td {
+  display: block; /* Stack cells vertically */
+  width: 10rem;
+  padding: 5px;
+  font-family: 'Geneva';
+  height:30px;
+  border: 1px solid red;
+  font-size: 14.5px;
+  overflow-y: auto; /* Enable horizontal scrolling */
+  border-radius: 12px;
+  text-align: left;
+  white-space: normal; /* Allow wrapping */
+  text-align: right; /* Align content to the right for smaller screens */
+  background-color: rgba(255, 248, 148, 0.875);
+  color: #41024c;
+  word-wrap: break-word; /* Allow wrapping of long content */
+  border: 1px solid #6200ff;
+  margin-bottom: 15px;
+}
+
+.event-table td:before {
+  content: attr(data-label); /* Use the header as a label for each cell */
+  font-weight: bold;
+  font-size: 18px;
+  text-align: left;
+  color: #ff0000; /* Make the labels stand out */
+  display: inline-block;
+  padding-right: 10px;
+  flex:1
+}
+.CreateButton,
+.editbutton,
+.deletebutton,
+.Saveme,
+.Cancelme {
+  width: 100%; /* Full width buttons */
+  font-size: 10px; /* Reduce font size */
+  padding: 8px;
+}
+.searchme{
+  font-size: 25px;
+  padding: 10px;
+  text-align: center; /* Center text in input */
+
+  width: 24rem; /* Full width for smaller screens */
+  margin-bottom: 20px;
+}
+
+}
