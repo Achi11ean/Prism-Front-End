@@ -88,7 +88,7 @@ function CreateArtist() {
     <div className="create-artist-container">
       <h2>Create Artist</h2>
       <form onSubmit={handleSubmit}>
-        <label className="labels" htmlFor="artistName">Artist Name</label>
+        <label className="labels" htmlFor="artistName">Name</label>
         <input
           placeholder="[Enter Stage Name]"
           type="text"

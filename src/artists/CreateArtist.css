@@ -182,9 +182,10 @@
     .create-artist-container input[type="number"],
     .create-artist-container textarea,
     .create-artist-container select {
-      width: 60%; /* Adjust input width */
+      width:90%; /* Adjust input width */
       font-size: 1em; /* Adjust font size */
       text-align: center;
+      margin-left: 15px;
       border: 2px solid #f57c00; /* Orange border */
       border-radius: 20px; /* Rounded corners */
       background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
@@ -223,7 +224,7 @@
         font-size: 1.2em; /* Large font for labels */
         border-radius: 60px;
         width: 4rem;
-        margin-left: 45px;
+        margin-left: 85px;
         margin-bottom: 10px;
         text-align: left;
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
