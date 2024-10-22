@@ -222,6 +222,7 @@
         display: block;
         font-size: 1.2em; /* Large font for labels */
         border-radius: 60px;
+        margin-left: 5px;
         margin-bottom: 10px;
         text-align: left;
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
