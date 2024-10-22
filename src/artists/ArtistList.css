@@ -291,7 +291,6 @@
       display: flex;
       flex-direction: column; /* Stack rows vertically */
       margin-bottom: 20px;
-      border-bottom: 60px solid #ddd;
       padding: 10px;
     }
   
@@ -312,7 +311,7 @@
       color: #41024c;
       word-wrap: break-word; /* Allow wrapping of long content */
       border: 1px solid #6200ff;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
   
     /* Use data-label to display table headers on small screens */
