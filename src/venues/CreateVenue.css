@@ -46,7 +46,7 @@
 .create-venue-container input[type="number"],
 .create-venue-container select,
 .create-venue-container textarea {
-  width: 100%;
+  width: 1300px;
   margin-left: 30px;
   padding: 15px;
   font-size: 2rem;
@@ -149,4 +149,21 @@
     box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
     color: #329a27; /* Vibrant green text */
   }
+.create-venue-container input[type="text"],
+.create-venue-container input[type="email"],
+.create-venue-container input[type="number"],
+.create-venue-container select,
+.create-venue-container textarea {
+  width: 350px;
+  padding: 15px;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 20px;
+  border: 2px solid #ff6f61; /* Coral border */
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.9); /* White background */
+  color: #3e2723; /* Deep brown text */
+  transition: border-color 0.3s, box-shadow 0.3s;
+  margin: 10px auto;
+}
 }
