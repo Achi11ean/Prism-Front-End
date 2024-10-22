@@ -165,6 +165,8 @@
     /* Adjust input and textarea fields for smaller screens */
     .create-event-container input[type="text"],
     .create-event-container input[type="number"],
+    .create-event-container input[type="date"],
+    .create-event-container input[type="time"],
     .create-event-container input,
     .create-event-container textarea,
     .create-event-container select {
@@ -204,7 +206,7 @@
       box-shadow: 0 0 10px rgba(98, 0, 234, 0.5); /* Focus glow */
     }
 
-    .labels {
+    .labelss {
         background: linear-gradient(45deg, rgb(9, 238, 219),rgb(85, 225, 63));
         margin-left: 0;
     
