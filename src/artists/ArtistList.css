@@ -221,7 +221,137 @@
     background-color: #ddd; /* Gray background on row hover */
 }
 
+@media only screen and (max-width: 450px) {
+    /* Style adjustments for the artist-list-container */
+    .artist-list-container {
+      padding: 10px;
+      max-width: 100%; /* Make it full width for smaller screens */
+      margin: 20px auto;
+      border-radius: 20px;
+      box-shadow: 10px 10px 10px rgba(239, 236, 236, 0.895);
+    }
+  
+    .artist-list-container h2 {
+      font-size: 3em; /* Adjust font size for smaller screens */
+      padding-top: 5px;
+      border-radius: 40px;
+      margin-bottom: 20px;
+      width:400px;
 
+    }
+  
+    /* Adjust table-container and table for small screens */
+    .table-container {
+      max-height: fit-content;
+      overflow-y: auto;
+      overflow-x: hidden; /* Prevent horizontal scrolling */
+      border: 1px solid #f761b1;
+      border-radius: 40px; /* Rounded corners for a nice look */
+      max-width: 24rem; /* Max width for the event list container */
+
+    }
+  
+    .artist-table {
+      overflow-x: auto; /* Enable horizontal scrolling */
+      overflow-y: 400px; /* Enable horizontal scrolling */
+      align-items: center;
+      border-radius: 20px;
+      justify-content: center;
+      display: flex; /* Stack table cells vertically */
+      width: 100%; /* Make sure the table takes up full width */
+    }
+    .artist-table th {        
+        text-align: right;
+        text-align: right;
+        flex: 3;
+        margin-left: 4px;
+        font-size: 25px;
+        border-bottom-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+
+    }
+    .artist-table thead {
+      display: vertical; /* Hide the header on small screens */
+    }
+  
+    .artist-table tbody {
+      display: block; /* Stack table rows as blocks */
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px; /* Space between rows */
+      flex-direction: row;
+      display: flex;
+      grid-template-columns: minmax(150px, 1fr) minmax(200px, 2fr); /* Define grid columns */
+
+    }
+  
+    .artist-table tr {
+      display: flex;
+      flex-direction: column; /* Stack rows vertically */
+      margin-bottom: 20px;
+      border-bottom: 60px solid #ddd;
+      padding: 20px;
+    }
+  
+    .artist-table td {
+      display: block; /* Stack cells vertically */
+      width: 10rem;
+      padding: 10px;
+      font-family: 'Geneva';
+      height:30px;
+      border: 1px solid red;
+      font-size: 10px;
+      overflow-y: auto; /* Enable horizontal scrolling */
+      border-radius: 12px;
+      text-align: left;
+      white-space: normal; /* Allow wrapping */
+      text-align: right; /* Align content to the right for smaller screens */
+      background-color: rgba(253, 242, 94, 0.875);
+      color: #41024c;
+      word-wrap: break-word; /* Allow wrapping of long content */
+      border: 1px solid #6200ff;
+      margin-bottom: 10px;
+    }
+  
+    /* Use data-label to display table headers on small screens */
+    .artist-table td:before {
+      content: attr(data-label); /* Use the header as a label for each cell */
+      font-weight: bold;
+      text-align: left;
+      color: #fff; /* Make the labels stand out */
+      display: inline-block;
+      padding-right: 10px;
+      flex:1
+    }
+  
+    /* Style buttons for smaller screens */
+    .Create,
+    .editbutton,
+    .deletebutton,
+    .Saveme,
+    .Cancelme {
+      width: 100%; /* Full width buttons */
+      font-size: 10px; /* Reduce font size */
+      padding: 8px;
+    }
+  
+    /* Style for the search input */
+    .searchartists {
+      font-size: 25px;
+      padding: 10px;
+      text-align: center; /* Center text in input */
+
+      width: 24rem; /* Full width for smaller screens */
+      margin-bottom: 20px;
+    }
+  
+    .selecteventtypes,
+    .selectevent {
+      width: 100%; /* Make select boxes full width */
+      padding: 10px;
+      font-size: 18px;
+    }
+  }
 
 
 

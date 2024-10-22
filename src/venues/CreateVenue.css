@@ -120,7 +120,7 @@
 }
 
 /* Make the form responsive */
-@media (max-width: 600px) {
+@media (max-width: 450px) {
   .create-venue-container {
     max-width: 100%;
   }

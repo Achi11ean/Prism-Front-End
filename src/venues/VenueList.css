@@ -237,6 +237,7 @@
     grid-template-columns: minmax(150px, 1fr) minmax(200px, 2fr); /* Define grid columns */
     padding: 10px;
     display: flex;
+    margin-left: 5px;
     flex-direction: row;
     margin-bottom: 20px; /* Space between rows */
     border-bottom: 1px solid #ddd;
