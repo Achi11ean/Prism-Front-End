@@ -409,7 +409,7 @@
 }
 
 /* Media Query for screens 450px or smaller */
-@media (max-width: 450px) {
+@media (max-width: 500px) {
     .sign-in-container {
         padding: 20px;
         max-width: 80%; /* Full width on smaller screens */
