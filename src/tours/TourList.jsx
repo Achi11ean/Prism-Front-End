@@ -272,9 +272,9 @@ const handleSaveClick = (tourId) => {
             <th>Start Date</th>
             <th>End Date</th>
             <th>Description</th>
-            <th>Social Media Handles</th>
+            <th>Socials</th>
             <th>Events</th> {/* New column for Events */}
-            <th>Created By</th> {/* New column for Created By */}
+            <th>Creator</th> {/* New column for Created By */}
             <th>Actions</th>
           </tr>
         </thead>
