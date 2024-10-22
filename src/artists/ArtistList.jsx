@@ -311,7 +311,7 @@ function ArtistList() {
                         ? artist.events.map((event) => event.name).join(", ")
                         : "No Events"}
                     </td>
-                    <td data-label="Fans">
+                    <td data-label="Fans:">
                       {artist.favorited_by.length > 0
                         ? artist.favorited_by
                             .map((attendee) => attendee.name)
