@@ -206,6 +206,7 @@
 
     .labels {
         background: linear-gradient(45deg, rgb(9, 238, 219),rgb(85, 225, 63));
+        margin-left: 0;
     
     }
     .date {
