@@ -292,7 +292,7 @@
       flex-direction: column; /* Stack rows vertically */
       margin-bottom: 20px;
       border-bottom: 60px solid #ddd;
-      padding: 20px;
+      padding: 10px;
     }
   
     .artist-table td {
