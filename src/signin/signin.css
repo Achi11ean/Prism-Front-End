@@ -360,3 +360,81 @@
     border-radius: 40px;
     font-family: cursive;
 }
+.error {
+    color: red;
+    font-size: 1rem;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Container styling */
+.sign-in-container {
+    background-color: rgba(0, 255, 200, 0.681);
+    padding: 40px;
+    width: 1900px;
+    max-width: 1500px;
+    margin: 50px auto;
+    border-radius: 40px;
+    box-shadow: 20px 20px 20px rgba(255, 255, 255, 0.878);
+    color: #3e2723;
+}
+
+/* Form header styling */
+.sign-in-container h2 {
+    text-align: center;
+    font-family: cursive;
+    font-weight: 700;
+    color: #6200ea;
+    font-size: 6rem;
+    text-shadow: 10px 10px 10px rgb(236, 0, 0);
+}
+
+/* Label styling */
+.sign-in-container label {
+    display: block;
+    font-size: 3em;
+    margin-left: 420px;
+    margin-right: 250px;
+    border-radius: 60px;
+    margin-bottom: 10px;
+    width: 600px;
+    text-align: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: #6600ff;
+    background: linear-gradient(135deg, #ffffff 0%, #0062ff8d 100%);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    padding: 15px 20px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* Media Query for screens 450px or smaller */
+@media (max-width: 450px) {
+    .sign-in-container {
+        padding: 20px;
+        max-width: 100%; /* Full width on smaller screens */
+        width: auto; /* Adapt width */
+    }
+
+    .sign-in-container h2 {
+        font-size: 2.5rem; /* Reduce header font size */
+    }
+
+    .sign-in-container label {
+        font-size: 1.5em; /* Adjust font size for labels */
+        margin-left: 50px; /* Adjust margins for smaller screens */
+        margin-right: 50px;
+        width: auto; /* Auto width for label */
+    }
+
+    .sign-in-container input,
+    .sign-in-container select {
+        font-size: 1.2em; /* Adjust input and select font size */
+    }
+
+    .sign-in-container button {
+        font-size: 1.5rem; /* Adjust button font size */
+        margin-left: 20px;
+        width: 80%; /* Adjust button width */
+    }
+}
