@@ -337,7 +337,13 @@
   padding-right: 10px;
   flex:1
 }
-.CreateButton,
+
+.CreateButton {
+  width: 100%; /* Full width buttons */
+  font-size: 25px; /* Reduce font size */
+  padding: 8px;
+}
+
 .editbutton,
 .deletebutton,
 .Saveme,
