@@ -437,4 +437,13 @@
         margin-left: 20px;
         width: 80%; /* Adjust button width */
     }
+    .toggle-button {
+        background: none;
+        border: none;
+        color: blue;
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 1.2rem;
+        
+    }
 }
