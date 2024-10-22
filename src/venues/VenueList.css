@@ -318,7 +318,7 @@
   }
   .venue-list-container {
     background-color: rgba(255, 218, 185, 0.662); /* Light peach background with transparency */
-    max-width: 410px; /* Max width for the event list container */
+    max-width:50%; /* Max width for the event list container */
     border-radius: 40px; /* Rounded corners for a nice look */
     box-shadow: 20px 18px 20px rgba(239, 236, 236, 0.895); /* Add a shadow */
     max-height:fit-content;
