@@ -142,13 +142,13 @@ function VenueList() {
       <table border="1" cellPadding="10" className="venue-table">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Organizer</th>
-            <th>Email</th>
-            <th>Earnings</th>
-            <th>Description</th>  {/* New Description column */}
-            <th>Actions</th>
+            <th>ID:</th>
+            <th>Name:</th>
+            <th>Organizer:</th>
+            <th>Email:</th>
+            <th>Earnings:</th>
+            <th>Description:</th>  {/* New Description column */}
+            <th>Actions:</th>
           </tr>
         </thead>
         <tbody>
