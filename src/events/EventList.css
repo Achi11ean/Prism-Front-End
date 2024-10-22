@@ -348,7 +348,7 @@
 .deletebutton,
 .Saveme,
 .Cancelme {
-  width: 100%; /* Full width buttons */
+  width: 40%; /* Full width buttons */
   font-size: 10px; /* Reduce font size */
   padding: 8px;
 }
