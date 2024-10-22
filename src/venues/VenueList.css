@@ -286,6 +286,7 @@
     text-align: right;
     flex: 3;
     margin-bottom: 31px;
+    margin-left: 100px;
   }
   .venue-list-container h2 {
     text-align: center; /* Center the header */
@@ -318,8 +319,7 @@
   }
   .venue-list-container {
     background-color: rgba(255, 218, 185, 0.662); /* Light peach background with transparency */
-    padding: 100px;
-    max-width: 430px; /* Max width for the event list container */
+    max-width: 420px; /* Max width for the event list container */
     border-radius: 40px; /* Rounded corners for a nice look */
     box-shadow: 20px 18px 20px rgba(239, 236, 236, 0.895); /* Add a shadow */
     max-height:fit-content;
