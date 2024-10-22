@@ -164,7 +164,7 @@
     /* Adjust form container for smaller screens */
     .create-artist-container {
       padding: 20px; /* Reduce padding */
-      max-width: 100%; /* Full width for smaller screens */
+      max-width: 80%; /* Full width for smaller screens */
       background-color: rgba(255, 192, 203, 0.8); /* Light pink background */
       border-radius: 15px; /* Reduce border radius */
       box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); /* Shadow for depth */
@@ -182,7 +182,7 @@
     .create-artist-container input[type="number"],
     .create-artist-container textarea,
     .create-artist-container select {
-      width: 15rem; /* Adjust input width */
+      width: 60%; /* Adjust input width */
       font-size: 1em; /* Adjust font size */
       text-align: center;
       border: 2px solid #f57c00; /* Orange border */
