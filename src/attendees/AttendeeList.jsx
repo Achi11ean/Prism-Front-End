@@ -291,8 +291,8 @@ function AttendeeList() {
             <tbody>
               {attendees.slice(0, displayLimit).map((attendee) => (
                 <tr key={attendee.id}>
-                  <td>{attendee.id}</td>
-                  <td>
+                  <td data-label="ID:">{attendee.id}</td>
+                  <td data-label="First Name:">
                     {editingId === attendee.id ? (
                       <input
                         className="editattendee"
@@ -305,7 +305,7 @@ function AttendeeList() {
                       attendee.first_name
                     )}
                   </td>
-                  <td>
+                  <td data-label="Last Name:">
                     {editingId === attendee.id ? (
                       <input
                         className="editattendee"
@@ -318,7 +318,7 @@ function AttendeeList() {
                       attendee.last_name
                     )}
                   </td>
-                  <td>
+                  <td data-label="Email:">
                     {editingId === attendee.id ? (
                       <input
                         className="editattendee"
@@ -332,7 +332,7 @@ function AttendeeList() {
                     )}
                   </td>
 
-                  <td className="favorite-event-column">
+                  <td data-label="Favorite Events:" className="favorite-event-column">
                     {editingId === attendee.id ? (
                       <>
                         {/* Search bar for favorite events */}
@@ -385,7 +385,7 @@ function AttendeeList() {
                     )}
                   </td>
 
-                  <td>
+                  <td data-label="Favorite Event Types:">
                     {editingId === attendee.id ? (
                       <>
                         {/* Search bar for favorite event types */}
@@ -445,7 +445,7 @@ function AttendeeList() {
                       </ul>
                     )}
                   </td>
-                  <td>
+                  <td data-label="Favorite Artists:">
                     {editingId === attendee.id ? (
                       <>
                         {/* Search bar for favorite artists */}
@@ -497,7 +497,7 @@ function AttendeeList() {
                       </ul>
                     )}
                   </td>
-                  <td>
+                  <td data-label="Social Media:">
                     {editingId === attendee.id ? (
                       <input
                         className="editattendee"
@@ -511,7 +511,7 @@ function AttendeeList() {
                       attendee.social_media || "No social media provided"
                     )}
                   </td>
-                  <td>
+                  <td data-label=" Actions:">
                     {editingId === attendee.id ? (
                       <>
                         <button

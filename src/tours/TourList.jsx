@@ -431,21 +431,21 @@ const handleSaveClick = (tourId) => {
                 </>
               ) : (
                 <>
-                  <td>{tour.id}</td>
-                  <td>{tour.name}</td>
-                  <td>{formatDate(tour.start_date)}</td>
-                  <td>{formatDate(tour.end_date)}</td>
-                  <td>{tour.description}</td>
-                  <td>{tour.social_media_handles}</td>
-                  <td>
+                  <td data-label="ID:">{tour.id}</td>
+                  <td data-label="Name:">{tour.name}</td>
+                  <td data-label="Start Date:">{formatDate(tour.start_date)}</td>
+                  <td data-label="End Date:">{formatDate(tour.end_date)}</td>
+                  <td data-label="Description:">{tour.description}</td>
+                  <td data-label="Handles:">{tour.social_media_handles}</td>
+                  <td data-label="Events:">
                     {tour.events
                       ? tour.events.map((event) => event.name).join(", ")
                       : "No Events"}
                   </td>
-                  <td>
+                  <td data-label="Creator:">
                     {tour.created_by ? tour.created_by : tour.created_by_artist}
                   </td> {/* Show either venue or artist name */}
-                  <td>
+                  <td data-label="Action Buttons:">
                     <button
                       className="editbutton"
                       onClick={() => handleEditClick(tour)}
