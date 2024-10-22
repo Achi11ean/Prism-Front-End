@@ -151,7 +151,7 @@
 .create-venue-container input[type="number"],
 .create-venue-container select,
 .create-venue-container textarea {
-  width: 300px;
+  width: 15rem;
   font-size: 1rem;
   text-align: center;
   border: 2px solid #ff6f61; /* Coral border */
