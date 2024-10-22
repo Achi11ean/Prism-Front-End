@@ -319,7 +319,6 @@
   border-radius: 12px;
   text-align: left;
   white-space: normal; /* Allow wrapping */
-  text-align: right; /* Align content to the right for smaller screens */
   background-color: rgba(255, 248, 148, 0.875);
   color: #41024c;
   word-wrap: break-word; /* Allow wrapping of long content */
