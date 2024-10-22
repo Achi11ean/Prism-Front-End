@@ -148,7 +148,7 @@ function CreateArtist() {
             overflowY: "scroll",
             border: "1px solid #ccc",
             padding: "5px",
-            marginLeft: "1px",
+            marginLeft: "0px",
           }}
         >
           {filteredEvents.map((event) => (
