@@ -351,6 +351,22 @@
       padding: 10px;
       font-size: 18px;
     }
+
+    .Create {
+        display: inline-block;
+        background-color: #ff2adffa; /* Light blue background */
+        color: rgb(8, 0, 255); /* White text */
+        padding: 11px 15px; /* Padding for the button */
+        font-size: 25px; /* Slightly larger font size */
+        border: white; /* Remove borders */
+        font-family: 'Trebuchet';
+        border-radius: 12px; /* Rounded corners */
+        cursor: pointer; /* Pointer cursor to indicate it's clickable */
+        margin-bottom: 20px; /* Space below the button */
+        transition: background-color 0.3s ease; /* Smooth background color change */
+        box-shadow: 10px 10px 12px rgb(252, 252, 252); /* Stronger shadow on focus */
+    }
+
   }
 
 

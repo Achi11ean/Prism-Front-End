@@ -69,7 +69,10 @@ nav a:hover {
 @media only screen and (max-width: 450px) {
     .menu-toggle {
         display: block; /* Show the toggle button when screen is 450px or less */
-        margin-left: 250px;
+        margin-left: 150px;
+        border-radius: 30px;
+        background-color: rgb(10, 7, 7);
+        color:pink;
     }
 
     nav ul {
@@ -87,13 +90,12 @@ nav a:hover {
         display: none; /* Hide the menu when the state is closed */
     }
 
-    nav li {
-        margin: 10px 0;
-    }
+
 
     nav a {
-        font-size: 24px;
-        padding: 8px 10px;
+        font-size: 28px;
+        margin-bottom: 2px;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     }
 
     .signin, .signout {
