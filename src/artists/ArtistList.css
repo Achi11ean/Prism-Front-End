@@ -266,8 +266,7 @@
         flex: 3;
         display: inline-block;
         margin-left: 4px;
-        font-size:20px;
-        margin-bottom:  14px;
+        font-size:22.5px;
         border-bottom-right-radius: 10px;
         border-bottom-right-radius: 10px;
 
@@ -279,11 +278,8 @@
     .artist-table tbody {
       display: block; /* Stack table rows as blocks */
       width: 100%;
-      padding: 5px;
-      margin-bottom: 30px; /* Space between rows */
       flex-direction: row;
       display: flex;
-      margin-top: 10px;
       grid-template-columns: minmax(150px, 1fr) minmax(200px, 2fr); /* Define grid columns */
 
     }
@@ -291,17 +287,16 @@
     .artist-table tr {
       display: flex;
       flex-direction: column; /* Stack rows vertically */
-      margin-bottom: 20px;
       background-color: pink;
       padding: 10px;
     }
   
     .artist-table td {
       display: block; /* Stack cells vertically */
-      width: 10rem;
+      width: 13rem;
       padding: 5px;
       font-family: 'Geneva';
-      height:30px;
+      height:40px;
       border: 1px solid red;
       font-size: 14.5px;
       overflow-y: auto; /* Enable horizontal scrolling */
@@ -313,7 +308,7 @@
       color: #41024c;
       word-wrap: break-word; /* Allow wrapping of long content */
       border: 1px solid #6200ff;
-      margin-bottom: 15px;
+      margin-bottom: 5px;
     }
   
     /* Use data-label to display table headers on small screens */
