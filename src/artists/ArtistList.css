@@ -96,7 +96,7 @@
     background-color: #f44336; /* Red background for delete */
     color: white; /* White text */
     padding: 10px 15px;
-    font-size: 25px;
+    font-size: 10px;
     border: 2px solid white;
     border-radius: 20px;
     cursor: pointer;

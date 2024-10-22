@@ -54,24 +54,50 @@ nav a:hover {
     padding: 5px;
 
 }
+
+.menu-toggle {
+    display: none; /* Hidden by default */
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
+    margin: 10px;
+}
 @media only screen and (max-width: 450px) {
+    .menu-toggle {
+        display: block; /* Show the toggle button when screen is 450px or less */
+        margin-left: 250px;
+    }
+
     nav ul {
-        flex-direction: column; /* Stack the nav items vertically */
-       ; /* Align to the left */
-        padding: 10px;
+        display: none; /* Initially hide the menu */
+        flex-direction: column;
+        list-style: none;
+        padding: 0;
+    }
+
+    nav ul.open {
+        display: flex; /* Show the menu when the state is open */
+    }
+
+    nav ul.closed {
+        display: none; /* Hide the menu when the state is closed */
     }
 
     nav li {
-        margin: 10px 0; /* Add some vertical spacing between items */
+        margin: 10px 0;
     }
 
     nav a {
-        font-size: 24px; /* Reduce font size */
-        padding: 8px 10px; /* Adjust padding for smaller screens */
+        font-size: 24px;
+        padding: 8px 10px;
     }
 
     .signin, .signout {
-        font-size: 24px; /* Adjust sign-in and sign-out button sizes */
+        font-size: 24px;
         padding: 8px 15px;
         border-radius: 20px;
     }

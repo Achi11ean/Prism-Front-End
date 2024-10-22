@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './NavBar.css';
 
+
 function NavBar() {
+    const [menuOpen, setMenuOpen] = useState(false); // State to manage menu visibility
+
+    const toggleMenu = () => {
+        setMenuOpen(!menuOpen);
+    };
     return (
         <nav>
-            <ul>
-                
+            <button className="menu-toggle" onClick={toggleMenu}>
+                {menuOpen ? 'Close Menu' : 'Open Menu'}
+            </button>
+            <ul className={menuOpen ? 'open' : ''}>                
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/venues">Venues</Link></li>
                 <li><Link to="/artists">Artists</Link></li>

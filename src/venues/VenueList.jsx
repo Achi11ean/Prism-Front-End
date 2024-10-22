@@ -152,78 +152,78 @@ function VenueList() {
           </tr>
         </thead>
         <tbody>
-          {venues.slice(0, displayLimit).map((venue) => (  // Limit venues displayed by displayLimit
-            <tr key={venue.id}>
-              {editingVenueId === venue.id ? (
-                <>
-                  <td>{venue.id}</td>
-                  <td>
-                    <input
-                      className='editvenue'
-                      type="text"
-                      name="name"
-                      value={editFormData.name}
-                      onChange={handleEditChange}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      className='editvenue'
-                      type="text"
-                      name="organizer"
-                      value={editFormData.organizer}
-                      onChange={handleEditChange}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      className='editvenue'
-                      type="text"
-                      name="email"
-                      value={editFormData.email}
-                      onChange={handleEditChange}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      className='editvenue'
-                      type="text"
-                      name="earnings"
-                      value={editFormData.earnings}
-                      onChange={handleEditChange}
-                    />
-                  </td>
-                  <td>
-                    <textarea
-                      className='editvenue'
-                      name="description"
-                      value={editFormData.description}
-                      onChange={handleEditChange}
-                      rows="3"
-                    />
-                  </td>
-                  <td>
-                    <button className="Saveme" onClick={() => handleSaveClick(venue.id)}>Save</button>
-                    <button className="Cancelme" onClick={handleCancelClick}>Cancel</button>
-                  </td>
-                </>
-              ) : (
-                <>
-                  <td>{venue.id}</td>
-                  <td>{venue.name}</td>
-                  <td>{venue.organizer}</td>
-                  <td>{venue.email}</td>
-                  <td>{venue.earnings}</td>
-                  <td>{venue.description}</td>  {/* Displaying description */}
-                  <td>
-                    <button className="editbutton" onClick={() => handleEditClick(venue)}>Edit</button>
-                    <button className="deletebutton" onClick={() => handleDeleteClick(venue.id)}>Delete</button>
-                  </td>
-                </>
-              )}
-            </tr>
-          ))}
-        </tbody>
+  {venues.slice(0, displayLimit).map((venue) => (
+    <tr key={venue.id}>
+      {editingVenueId === venue.id ? (
+        <>
+          <td data-label="ID">{venue.id}</td>
+          <td data-label="Name">
+            <input
+              className='editvenue'
+              type="text"
+              name="name"
+              value={editFormData.name}
+              onChange={handleEditChange}
+            />
+          </td>
+          <td data-label="Organizer">
+            <input
+              className='editvenue'
+              type="text"
+              name="organizer"
+              value={editFormData.organizer}
+              onChange={handleEditChange}
+            />
+          </td>
+          <td data-label="Email">
+            <input
+              className='editvenue'
+              type="text"
+              name="email"
+              value={editFormData.email}
+              onChange={handleEditChange}
+            />
+          </td>
+          <td data-label="Earnings">
+            <input
+              className='editvenue'
+              type="text"
+              name="earnings"
+              value={editFormData.earnings}
+              onChange={handleEditChange}
+            />
+          </td>
+          <td data-label="Description">
+            <textarea
+              className='editvenue'
+              name="description"
+              value={editFormData.description}
+              onChange={handleEditChange}
+              rows="3"
+            />
+          </td>
+          <td data-label="Actions">
+            <button className="Saveme" onClick={() => handleSaveClick(venue.id)}>Save</button>
+            <button className="Cancelme" onClick={handleCancelClick}>Cancel</button>
+          </td>
+        </>
+      ) : (
+        <>
+          <td data-label="ID">{venue.id}</td>
+          <td data-label="Name">{venue.name}</td>
+          <td data-label="Organizer">{venue.organizer}</td>
+          <td data-label="Email">{venue.email}</td>
+          <td data-label="Earnings">{venue.earnings}</td>
+          <td data-label="Description">{venue.description}</td>
+          <td data-label="Actions">
+            <button className="editbutton" onClick={() => handleEditClick(venue)}>Edit</button>
+            <button className="deletebutton" onClick={() => handleDeleteClick(venue.id)}>Delete</button>
+          </td>
+        </>
+      )}
+    </tr>
+  ))}
+</tbody>
       </table>
 
       {/* Load More button */}
