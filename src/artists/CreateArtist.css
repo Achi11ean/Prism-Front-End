@@ -149,7 +149,7 @@
 @media (max-width: 600px) {
     .create-artist-container {
         padding: 20px; 
-        max-width: 100%; /* Full width on small screens */
+        max-width: 80%; /* Full width on small screens */
     }
 
     .create-artist-container h2 {

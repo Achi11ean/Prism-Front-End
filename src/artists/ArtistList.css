@@ -324,7 +324,6 @@
       color: #ff0000; /* Make the labels stand out */
       display: inline-block;
       padding-right: 10px;
-      text-decoration: underline;
       flex:1
     }
   
