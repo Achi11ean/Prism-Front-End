@@ -354,7 +354,7 @@
     box-shadow: 10px 10px 5px rgb(135, 93, 232); /* Stronger shadow on focus */
   }
   .editvenue {
-    font-size: 15px;
+    font-size: 10px;
     border-radius: 20px;
     background-color: blue;
   }
