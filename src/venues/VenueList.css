@@ -196,7 +196,7 @@
   border-color: #FF1493; /* Change border color on focus */
 }
 .editvenue {
-  font-size: 50px;
+  font-size: 20px;
   border-radius: 20px;
   background-color: blue;
 }
@@ -354,7 +354,7 @@
     box-shadow: 10px 10px 5px rgb(135, 93, 232); /* Stronger shadow on focus */
   }
   .editvenue {
-    font-size: 10px;
+    font-size: 15px;
     border-radius: 20px;
     background-color: blue;
   }
