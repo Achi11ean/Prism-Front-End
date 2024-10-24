@@ -1,3 +1,4 @@
+// AttendeeList.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AttendeeList.css";
@@ -16,7 +17,8 @@ function AttendeeList() {
     favorite_event_ids: [],
     favorite_event_types: [],
     favorite_artist_ids: [],
-    social_media: "", // Add social media field here
+    social_media: [],
+    favorite_venues: [],
   });
 
   const [searchTerm, setSearchTerm] = useState(""); // For attendee search
@@ -25,8 +27,17 @@ function AttendeeList() {
   const [artists, setArtists] = useState([]);
   const [displayLimit, setDisplayLimit] = useState(5); // Limit number of attendees displayed by default
   const [eventTypeSearchTerm, setEventTypeSearchTerm] = useState(""); // New state for event types search
+  const [venues, setVenues] = useState([]);
+  const [venueSearchTerm, setVenueSearchTerm] = useState("");
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch("https://phase4project-xp0u.onrender.com/venues")
+      .then((response) => response.json())
+      .then((data) => setVenues(data))
+      .catch((error) => console.error("Error fetching venues:", error));
+  }, []);
 
   useEffect(() => {
     // Fetch artists
@@ -49,8 +60,35 @@ function AttendeeList() {
       .then((response) => response.json())
       .then((data) => {
         console.log("Fetched attendees:", data); // Debugging log
-        if (Array.isArray(data)) {
-          setAttendees(data);
+
+        // Process data to ensure attendee.social_media is always an array
+        const processedData = data.map((attendee) => {
+          let social_media = attendee.social_media;
+
+          if (Array.isArray(social_media)) {
+            // Already an array, do nothing
+          } else if (typeof social_media === "object" && social_media !== null) {
+            // Convert object to array of { platform, handle }
+            social_media = Object.entries(social_media).map(([platform, handle]) => ({
+              platform,
+              handle,
+            }));
+          } else if (typeof social_media === "string") {
+            // Convert string to array with one element
+            social_media = [{ platform: "", handle: social_media }];
+          } else {
+            // Set to empty array if undefined or null
+            social_media = [];
+          }
+
+          return {
+            ...attendee,
+            social_media,
+          };
+        });
+
+        if (Array.isArray(processedData)) {
+          setAttendees(processedData);
           setErrorMessage(""); // Reset error message if data is fetched
         } else {
           setErrorMessage("Fetched data is not an array.");
@@ -98,9 +136,47 @@ function AttendeeList() {
     const selectedEventId = parseInt(e.target.value);
     setEditData((prevState) => ({
       ...prevState,
-      favorite_event_ids: prevState.favorite_event_ids.includes(selectedEventId)
+      favorite_event_ids: prevState.favorite_event_ids.includes(
+        selectedEventId
+      )
         ? prevState.favorite_event_ids.filter((id) => id !== selectedEventId)
         : [...prevState.favorite_event_ids, selectedEventId],
+    }));
+  };
+
+  const handleVenueSelection = (venueId) => {
+    venueId = Number(venueId); // Ensure venueId is a number
+    setEditData((prevState) => {
+      const exists = prevState.favorite_venues.some(
+        (fv) => fv.venue_id === venueId
+      );
+      if (exists) {
+        // Remove venue
+        return {
+          ...prevState,
+          favorite_venues: prevState.favorite_venues.filter(
+            (fv) => fv.venue_id !== venueId
+          ),
+        };
+      } else {
+        // Add venue with default rating
+        return {
+          ...prevState,
+          favorite_venues: [
+            ...prevState.favorite_venues,
+            { venue_id: venueId, rating: 1 },
+          ],
+        };
+      }
+    });
+  };
+
+  const handleVenueRatingChange = (venueId, rating) => {
+    setEditData((prevState) => ({
+      ...prevState,
+      favorite_venues: prevState.favorite_venues.map((fv) =>
+        fv.venue_id === venueId ? { ...fv, rating: parseInt(rating) } : fv
+      ),
     }));
   };
 
@@ -133,7 +209,22 @@ function AttendeeList() {
       favorite_artist_ids: attendee.favorite_artists
         ? attendee.favorite_artists.map((artist) => artist.id)
         : [],
-      social_media: attendee.social_media || "", // Add social media field here
+      favorite_venues: attendee.venues
+        ? attendee.venues.map((venue) => ({
+            venue_id: venue.venue_id || venue.id,
+            rating: venue.rating || 1,
+          }))
+        : [],
+      social_media: Array.isArray(attendee.social_media)
+        ? attendee.social_media
+        : typeof attendee.social_media === "object"
+        ? Object.entries(attendee.social_media).map(([platform, handle]) => ({
+            platform,
+            handle,
+          }))
+        : attendee.social_media
+        ? [{ platform: "", handle: attendee.social_media }]
+        : [],
     });
   };
 
@@ -154,34 +245,76 @@ function AttendeeList() {
     }));
   };
 
-  const handleSocialMediaChange = (e) => {
-    const { value } = e.target;
-
-    // Split by commas to get each social media entry, then split by colon to get platform and URL
-    const socialMediaArray = value.split(",").map((entry) => {
-      const [platform, url] = entry.split(":").map((part) => part.trim());
-      return { platform, url };
+  const handleSocialMediaChange = (index, field, value) => {
+    setEditData((prevState) => {
+      const social_media = [...prevState.social_media];
+      social_media[index][field] = value;
+      return { ...prevState, social_media };
     });
-
-    // Update editData with the structured array of social media entries
-    setEditData({ ...editData, social_media: socialMediaArray });
   };
 
-  const renderSocialMediaLinks = (socialMediaArray) => {
-    return socialMediaArray.map((entry, index) => {
-      return (
-        <span key={index}>
-          <strong>{entry.platform}</strong>:{" "}
-          <a href={entry.url} target="_blank" rel="noopener noreferrer">
-            {entry.url}
-          </a>
-          {index < socialMediaArray.length - 1 && ", "}
-        </span>
-      );
+  const addSocialMediaEntry = () => {
+    setEditData((prevState) => ({
+      ...prevState,
+      social_media: [...prevState.social_media, { platform: "", handle: "" }],
+    }));
+  };
+
+  const removeSocialMediaEntry = (index) => {
+    setEditData((prevState) => {
+      const social_media = [...prevState.social_media];
+      social_media.splice(index, 1);
+      return { ...prevState, social_media };
     });
+  };
+
+  const renderSocialMediaLinks = (socialMedia) => {
+    console.log("socialMedia:", socialMedia); // Debugging log
+    if (!socialMedia || socialMedia.length === 0) {
+      return "No social media provided";
+    }
+
+    if (Array.isArray(socialMedia)) {
+      return (
+        <ul>
+          {socialMedia.map((entry, index) => (
+            <li key={index}>
+              <strong>{entry.platform}:</strong> {entry.handle}
+            </li>
+          ))}
+        </ul>
+      );
+    } else if (typeof socialMedia === "object" && socialMedia !== null) {
+      return (
+        <ul>
+          {Object.entries(socialMedia).map(([platform, handle], index) => (
+            <li key={index}>
+              <strong>{platform}:</strong> {handle}
+            </li>
+          ))}
+        </ul>
+      );
+    } else if (typeof socialMedia === "string") {
+      return socialMedia;
+    } else {
+      return "No social media provided";
+    }
   };
 
   const handleSave = (id) => {
+    const socialMediaObject = editData.social_media.reduce((acc, entry) => {
+      if (entry.platform && entry.handle) {
+        acc[entry.platform] = entry.handle;
+      }
+      return acc;
+    }, {});
+
+    // Adjust favorite_venues to match backend expectations
+    const favoriteVenues = editData.favorite_venues.map((fv) => ({
+      venue_id: fv.venue_id, // Use 'venue_id' if backend expects that
+      rating: fv.rating,
+    }));
+
     const updatedAttendee = {
       first_name: editData.first_name,
       last_name: editData.last_name,
@@ -189,8 +322,11 @@ function AttendeeList() {
       favorite_event_ids: editData.favorite_event_ids,
       favorite_event_types: editData.favorite_event_types,
       favorite_artist_ids: editData.favorite_artist_ids,
-      social_media: editData.social_media, // Include social media here
+      social_media: socialMediaObject,
+      favorite_venues: favoriteVenues, // Use the adjusted favorite venues
     };
+
+    console.log("Data sent to backend:", JSON.stringify(updatedAttendee, null, 2));
 
     fetch(`https://phase4project-xp0u.onrender.com/attendees/${id}`, {
       method: "PATCH",
@@ -284,7 +420,8 @@ function AttendeeList() {
                 <th>Favorite Events</th>
                 <th>Favorite Event Types</th>
                 <th>Favorite Artists</th>
-                <th>Social Media</th> {/* Add Social Media column here */}
+                <th>Favorite Venues</th>
+                <th>Social Media</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -295,7 +432,7 @@ function AttendeeList() {
                   <td data-label="First Name:">
                     {editingId === attendee.id ? (
                       <input
-                        className="editattendee"
+                        className="edit-input"
                         type="text"
                         name="first_name"
                         value={editData.first_name}
@@ -308,7 +445,7 @@ function AttendeeList() {
                   <td data-label="Last Name:">
                     {editingId === attendee.id ? (
                       <input
-                        className="editattendee"
+                        className="edit-input"
                         type="text"
                         name="last_name"
                         value={editData.last_name}
@@ -321,7 +458,7 @@ function AttendeeList() {
                   <td data-label="Email:">
                     {editingId === attendee.id ? (
                       <input
-                        className="editattendee"
+                        className="edit-input"
                         type="email"
                         name="email"
                         value={editData.email}
@@ -332,28 +469,21 @@ function AttendeeList() {
                     )}
                   </td>
 
-                  <td data-label="Favorite Events:" className="favorite-event-column">
+                  <td
+                    data-label="Favorite Events:"
+                    className="favorite-event-column"
+                  >
                     {editingId === attendee.id ? (
                       <>
                         {/* Search bar for favorite events */}
                         <input
-                          className="editattendee"
+                          className="edit-input"
                           type="text"
                           placeholder="Search favorite events..."
                           value={eventSearchTerm}
                           onChange={handleEventSearchChange}
                         />
-                        <div
-                          className="event-checkboxes"
-                          style={{
-                            maxHeight: "150px",
-                            overflowY: "scroll",
-                            border: "1px solid #ccc",
-                            padding: "5px",
-                            fontSize: "20px",
-                            width: "150px",
-                          }}
-                        >
+                        <div className="event-checkboxes">
                           {filteredEvents.map((event) => (
                             <div key={event.id}>
                               <label>
@@ -375,12 +505,18 @@ function AttendeeList() {
                       <ul>
                         {attendee.favorite_events &&
                         attendee.favorite_events.length > 0 ? (
-                          attendee.favorite_events.map((event) => (
+                          attendee.favorite_events.slice(0, 2).map((event) => (
                             <li key={event.id}>{event.name}</li>
                           ))
                         ) : (
                           <li>No favorite events</li>
                         )}
+                        {attendee.favorite_events &&
+                          attendee.favorite_events.length > 2 && (
+                            <li>
+                              and {attendee.favorite_events.length - 2} more...
+                            </li>
+                          )}
                       </ul>
                     )}
                   </td>
@@ -390,7 +526,7 @@ function AttendeeList() {
                       <>
                         {/* Search bar for favorite event types */}
                         <input
-                          className="editattendee"
+                          className="edit-input"
                           type="text"
                           placeholder="Search favorite event types..."
                           value={eventTypeSearchTerm} // Use the new state variable
@@ -398,17 +534,7 @@ function AttendeeList() {
                             setEventTypeSearchTerm(e.target.value)
                           } // Update the correct state
                         />
-                        <div
-                          className="event-checkboxes"
-                          style={{
-                            maxHeight: "150px",
-                            overflowY: "scroll",
-                            border: "1px solid #ccc",
-                            padding: "5px",
-                            fontSize: "20px",
-                            width: "150px",
-                          }}
-                        >
+                        <div className="event-checkboxes">
                           {eventTypes
                             .filter((eventType) =>
                               eventType
@@ -436,12 +562,18 @@ function AttendeeList() {
                       <ul>
                         {Array.isArray(attendee.favorite_event_types) &&
                         attendee.favorite_event_types.length > 0 ? (
-                          attendee.favorite_event_types.map((type) => (
+                          attendee.favorite_event_types.slice(0, 2).map((type) => (
                             <li key={type}>{type}</li>
                           ))
                         ) : (
                           <li>No favorite event types</li>
                         )}
+                        {attendee.favorite_event_types &&
+                          attendee.favorite_event_types.length > 2 && (
+                            <li>
+                              and {attendee.favorite_event_types.length - 2} more...
+                            </li>
+                          )}
                       </ul>
                     )}
                   </td>
@@ -450,23 +582,13 @@ function AttendeeList() {
                       <>
                         {/* Search bar for favorite artists */}
                         <input
-                          className="editattendee"
+                          className="edit-input"
                           type="text"
                           placeholder="Search favorite artists..."
                           value={artistSearchTerm}
                           onChange={handleArtistSearchChange}
                         />
-                        <div
-                          className="event-checkboxes"
-                          style={{
-                            maxHeight: "150px",
-                            overflowY: "scroll",
-                            border: "1px solid #ccc",
-                            padding: "5px",
-                            fontSize: "20px",
-                            width: "150px",
-                          }}
-                        >
+                        <div className="event-checkboxes">
                           {filteredArtists.map((artist) => (
                             <div key={artist.id}>
                               <label>
@@ -488,30 +610,159 @@ function AttendeeList() {
                       <ul>
                         {attendee.favorite_artists &&
                         attendee.favorite_artists.length > 0 ? (
-                          attendee.favorite_artists.map((artist) => (
+                          attendee.favorite_artists.slice(0, 2).map((artist) => (
                             <li key={artist.id}>{artist.name}</li>
                           ))
                         ) : (
                           <li>No favorite artists</li>
                         )}
+                        {attendee.favorite_artists &&
+                          attendee.favorite_artists.length > 2 && (
+                            <li>
+                              and {attendee.favorite_artists.length - 2} more...
+                            </li>
+                          )}
                       </ul>
                     )}
                   </td>
-                  <td data-label="Social Media:">
+                  {/* New Venue Ratings Cell */}
+                  <td data-label="Favorite Venues:">
                     {editingId === attendee.id ? (
-                      <input
-                        className="editattendee"
-                        type="text"
-                        name="social_media"
-                        value={editData.social_media}
-                        onChange={handleInputChange}
-                        placeholder="Enter social media URL"
-                      />
+                      <>
+                        {/* Search bar for favorite venues */}
+                        <input
+                          className="edit-input"
+                          type="text"
+                          placeholder="Search favorite venues..."
+                          value={venueSearchTerm}
+                          onChange={(e) =>
+                            setVenueSearchTerm(e.target.value)
+                          }
+                        />
+                        <div className="event-checkboxes">
+                          {venues
+                            .filter((venue) =>
+                              venue.name
+                                .toLowerCase()
+                                .includes(venueSearchTerm.toLowerCase())
+                            )
+                            .map((venue) => (
+                              <div key={venue.id}>
+                                <label>
+                                  <input
+                                    type="checkbox"
+                                    value={venue.id}
+                                    checked={editData.favorite_venues.some(
+                                      (fv) => fv.venue_id === venue.id
+                                    )}
+                                    onChange={() =>
+                                      handleVenueSelection(venue.id)
+                                    }
+                                  />
+                                  {venue.name}
+                                </label>
+                                {/* Rating input for the selected venue */}
+                                {editData.favorite_venues.some(
+                                  (fv) => fv.venue_id === venue.id
+                                ) && (
+                                  <div>
+                                    <label>
+                                      Rating:
+                                      <select
+                                        value={
+                                          editData.favorite_venues.find(
+                                            (fv) => fv.venue_id === venue.id
+                                          ).rating || 1
+                                        }
+                                        onChange={(e) =>
+                                          handleVenueRatingChange(
+                                            venue.id,
+                                            e.target.value
+                                          )
+                                        }
+                                      >
+                                        {[1, 2, 3, 4, 5].map((val) => (
+                                          <option key={val} value={val}>
+                                            {val}
+                                          </option>
+                                        ))}
+                                      </select>
+                                    </label>
+                                  </div>
+                                )}
+                              </div>
+                            ))}
+                        </div>
+                      </>
                     ) : (
-                      attendee.social_media || "No social media provided"
+                      <ul>
+                        {attendee.venues && attendee.venues.length > 0 ? (
+                          attendee.venues.slice(0, 2).map((venue) => (
+                            <li key={venue.venue_id || venue.id}>
+                              {venue.name}: {venue.rating}
+                            </li>
+                          ))
+                        ) : (
+                          <li>No favorite venues</li>
+                        )}
+                        {attendee.venues && attendee.venues.length > 2 && (
+                          <li>
+                            and {attendee.venues.length - 2} more...
+                          </li>
+                        )}
+                      </ul>
                     )}
                   </td>
-                  <td data-label=" Actions:">
+
+                  <td data-label="Social Media:">
+                    {editingId === attendee.id ? (
+                      <>
+                        {editData.social_media.map((entry, index) => (
+                          <div key={index}>
+                            <input
+                              className="edit-input"
+                              type="text"
+                              placeholder="Platform"
+                              value={entry.platform}
+                              onChange={(e) =>
+                                handleSocialMediaChange(
+                                  index,
+                                  "platform",
+                                  e.target.value
+                                )
+                              }
+                            />
+                            <input
+                              className="edit-input"
+                              type="text"
+                              placeholder="Handle"
+                              value={entry.handle}
+                              onChange={(e) =>
+                                handleSocialMediaChange(
+                                  index,
+                                  "handle",
+                                  e.target.value
+                                )
+                              }
+                            />
+                            <button
+                              type="button"
+                              onClick={() => removeSocialMediaEntry(index)}
+                            >
+                              Remove
+                            </button>
+                          </div>
+                        ))}
+                        <button type="button" onClick={addSocialMediaEntry}>
+                          Add Social Media
+                        </button>
+                      </>
+                    ) : (
+                      renderSocialMediaLinks(attendee.social_media)
+                    )}
+                  </td>
+
+                  <td data-label="Actions:">
                     {editingId === attendee.id ? (
                       <>
                         <button
@@ -548,7 +799,10 @@ function AttendeeList() {
 
           {/* Load More button */}
           {displayLimit < attendees.length && (
-            <button onClick={loadMoreAttendees} className="load-more-button">
+            <button
+              onClick={loadMoreAttendees}
+              className="load-more-button"
+            >
               Load More
             </button>
           )}

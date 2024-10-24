@@ -5,17 +5,17 @@ import './VenueList.css';
 function VenueList() {
   const [venues, setVenues] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [editingVenueId, setEditingVenueId] = useState(null);  // Track the venue being edited
+  const [editingVenueId, setEditingVenueId] = useState(null);
   const [editFormData, setEditFormData] = useState({
     name: '',
     organizer: '',
     email: '',
     earnings: '',
-    description: ''  // Added description field
+    description: ''
   });
-  const [errorMessage, setErrorMessage] = useState(''); // Error message state
-  const [emailError, setEmailError] = useState(''); // State for email validation error
-  const [displayLimit, setDisplayLimit] = useState(5); // State to limit number of displayed venues
+  const [errorMessage, setErrorMessage] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [displayLimit, setDisplayLimit] = useState(5);
 
   const navigate = useNavigate();
 
@@ -23,7 +23,7 @@ function VenueList() {
     const url = searchTerm
       ? `https://phase4project-xp0u.onrender.com/venues/search?name=${searchTerm}`
       : 'https://phase4project-xp0u.onrender.com/venues';
-  
+
     fetch(url)
       .then((response) => {
         if (!response.ok) {
@@ -35,8 +35,8 @@ function VenueList() {
         if (data.length === 0) {
           setErrorMessage('No venues found matching your search.');
         } else {
-          setErrorMessage(''); // Clear error message if venues are found
-          setVenues(data); // Update the venues list
+          setErrorMessage('');
+          setVenues(data);
         }
       })
       .catch((error) => {
@@ -45,7 +45,6 @@ function VenueList() {
       });
   }, [searchTerm]);
 
-  // Handle the edit button click to edit a venue
   const handleEditClick = (venue) => {
     setEditingVenueId(venue.id);
     setEditFormData({
@@ -53,28 +52,25 @@ function VenueList() {
       organizer: venue.organizer,
       email: venue.email,
       earnings: venue.earnings,
-      description: venue.description  // Populate the description field
+      description: venue.description
     });
   };
 
-  // Handle input changes for editing
   const handleEditChange = (e) => {
     const { name, value } = e.target;
     setEditFormData({ ...editFormData, [name]: value });
-    
-    // Validate email when it changes
+
     if (name === 'email') {
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       setEmailError(emailPattern.test(value) ? '' : 'Invalid email format');
     } else {
-      setEmailError(''); // Clear email error for other fields
+      setEmailError('');
     }
   };
 
-  // Save the updated venue data
   const handleSaveClick = (venueId) => {
     if (emailError) {
-      alert('Please fix the errors before saving.'); // Alert for errors
+      alert('Please fix the errors before saving.');
       return;
     }
 
@@ -91,12 +87,10 @@ function VenueList() {
       .catch((error) => console.error('Error updating venue:', error));
   };
 
-  // Handle canceling the edit
   const handleCancelClick = () => {
     setEditingVenueId(null);
   };
 
-  // Handle deleting a venue
   const handleDeleteClick = (venueId) => {
     fetch(`https://phase4project-xp0u.onrender.com/venues/${venueId}`, {
       method: 'DELETE',
@@ -107,15 +101,14 @@ function VenueList() {
       .catch((error) => console.error('Error deleting venue:', error));
   };
 
-  // Load more venues when the button is clicked
   const loadMoreVenues = () => {
-    setDisplayLimit((prevLimit) => prevLimit + 5); // Increase limit by 5
+    setDisplayLimit((prevLimit) => prevLimit + 5);
   };
 
   return (
     <div className="venue-list-container">
       <h2>Venue List</h2>
-  
+
       {/* Create button */}
       <button className="Createvenue" onClick={() => navigate("/create-venue")}>Create Venue</button>
       {/* Search input */}
@@ -126,19 +119,19 @@ function VenueList() {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-  
+
       {errorMessage && (
         <p className="error-message" style={{ color: 'black', fontSize: '2em', backgroundColor: "white" }}>
           {errorMessage}
         </p>
-      )} {/* Error message display */}
-  
+      )}
+
       {emailError && (
         <p className="email-error" style={{ color: 'red' }}>
           {emailError}
         </p>
-      )} {/* Email validation error display */}
-      
+      )}
+
       <table border="1" cellPadding="10" className="venue-table">
         <thead>
           <tr>
@@ -147,83 +140,104 @@ function VenueList() {
             <th>Organizer:</th>
             <th>Email:</th>
             <th>Earnings:</th>
-            <th>Description:</th>  {/* New Description column */}
+            <th>Description:</th>
+            <th>Ratings:</th>
             <th>Actions:</th>
           </tr>
         </thead>
         <tbody>
-  {venues.slice(0, displayLimit).map((venue) => (
-    <tr key={venue.id}>
-      {editingVenueId === venue.id ? (
-        <>
-          <td data-label="ID">{venue.id}</td>
-          <td data-label="Name">
-            <input
-              className='editvenue'
-              type="text"
-              name="name"
-              value={editFormData.name}
-              onChange={handleEditChange}
-            />
-          </td>
-          <td data-label="Organizer">
-            <input
-              className='editvenue'
-              type="text"
-              name="organizer"
-              value={editFormData.organizer}
-              onChange={handleEditChange}
-            />
-          </td>
-          <td data-label="Email">
-            <input
-              className='editvenue'
-              type="text"
-              name="email"
-              value={editFormData.email}
-              onChange={handleEditChange}
-            />
-          </td>
-          <td data-label="Earnings">
-            <input
-              className='editvenue'
-              type="text"
-              name="earnings"
-              value={editFormData.earnings}
-              onChange={handleEditChange}
-            />
-          </td>
-          <td data-label="Description">
-            <textarea
-              className='editvenue'
-              name="description"
-              value={editFormData.description}
-              onChange={handleEditChange}
-              rows="3"
-            />
-          </td>
-          <td data-label="Actions">
-            <button className="Saveme" onClick={() => handleSaveClick(venue.id)}>Save</button>
-            <button className="Cancelme" onClick={handleCancelClick}>Cancel</button>
-          </td>
-        </>
-      ) : (
-        <>
-          <td data-label="ID:">{venue.id}</td>
-          <td data-label="Name:">{venue.name}</td>
-          <td data-label="Organizer:">{venue.organizer}</td>
-          <td data-label="Email:">{venue.email}</td>
-          <td data-label="Earnings:">{venue.earnings}</td>
-          <td data-label="Description:">{venue.description}</td>
-          <td data-label="Actions:">
-            <button className="editbutton" onClick={() => handleEditClick(venue)}>Edit</button>
-            <button className="deletebutton" onClick={() => handleDeleteClick(venue.id)}>Delete</button>
-          </td>
-        </>
-      )}
-    </tr>
-  ))}
-</tbody>
+          {venues.slice(0, displayLimit).map((venue) => (
+            <tr key={venue.id}>
+              {editingVenueId === venue.id ? (
+                <>
+                  {/* Editing Mode */}
+                  <td data-label="ID">{venue.id}</td>
+                  <td data-label="Name">
+                    <input
+                      className='editvenue'
+                      type="text"
+                      name="name"
+                      value={editFormData.name}
+                      onChange={handleEditChange}
+                    />
+                  </td>
+                  <td data-label="Organizer">
+                    <input
+                      className='editvenue'
+                      type="text"
+                      name="organizer"
+                      value={editFormData.organizer}
+                      onChange={handleEditChange}
+                    />
+                  </td>
+                  <td data-label="Email">
+                    <input
+                      className='editvenue'
+                      type="text"
+                      name="email"
+                      value={editFormData.email}
+                      onChange={handleEditChange}
+                    />
+                  </td>
+                  <td data-label="Earnings">
+                    <input
+                      className='editvenue'
+                      type="text"
+                      name="earnings"
+                      value={editFormData.earnings}
+                      onChange={handleEditChange}
+                    />
+                  </td>
+                  <td data-label="Description">
+                    <textarea
+                      className='editvenue'
+                      name="description"
+                      value={editFormData.description}
+                      onChange={handleEditChange}
+                      rows="3"
+                    />
+                  </td>
+                  <td data-label="Ratings:">
+                    {venue.average_rating !== null && venue.average_rating !== undefined ? (
+                      <div>
+                        <strong>Average Rating: {venue.average_rating.toFixed(2)}</strong>
+                      </div>
+                    ) : (
+                      <span>No ratings</span>
+                    )}
+                  </td>
+                  <td data-label="Actions">
+                    <button className="Saveme" onClick={() => handleSaveClick(venue.id)}>Save</button>
+                    <button className="Cancelme" onClick={handleCancelClick}>Cancel</button>
+                  </td>
+                </>
+              ) : (
+                <>
+                  {/* Non-Editing Mode */}
+                  <td data-label="ID:">{venue.id}</td>
+                  <td data-label="Name:">{venue.name}</td>
+                  <td data-label="Organizer:">{venue.organizer}</td>
+                  <td data-label="Email:">{venue.email}</td>
+                  <td data-label="Earnings:">{venue.earnings}</td>
+                  <td data-label="Description:">{venue.description}</td>
+                  <td data-label="Ratings:">
+                    {venue.average_rating !== null && venue.average_rating !== undefined ? (
+                      <div>
+                        <strong>Average Rating: {venue.average_rating.toFixed(2)}</strong>
+                      </div>
+                    ) : (
+                      <span>No ratings</span>
+                    )}
+                  </td>
+                  <td data-label="Actions:">
+                    <button className="editbutton" onClick={() => handleEditClick(venue)}>Edit</button>
+                    <button className="deletebutton" onClick={() => handleDeleteClick(venue.id)}>Delete</button>
+                  </td>
+                </>
+              )}
+            </tr>
+          ))}
+        </tbody>
       </table>
 
       {/* Load More button */}
