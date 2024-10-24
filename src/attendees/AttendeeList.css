@@ -264,10 +264,10 @@
     }
     
     /* Adjust table-container and table for small screens */
-    .attendee-table-container {
+    .table-container {
       max-height: fit-content;
       overflow-y: auto;
-      overflow-x: hidden; /* Prevent horizontal scrolling */
+      overflow-x: 400px; /* Prevent horizontal scrolling */
       border: 1px solid #f761b1;
       border-radius: 40px; /* Rounded corners for a nice look */
       max-width: 24rem; /* Max width for the event list container */
@@ -275,8 +275,7 @@
     }
   
     .attendee-table {
-      overflow-x: auto; /* Enable horizontal scrolling */
-      overflow-y: 400px; /* Enable horizontal scrolling */
+      overflow-x: auto;
       align-items: center;
       border-radius: 20px;
       justify-content: center;
