@@ -157,8 +157,9 @@
     background-color: #FFD700;
     color: #000;
     padding: 10px 20px;
-    font-size: 20px;
+    font-size: 30px;
     border: none;
+    width:28rem;
     border-radius: 20px;
     cursor: pointer;
     margin-bottom: 20px;
@@ -206,7 +207,7 @@
 
 /* Styling for the search input */
 .Searchme {
-    font-size: 20px;
+    font-size: 30px;
     text-align: center;
     border: 2px solid #FF69B4;
     border-radius: 10px;
