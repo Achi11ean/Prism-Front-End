@@ -141,7 +141,7 @@ function CreateEvent() {
           name="venue_id"
           value={formData.venue_id}
           onChange={handleChange}
-          required
+          
         >
           <option value="" disabled>Select a Venue</option>
           {filteredVenues.map((venue) => (
