@@ -746,6 +746,7 @@ function AttendeeList() {
                               }
                             />
                             <button
+                              className="Socials"
                               type="button"
                               onClick={() => removeSocialMediaEntry(index)}
                             >
@@ -753,7 +754,7 @@ function AttendeeList() {
                             </button>
                           </div>
                         ))}
-                        <button type="button" onClick={addSocialMediaEntry}>
+                        <button className="Socials" type="button" onClick={addSocialMediaEntry}>
                           Add Social Media
                         </button>
                       </>
