@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './signin.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./signin.css";
 
 function SignIn() {
   const [isSignUp, setIsSignUp] = useState(false); // Toggle between sign-in and sign-up
   const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-    user_type: '', // 'artist', 'attendee', 'event', 'tour', 'venue'
+    username: "",
+    password: "",
+    user_type: "", // 'artist', 'attendee', 'event', 'tour', 'venue'
   });
   const [errors, setErrors] = useState({}); // State for handling errors
   const [showPassword, setShowPassword] = useState(false); // State for password visibility
@@ -16,9 +16,9 @@ function SignIn() {
   const handleToggle = () => {
     setIsSignUp(!isSignUp);
     setFormData({
-      username: '',
-      password: '',
-      user_type: '',
+      username: "",
+      password: "",
+      user_type: "",
     });
     setErrors({}); // Clear errors when toggling
   };
@@ -26,7 +26,7 @@ function SignIn() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    setErrors({ ...errors, [name]: '' }); // Clear error for the specific field on change
+    setErrors({ ...errors, [name]: "" }); // Clear error for the specific field on change
   };
 
   // Password validation function
@@ -34,32 +34,36 @@ function SignIn() {
     const validationErrors = {};
 
     if (!password) {
-      validationErrors.password = 'Password is required.';
+      validationErrors.password = "Password is required.";
       return validationErrors;
     }
 
     if (password.length < 8) {
-      validationErrors.password = 'Password must be at least 8 characters long.';
+      validationErrors.password =
+        "Password must be at least 8 characters long.";
     }
 
     if (password.length > 128) {
-      validationErrors.password = 'Password must not exceed 128 characters.';
+      validationErrors.password = "Password must not exceed 128 characters.";
     }
 
     if (!/[A-Z]/.test(password)) {
-      validationErrors.password = 'Password must contain at least one uppercase letter.';
+      validationErrors.password =
+        "Password must contain at least one uppercase letter.";
     }
 
     if (!/[a-z]/.test(password)) {
-      validationErrors.password = 'Password must contain at least one lowercase letter.';
+      validationErrors.password =
+        "Password must contain at least one lowercase letter.";
     }
 
     if (!/\d/.test(password)) {
-      validationErrors.password = 'Password must contain at least one digit.';
+      validationErrors.password = "Password must contain at least one digit.";
     }
 
     if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-      validationErrors.password = 'Password must contain at least one special character (!@#$%^&*(),.?":{}|<>).';
+      validationErrors.password =
+        'Password must contain at least one special character (!@#$%^&*(),.?":{}|<>).';
     }
 
     return validationErrors;
@@ -90,7 +94,7 @@ function SignIn() {
 
       // Validate user_type selection
       if (!formData.user_type) {
-        validationErrors.user_type = 'User type is required.';
+        validationErrors.user_type = "User type is required.";
       }
     }
 
@@ -108,13 +112,15 @@ function SignIn() {
       return;
     }
 
-    const url = isSignUp ? 'https://phase4project-xp0u.onrender.com/signup' : 'https://phase4project-xp0u.onrender.com/signin';
+    const url = isSignUp
+      ? "https://phase4project-xp0u.onrender.com/signup"
+      : "https://phase4project-xp0u.onrender.com/signin";
 
     fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
-      credentials: 'include', // Include cookies for session
+      credentials: "include", // Include cookies for session
     })
       .then((response) => response.json())
       .then((data) => {
@@ -126,51 +132,51 @@ function SignIn() {
           if (isSignUp) {
             // Redirect to "create" page for the user type if signing up
             switch (userType) {
-              case 'artist':
-                navigate('/create-artist');
+              case "artist":
+                navigate("/create-artist");
                 break;
-              case 'attendee':
-                navigate('/create-attendee');
+              case "attendee":
+                navigate("/create-attendee");
                 break;
-              case 'event':
-                navigate('/create-event');
+              case "event":
+                navigate("/create-event");
                 break;
-              case 'tour':
-                navigate('/create-tour');
+              case "tour":
+                navigate("/create-tour");
                 break;
-              case 'venue':
-                navigate('/create-venue');
+              case "venue":
+                navigate("/create-venue");
                 break;
               default:
-                navigate('/');
+                navigate("/");
             }
           } else {
             // Redirect to "list" page for the user type if signing in
             switch (userType) {
-              case 'artist':
-                navigate('/artists');
+              case "artist":
+                navigate("/artists");
                 break;
-              case 'attendee':
-                navigate('/attendees');
+              case "attendee":
+                navigate("/attendees");
                 break;
-              case 'event':
-                navigate('/events');
+              case "event":
+                navigate("/events");
                 break;
-              case 'tour':
-                navigate('/tours');
+              case "tour":
+                navigate("/tours");
                 break;
-              case 'venue':
-                navigate('/venues');
+              case "venue":
+                navigate("/venues");
                 break;
               default:
-                navigate('/');
+                navigate("/");
             }
           }
         }
       })
       .catch((error) => {
-        console.error('Error:', error);
-        alert('An error occurred.');
+        console.error("Error:", error);
+        alert("An error occurred.");
       });
   };
 
@@ -180,17 +186,26 @@ function SignIn() {
 
   // Password requirements list
   const passwordRequirements = [
-    { label: 'At least 8 characters', test: (pw) => pw.length >= 8 },
-    { label: 'No more than 128 characters', test: (pw) => pw.length <= 128 },
-    { label: 'At least one uppercase letter (A-Z)', test: (pw) => /[A-Z]/.test(pw) },
-    { label: 'At least one lowercase letter (a-z)', test: (pw) => /[a-z]/.test(pw) },
-    { label: 'At least one digit (0-9)', test: (pw) => /\d/.test(pw) },
-    { label: 'At least one special character (!@#$%^&*)', test: (pw) => /[!@#$%^&*(),.?":{}|<>]/.test(pw) },
+    { label: "At least 8 characters", test: (pw) => pw.length >= 8 },
+    { label: "No more than 128 characters", test: (pw) => pw.length <= 128 },
+    {
+      label: "At least one uppercase letter (A-Z)",
+      test: (pw) => /[A-Z]/.test(pw),
+    },
+    {
+      label: "At least one lowercase letter (a-z)",
+      test: (pw) => /[a-z]/.test(pw),
+    },
+    { label: "At least one digit (0-9)", test: (pw) => /\d/.test(pw) },
+    {
+      label: "At least one special character (!@#$%^&*)",
+      test: (pw) => /[!@#$%^&*(),.?":{}|<>]/.test(pw),
+    },
   ];
 
   return (
     <div className="sign-in-container">
-      <h2>{isSignUp ? 'Sign Up' : 'Sign In'}</h2>
+      <h2>{isSignUp ? "Sign Up" : "Sign In"}</h2>
       <form onSubmit={handleSubmit} noValidate>
         <label htmlFor="username">Username</label>
         <input
@@ -203,7 +218,11 @@ function SignIn() {
           required
           aria-describedby="username-error"
         />
-        {errors.username && <span id="username-error" className="error">{errors.username}</span>}
+        {errors.username && (
+          <span id="username-error" className="error">
+            {errors.username}
+          </span>
+        )}
 
         <label htmlFor="password">Password</label>
         <div className="password-input-container">
@@ -219,22 +238,34 @@ function SignIn() {
           />
         </div>
         <div>
-          <button type="button" className="toggle" onClick={togglePasswordVisibility}>
-            {showPassword ? 'Hide' : 'Show'}
+          <button
+            type="button"
+            className="toggle"
+            onClick={togglePasswordVisibility}
+          >
+            {showPassword ? "Hide" : "Show"}
           </button>
         </div>
-        {errors.password && <span id="password-error" className="error">{errors.password}</span>}
+        {errors.password && (
+          <span id="password-error" className="error">
+            {errors.password}
+          </span>
+        )}
 
         {/* Password Strength Meter */}
         {isSignUp && (
           <div className="password-strength">
-            <div className={`strength-bar strength-${getPasswordStrength(formData.password)}`}></div>
+            <div
+              className={`strength-bar strength-${getPasswordStrength(
+                formData.password
+              )}`}
+            ></div>
             <span>
               {getPasswordStrength(formData.password) <= 2
-                ? 'Weak'
+                ? "Weak"
                 : getPasswordStrength(formData.password) === 3
-                ? 'Moderate'
-                : 'Strong'}
+                ? "Moderate"
+                : "Strong"}
             </span>
           </div>
         )}
@@ -245,8 +276,11 @@ function SignIn() {
             <p>Password must contain:</p>
             <ul>
               {passwordRequirements.map((req, index) => (
-                <li key={index} className={req.test(formData.password) ? 'valid' : 'invalid'}>
-                  {req.test(formData.password) ? '✔' : '✖'} {req.label}
+                <li
+                  key={index}
+                  className={req.test(formData.password) ? "valid" : "invalid"}
+                >
+                  {req.test(formData.password) ? "✔" : "✖"} {req.label}
                 </li>
               ))}
             </ul>
@@ -267,22 +301,24 @@ function SignIn() {
               <option value="">Select User Type</option>
               <option value="artist">Artist</option>
               <option value="attendee">Attendee</option>
-              <option value="event">Event</option>
-              <option value="tour">Tour</option>
               <option value="venue">Venue</option>
             </select>
-            {errors.user_type && <span id="user_type-error" className="error">{errors.user_type}</span>}
+            {errors.user_type && (
+              <span id="user_type-error" className="error">
+                {errors.user_type}
+              </span>
+            )}
           </>
         )}
 
-        <button type="submit">{isSignUp ? 'Sign Up' : 'Sign In'}</button>
+        <button type="submit">{isSignUp ? "Sign Up" : "Sign In"}</button>
       </form>
       <p>
         <span className="toggle-button">
-        {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
+          {isSignUp ? "Already have an account?" : "Don't have an account?"}{" "}
         </span>
-        <button  onClick={handleToggle}>
-          {isSignUp ? 'Sign In' : 'Sign Up'}
+        <button onClick={handleToggle}>
+          {isSignUp ? "Sign In" : "Sign Up"}
         </button>
       </p>
     </div>

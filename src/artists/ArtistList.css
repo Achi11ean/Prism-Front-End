@@ -326,14 +326,14 @@
     }
   
     /* Style buttons for smaller screens */
-
+    .Create,
     .editbutton,
     .deletebutton,
     .Saveme,
     .Cancelme {
       width: 100%; /* Full width buttons */
-      font-size: 10px; /* Reduce font size */
       padding: 8px;
+      font-size: 25px;
     }
   
     /* Style for the search input */
