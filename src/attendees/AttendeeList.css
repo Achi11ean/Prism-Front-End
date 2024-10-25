@@ -29,6 +29,8 @@
 .table-container {
     overflow-x: auto;
     max-width: 100%;
+    overflow-y: 400px; /* Enable horizontal scrolling */
+
     border: 2px solid #f761b1;
 }
 
@@ -36,6 +38,7 @@
 .attendee-table {
     width: 100%;
     min-width: 1200px;
+    overflow-x: 200px; /* Enable horizontal scrolling */
     border-collapse: collapse;
     table-layout: auto; /* Allow table to adjust column widths */
 }
@@ -48,6 +51,8 @@
     vertical-align: top;
     width: fit-content;
     border: 2px solid #f761b1;
+    overflow-x: auto; /* Enable horizontal scrolling */
+
     background-color: rgba(100, 149, 237, 0.764);
     color: #ffee00;
     font-size: 20px;
@@ -266,8 +271,9 @@
     /* Adjust table-container and table for small screens */
     .table-container {
       max-height: fit-content;
-      overflow-y: auto;
-      overflow-x: 400px; /* Prevent horizontal scrolling */
+      overflow-y: 400px; /* Enable horizontal scrolling */
+      overflow-x: 400px; /* Enable horizontal scrolling */
+
       border: 1px solid #f761b1;
       border-radius: 40px; /* Rounded corners for a nice look */
       max-width: 24rem; /* Max width for the event list container */
@@ -275,12 +281,12 @@
     }
   
     .attendee-table {
-      overflow-x: auto;
-      align-items: center;
+      overflow: auto;
       border-radius: 20px;
       justify-content: center;
-      display: flex; /* Stack table cells vertically */
-      width: 100%; /* Make sure the table takes up full width */
+      white-space: nowrap; 
+      display: flex; 
+      width: 100%; 
     }
     .attendee-table th {        
         text-align: right;
@@ -304,13 +310,16 @@
       display: block; /* Stack table rows as blocks */
       width: 100%;
       flex-direction: row;
-      display: flex;
+      display: flex; 
+      overflow-x: auto;
       grid-template-columns: minmax(150px, 1fr) minmax(200px, 2fr); /* Define grid columns */
 
     }
   
     .attendee-table tr {
       display: flex;
+      overflow-x: auto;
+      overflow-y: auto;
       flex-direction: column; /* Stack rows vertically */
       background-color: pink;
       padding: 10px;
@@ -320,7 +329,7 @@
       display: block; /* Stack cells vertically */
       width: 13rem;
       padding: 5px;
-      
+      overflow-x: auto;
       font-family: 'Geneva';
       height:45px;
       border: 1px solid red;
@@ -341,6 +350,7 @@
       content: attr(data-label); /* Use the header as a label for each cell */
       font-weight: bold;
       font-size: 18px;
+      
       text-align: left;
       color: #ff0000; /* Make the labels stand out */
       display: inline-block;
@@ -392,8 +402,14 @@
     }
     .attendee-list-container ul {
         margin-top: 0;
+        
     }
 
+    .tbody {
+        overflow-y: auto;
+        overflow-x: auto;
+
+    }
   }
 
 

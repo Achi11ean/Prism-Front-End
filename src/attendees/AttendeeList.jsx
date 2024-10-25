@@ -425,7 +425,7 @@ function AttendeeList() {
                 <th>Actions</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="tbody">
               {attendees.slice(0, displayLimit).map((attendee) => (
                 <tr key={attendee.id}>
                   <td data-label="ID:">{attendee.id}</td>

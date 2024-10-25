@@ -131,7 +131,7 @@ function VenueList() {
           {emailError}
         </p>
       )}
-
+      
       <table border="1" cellPadding="10" className="venue-table">
         <thead>
           <tr>
