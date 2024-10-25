@@ -28,6 +28,7 @@
 /* Make the table container horizontally scrollable */
 .table-container {
     overflow-x: auto;
+    overflow-y: auto;
     max-width: 100%;
     overflow-y: 400px; /* Enable horizontal scrolling */
 
@@ -271,7 +272,7 @@
     /* Adjust table-container and table for small screens */
     .table-container {
       max-height: fit-content;
-      overflow-y: 400px; /* Enable horizontal scrolling */
+      overflow-y: auto; /* Enable horizontal scrolling */
       overflow-x: 400px; /* Enable horizontal scrolling */
 
       border: 1px solid #f761b1;
