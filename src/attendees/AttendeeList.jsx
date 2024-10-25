@@ -409,7 +409,7 @@ function AttendeeList() {
       {attendees.length === 0 ? (
         <p id="error">No Matching Criteria.</p>
       ) : (
-        <div className="table-container">
+        <div className="attendee-list-container">
           <table className="attendee-table">
             <thead>
               <tr>

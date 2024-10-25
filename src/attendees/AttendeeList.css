@@ -30,7 +30,6 @@
     overflow-x: auto;
     overflow-y: auto;
     max-width: 100%;
-    overflow-y: 400px; /* Enable horizontal scrolling */
 
     border: 2px solid #f761b1;
 }
@@ -254,6 +253,7 @@
     /* Style adjustments for the artist-list-container */
     .attendee-list-container {
       padding: 10px;
+      overflow-x: auto;
       max-width: 24rem; /* Make it full width for smaller screens */
       margin: 20px auto;
       border-radius: 20px;
@@ -268,26 +268,22 @@
       width:92%;
 
     }
-    
+
     /* Adjust table-container and table for small screens */
-    .table-container {
-      max-height: fit-content;
-      overflow-y: auto; /* Enable horizontal scrolling */
-      overflow-x: 400px; /* Enable horizontal scrolling */
+    /* Adjust table-container for small screens */
 
-      border: 1px solid #f761b1;
-      border-radius: 40px; /* Rounded corners for a nice look */
-      max-width: 24rem; /* Max width for the event list container */
-
-    }
   
     .attendee-table {
-      overflow: auto;
-      border-radius: 20px;
-      justify-content: center;
-      white-space: nowrap; 
-      display: flex; 
-      width: 100%; 
+        display: block;
+        overflow-x: auto; /* Enable horizontal scrolling */
+        white-space: nowrap; /* Prevent wrapping of table elements */
+        width: 100%; /* Full width of container */
+        display: flex;
+        max-height: fit-content;
+        border-radius: 20px;
+        align-items: center;
+        justify-content: center;
+        overflow-y: auto; /* Enable horizontal scrolling */
     }
     .attendee-table th {        
         text-align: right;
@@ -406,11 +402,7 @@
         
     }
 
-    .tbody {
-        overflow-y: auto;
-        overflow-x: auto;
 
-    }
   }
 
 
