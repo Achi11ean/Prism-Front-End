@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CreateArtist.css";
+import { useAuth } from "../AuthContext"; // Import useAuth to access user data
 
 function CreateArtist() {
+  const { user } = useAuth(); // Retrieve the current user from context
   const [events, setEvents] = useState([]); // State for events
   const [formData, setFormData] = useState({
     name: "",
@@ -14,10 +16,10 @@ function CreateArtist() {
   const [eventSearchTerm, setEventSearchTerm] = useState("");
   const [ageError, setAgeError] = useState(""); // State for age validation error
   const navigate = useNavigate();
-
+  console.log('USER IN CREATE ARTIST IS: ', user)
   // Fetch available events from the backend
   useEffect(() => {
-    fetch("https://phase4project-xp0u.onrender.com/events")
+    fetch("/api/events")
       .then((response) => response.json())
       .then((data) => setEvents(data))
       .catch((error) => console.error("Error fetching events:", error));
@@ -37,15 +39,18 @@ function CreateArtist() {
     }
 
     // Ensure event_ids are integers
-    const updatedFormData = {
+    const artistToSubmit = {
       ...formData,
       event_ids: formData.event_ids.map(Number),
+      user_id: user.user_id
     };
 
-    fetch("https://phase4project-xp0u.onrender.com/artists", {
+    fetch("/api/artists", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedFormData),
+      body: JSON.stringify(artistToSubmit), // Use artistToSubmit here
+      credentials: "include", // Ensures session cookies are included
+
     })
       .then((response) => response.json())
       .then((data) => {
@@ -88,7 +93,9 @@ function CreateArtist() {
     <div className="create-artist-container">
       <h2>Create Artist</h2>
       <form onSubmit={handleSubmit}>
-        <label className="labels" htmlFor="artistName">Name</label>
+        <label className="labels" htmlFor="artistName">
+          Name
+        </label>
         <input
           placeholder="[Enter Stage Name]"
           type="text"
@@ -99,7 +106,9 @@ function CreateArtist() {
           required
         />
 
-        <label className="labels" htmlFor="artistAge">Age</label>
+        <label className="labels" htmlFor="artistAge">
+          Age
+        </label>
         <input
           placeholder="[Enter Age]"
           type="number"
@@ -113,7 +122,9 @@ function CreateArtist() {
         />
         {ageError && <p className="error-message">{ageError}</p>}
 
-        <label className="labels" htmlFor="artistBackground">Background</label>
+        <label className="labels" htmlFor="artistBackground">
+          Background
+        </label>
         <textarea
           placeholder="[Social Media: @HarmonicEssence | Performance Goals:...]"
           id="artistBackground"
@@ -123,7 +134,9 @@ function CreateArtist() {
           required
         ></textarea>
 
-        <label className="labels" htmlFor="artistSongs">Songs</label>
+        <label className="labels" htmlFor="artistSongs">
+          Songs
+        </label>
         <textarea
           placeholder="[Enter song names or links or N/A]"
           id="artistSongs"
@@ -133,7 +146,9 @@ function CreateArtist() {
           required
         />
 
-        <label className="labels" htmlFor="eventSelect">Events</label>
+        <label className="labels" htmlFor="eventSelect">
+          Events
+        </label>
         <input
           type="text"
           placeholder="Search Events..."

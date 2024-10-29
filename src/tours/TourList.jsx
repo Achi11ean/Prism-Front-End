@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./TourList.css"; // Import your CSS file
+import { useAuth } from '../AuthContext'; // Import useAuth to access user data
+
 
 function TourList() {
+  const { user } = useAuth(); // Make sure you're getting the user context
+  const isAdmin = user?.user_type === 'admin';
   const [tours, setTours] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [eventSearchTerm, setEventSearchTerm] = useState(""); // For searching events
-  const [venueSearchTerm, setVenueSearchTerm] = useState(""); // For searching venues
-  const [artistSearchTerm, setArtistSearchTerm] = useState(""); // For searching artists
   const [editingTourId, setEditingTourId] = useState(null); // Track the tour being edited
   const [editFormData, setEditFormData] = useState({
     name: "",
@@ -17,7 +19,6 @@ function TourList() {
     social_media_handles: "",
     event_ids: [], // For linking to events
     created_by_id: null, // For venue
-    created_by_artist_id: null, // For artist
   });
   const [events, setEvents] = useState([]); // For holding events
   const [venues, setVenues] = useState([]); // For holding venues
@@ -38,8 +39,8 @@ function TourList() {
   // Fetch tours, events, venues, and artists from the backend
   useEffect(() => {
     const url = searchTerm
-      ? `https://phase4project-xp0u.onrender.com/tours/search?name=${searchTerm}`
-      : "https://phase4project-xp0u.onrender.com/tours";
+      ? `/api/tours/search?name=${searchTerm}`
+      : "/api/tours";
 
     fetch(url)
       .then((response) => {
@@ -62,18 +63,18 @@ function TourList() {
       });
 
     // Fetch available events for selection
-    fetch("https://phase4project-xp0u.onrender.com/events")
+    fetch("/api/events")
       .then((response) => response.json())
       .then((data) => setEvents(data))
       .catch((error) => console.error("Error fetching events:", error));
 
     // Fetch venues and artists
-    fetch("https://phase4project-xp0u.onrender.com/venues")
+    fetch("/api/venues")
       .then((response) => response.json())
       .then((data) => setVenues(data))
       .catch((error) => console.error("Error fetching venues:", error));
 
-    fetch("https://phase4project-xp0u.onrender.com/artists")
+    fetch("/api/artists")
       .then((response) => response.json())
       .then((data) => setArtists(data))
       .catch((error) => console.error("Error fetching artists:", error));
@@ -81,53 +82,23 @@ function TourList() {
 
   // Handle the edit button click to edit a tour
   const handleEditClick = (tour) => {
-    // Extract the original event and creator data
-    const originalEventIds = tour.events ? tour.events.map((event) => event.id) : [];
-    const originalCreatedById = tour.created_by_id || null;
-    const originalCreatedByArtistId = tour.created_by_artist_id || null;
-  
-    // Save the original form data for potential rollback or comparison
-    setOriginalFormData({
-      name: tour.name,
-      start_date: tour.start_date,
-      end_date: tour.end_date,
-      description: tour.description,
-      social_media_handles: tour.social_media_handles,
-      event_ids: originalEventIds,
-      created_by_id: originalCreatedById,
-      created_by_artist_id: originalCreatedByArtistId,
-    });
-  
-    // Populate the edit form data with the same original tour data for editing purposes
+    setEditingTourId(tour.id)
     setEditFormData({
       name: tour.name,
       start_date: new Date(tour.start_date).toISOString().split('T')[0],
       end_date: new Date(tour.end_date).toISOString().split('T')[0],
       description: tour.description,
       social_media_handles: tour.social_media_handles,
-      event_ids: originalEventIds, // Prepopulate with original event IDs
-      created_by_id: originalCreatedById, // Prepopulate with original venue ID
-      created_by_artist_id: originalCreatedByArtistId, // Prepopulate with original artist ID
+      event_ids: tour.events ? tour.events.map(event => event.id) : [], // Prepopulate with original event IDs
     });
   
-    // Set the editing tour ID to track the tour being edited
-    setEditingTourId(tour.id);
   };
   // Handle input changes for editing
   const handleEditChange = (e) => {
     const { name, value } = e.target;
-    let newValue = value;
-  
-    // Ensure only one creator is selected
-    if (name === "created_by_id" || name === "created_by_artist_id") {
-      newValue = value ? Number(value) : null;
-    }
-  
-    setEditFormData((prevFormData) => ({
+    setEditFormData(prevFormData => ({
       ...prevFormData,
-      [name]: newValue,
-      ...(name === "created_by_id" && newValue ? { created_by_artist_id: null } : {}),
-      ...(name === "created_by_artist_id" && newValue ? { created_by_id: null } : {}),
+      [name]: value,
     }));
   };
 
@@ -154,8 +125,8 @@ const handleSaveClick = (tourId) => {
     description: editFormData.description,
     social_media_handles: editFormData.social_media_handles,
     event_ids: updatedEventIds,
-    created_by_id: editFormData.created_by_id,
-    created_by_artist_id: editFormData.created_by_artist_id,
+    user_id: user.user_id // This should not be null or undefined
+
   };
 
   // Ask for confirmation
@@ -170,7 +141,7 @@ const handleSaveClick = (tourId) => {
   if (window.confirm(confirmMessage)) {
     console.log("Updating tour:", updatedFormData);
 
-    fetch(`https://phase4project-xp0u.onrender.com/tours/${tourId}`, {
+    fetch(`/api/tours/${tourId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedFormData),
@@ -210,7 +181,7 @@ const handleSaveClick = (tourId) => {
 
   // Handle deleting a tour
   const handleDeleteClick = (tourId) => {
-    fetch(`https://phase4project-xp0u.onrender.com/tours/${tourId}`, {
+    fetch(`/api/tours/${tourId}`, {
       method: "DELETE",
     })
       .then(() => {
@@ -274,7 +245,7 @@ const handleSaveClick = (tourId) => {
             <th>Description</th>
             <th>Socials</th>
             <th>Events</th> {/* New column for Events */}
-            <th>Creator</th> {/* New column for Created By */}
+            {/* <th>Creator</th>  */}
             <th>Actions</th>
           </tr>
         </thead>
@@ -368,53 +339,7 @@ const handleSaveClick = (tourId) => {
                   </td>
 
 
-                  <td>
-                    {/* Search input for venues */}
-                    <input
-                      placeholder="Search Venues..."
-                      type="text"
-                      value={venueSearchTerm}
-                      onChange={(e) => setVenueSearchTerm(e.target.value)}
-                      className="searchedit"
-                    />
-                    {/* Select for Venue */}
-                    <select
-                      className="SelectArtist"
-                      name="created_by_id"
-                      value={editFormData.created_by_id || ""}
-                      onChange={handleEditChange}
-                    >
-                      <option value="">Venues</option>
-                      {venues.map((venue) => (
-                        <option key={venue.id} value={venue.id}>
-                          {venue.name}
-                        </option>
-                      ))}
-                    </select>
-                    <br />
-                    {/* Search input for artists */}
-                    <input
-                      type="text"
-                      placeholder="Search Artists..."
-                      value={artistSearchTerm}
-                      onChange={(e) => setArtistSearchTerm(e.target.value)}
-                      className="searchedit"
-                    />
-                    {/* Select for Artist */}
-                    <select
-                      className="SelectArtist"
-                      name="created_by_artist_id"
-                      value={editFormData.created_by_artist_id || ""}
-                      onChange={handleEditChange}
-                    >
-                      <option value="">Artists</option>
-                      {artists.map((artist) => (
-                        <option key={artist.id} value={artist.id}>
-                          {artist.name}
-                        </option>
-                      ))}
-                    </select>
-                  </td>
+
 
 
                   <td>
@@ -442,23 +367,25 @@ const handleSaveClick = (tourId) => {
                       ? tour.events.map((event) => event.name).join(", ")
                       : "No Events"}
                   </td>
-                  <td data-label="Creator:">
-                    {tour.created_by ? tour.created_by : tour.created_by_artist}
-                  </td> {/* Show either venue or artist name */}
+                  {/* <td>{tour.created_by?.username}</td>         */}
                   <td data-label="Action Buttons:">
-                    <button
-                      className="editbutton"
-                      onClick={() => handleEditClick(tour)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="deletebutton"
-                      onClick={() => handleDeleteClick(tour.id)}
-                    >
-                      Delete
-                    </button>
-                  </td>
+                  {(isAdmin || tour.created_by?.id === user?.user_id) && (
+    <>
+      <button
+        className="editbutton"
+        onClick={() => handleEditClick(tour)}
+      >
+        Edit
+      </button>
+      <button
+        className="deletebutton"
+        onClick={() => handleDeleteClick(tour.id)}
+      >
+        Delete
+      </button>
+    </>
+  )}
+</td>
                 </>
               )}
             </tr>

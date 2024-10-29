@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CreateTour.css';
+import { useAuth } from "../AuthContext"; // Import useAuth to access user data
 
 function CreateTour() {
   const [events, setEvents] = useState([]); // State for events
   const [venues, setVenues] = useState([]); // State for venues
+  const { user } = useAuth(); // Access the current user from AuthContext
+
   const [artists, setArtists] = useState([]); // State for artists
   const [formData, setFormData] = useState({
     name: '',
@@ -13,8 +16,6 @@ function CreateTour() {
     description: '',
     social_media_handles: '',
     event_ids: [], // For linking to events
-    created_by_id: '', // For venue
-    created_by_artist_id: '', // For artist
   });
   const [eventSearchTerm, setEventSearchTerm] = useState(''); // State for event search term
   const [venueSearchTerm, setVenueSearchTerm] = useState(''); // State for venue search term
@@ -24,55 +25,44 @@ function CreateTour() {
 
   // Fetch available events, venues, and artists from the backend
   useEffect(() => {
-    fetch('https://phase4project-xp0u.onrender.com/events')
+    fetch('/api/events')
       .then(response => response.json())
       .then(data => setEvents(data))
       .catch(error => console.error('Error fetching events:', error));
 
-    fetch('https://phase4project-xp0u.onrender.com/venues')
+    fetch('/api/venues')
       .then(response => response.json())
       .then(data => setVenues(data))
       .catch(error => console.error('Error fetching venues:', error));
 
-    fetch('https://phase4project-xp0u.onrender.com/artists')
+    fetch('/api/artists')
       .then(response => response.json())
       .then(data => setArtists(data))
       .catch(error => console.error('Error fetching artists:', error));
   }, []);
   const formatToMMDDYYYY = (dateString) => {
-    const date = new Date(dateString);
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const year = date.getFullYear();
-    return `${month}/${day}/${year}`;  // Return in mm/dd/yyyy format
+    const [year, month, day] = dateString.split('-');
+    return `${month}/${day}/${year}`;
   };
-  
   const handleSubmit = (e) => {
     e.preventDefault();
   
     // Ensure event_ids are integers and format dates
     const updatedFormData = {
       ...formData,
-      start_date: formatToMMDDYYYY(formData.start_date),  // Convert to mm/dd/yyyy
+      start_date: formatToMMDDYYYY(formData.start_date),
       end_date: formatToMMDDYYYY(formData.end_date),
-      event_ids: formData.event_ids.map(Number), // Convert strings to numbers
+      event_ids: formData.event_ids.map(Number),
+      user_id: user.user_id
+
     };
-  
-    // Check that either a venue or an artist is selected
-    if (!updatedFormData.created_by_id && !updatedFormData.created_by_artist_id) {
-      alert('Please select either a venue or an artist as the creator.');
-      return;
-    }
-  
-    // Filter out empty creator fields
-    if (!updatedFormData.created_by_id) delete updatedFormData.created_by_id;
-    if (!updatedFormData.created_by_artist_id) delete updatedFormData.created_by_artist_id;
-  
     // Submit tour creation request to the backend
-    fetch('https://phase4project-xp0u.onrender.com/tours', {
+    fetch('/api/tours', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updatedFormData),
+      credentials: 'include', // Ensures the session data (user_id) is sent with the request
+
     })
       .then(response => {
         if (!response.ok) {
@@ -194,61 +184,7 @@ function CreateTour() {
             ))}
         </div>
 
-        {/* Search bar for venues */}
-        <label htmlFor="venueSearch">Search Venue</label>
-        <input
-          type="text"
-          id="venueSearch"
-          placeholder="Search Venues"
-          value={venueSearchTerm}
-          onChange={(e) => setVenueSearchTerm(e.target.value)} // Capture venue search term
-        />
-        <label htmlFor="venueSelect">Created By (Select Venue)</label>
-        <select
-          id="venueSelect"
-          name="created_by_id"
-          value={formData.created_by_id}
-          onChange={handleChange}
-        >
-          <option value="">Select Venue</option>
-          {venues
-            .filter(venue =>
-              venue.name.toLowerCase().includes(venueSearchTerm.toLowerCase())
-            )
-            .map((venue) => (
-              <option key={venue.id} value={venue.id}>
-                {venue.name}
-              </option>
-            ))}
-        </select>
 
-        {/* Search bar for artists */}
-        <label htmlFor="artistSearch">Search Artist</label>
-        <input
-          type="text"
-          id="artistSearch"
-          placeholder="Search Artists"
-          value={artistSearchTerm}
-          onChange={(e) => setArtistSearchTerm(e.target.value)} // Capture artist search term
-        />
-        <label htmlFor="artistSelect">Created By (Select Artist)</label>
-        <select
-          id="artistSelect"
-          name="created_by_artist_id"
-          value={formData.created_by_artist_id}
-          onChange={handleChange}
-        >
-          <option value="">Select Artist</option>
-          {artists
-            .filter(artist =>
-              artist.name.toLowerCase().includes(artistSearchTerm.toLowerCase())
-            )
-            .map((artist) => (
-              <option key={artist.id} value={artist.id}>
-                {artist.name}
-              </option>
-            ))}
-        </select>
 
         <button type="submit">Create Tour</button>
       </form>

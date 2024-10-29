@@ -1,10 +1,10 @@
-// src/signin/SignOut.jsx
-
 import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './signin.css';
+import { useAuth } from '../AuthContext';
 
 function SignOut() {
+  const { setIsSignedIn } = useAuth();
   const navigate = useNavigate();
   const isSignOutPerformed = useRef(false); // Ref to ensure sign out happens only once
 
@@ -16,7 +16,7 @@ function SignOut() {
       isSignOutPerformed.current = true; // Mark that sign out is performed
 
       try {
-        const response = await fetch('https://phase4project-xp0u.onrender.com/signout', {
+        const response = await fetch('/api/signout', {
           method: 'POST',
           credentials: 'include', // Important for sending cookies/session data
           headers: {
@@ -28,6 +28,7 @@ function SignOut() {
           const data = await response.json();
           console.log('Sign out successful:', data);
 
+          setIsSignedIn(false); // Update authentication state
           alert('You have been successfully signed out.');
 
           // Redirect to the home page or login page after sign out
@@ -42,7 +43,7 @@ function SignOut() {
     };
 
     performSignOut();
-  }, [navigate]);
+  }, [navigate, setIsSignedIn]); // Add setIsSignedIn to the dependency array
 
   return (
     <span className="signout">

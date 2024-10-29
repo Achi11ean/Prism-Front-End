@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CreateEvent.css';
+import { useAuth } from '../AuthContext'; // Import useAuth to access user data
 
 function CreateEvent() {
+  const { user } = useAuth(); // Retrieve the current user from context
+
   const [venues, setVenues] = useState([]);
   const [eventTypes, setEventTypes] = useState([]);
   const [artists, setArtists] = useState([]);
@@ -23,17 +26,17 @@ function CreateEvent() {
 
   // Fetch available venues, event types, and artists from the backend
   useEffect(() => {
-    fetch('https://phase4project-xp0u.onrender.com/venues')
+    fetch('/api/venues')
       .then((response) => response.json())
       .then((data) => setVenues(data))
       .catch((error) => console.error('Error fetching venues:', error));
 
-    fetch('https://phase4project-xp0u.onrender.com/event-types')
+    fetch('/api/event-types')
       .then((response) => response.json())
       .then((data) => setEventTypes(data))
       .catch((error) => console.error('Error fetching event types:', error));
 
-    fetch('https://phase4project-xp0u.onrender.com/artists')
+    fetch('/api/artists')
       .then((response) => response.json())
       .then((data) => setArtists(data))
       .catch((error) => console.error('Error fetching artists:', error));
@@ -44,10 +47,16 @@ function CreateEvent() {
     e.preventDefault();
     setErrorMessage(''); // Clear previous error message
     // Submit event creation request to the backend
-    fetch('https://phase4project-xp0u.onrender.com/events', {
+    const eventToSubmit = {
+      ...formData,
+      user_id: user.user_id
+    };
+    fetch('/api/events', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(eventToSubmit), // Use eventToSubmit here
+      credentials: 'include',
+
     })
       .then((response) => {
         if (!response.ok) {

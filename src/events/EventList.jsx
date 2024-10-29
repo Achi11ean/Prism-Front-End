@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./EventList.css";
+import { useAuth } from '../AuthContext'; // Import useAuth to access user data
+
 
 function EventList() {
+  const { user } = useAuth(); // Retrieve the current user from context
+
   const [events, setEvents] = useState([]);
   const [venues, setVenues] = useState([]);
+  const isAdmin = user?.user_type === 'admin';
+
   const [artists, setArtists] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [editingEventId, setEditingEventId] = useState(null);
@@ -43,8 +49,8 @@ function EventList() {
   // Fetch events, venues, and artists from the backend
   useEffect(() => {
     const url = searchTerm
-      ? `https://phase4project-xp0u.onrender.com/events/search?searchTerm=${searchTerm}`
-      : "https://phase4project-xp0u.onrender.com/events";
+      ? `/api/events/search?searchTerm=${searchTerm}`
+      : "/api/events";
 
     fetch(url)
       .then((response) => {
@@ -67,13 +73,13 @@ function EventList() {
       });
 
     // Fetch venues for dropdown selection during editing
-    fetch("https://phase4project-xp0u.onrender.com/venues")
+    fetch("/api/venues")
       .then((response) => response.json())
       .then((data) => setVenues(data))
       .catch((error) => console.error("Error fetching venues:", error));
 
     // Fetch artists for checkbox selection
-    fetch("https://phase4project-xp0u.onrender.com/artists")
+    fetch("/api/artists")
       .then((response) => response.json())
       .then((data) => setArtists(data))
       .catch((error) => console.error("Error fetching artists:", error));
@@ -129,12 +135,16 @@ function EventList() {
         ...editFormData,
         date: editFormData.date, // Use the date as-is
         time: editFormData.time,
+        user_id: user.user_id // This should not be null or undefined
+
       };
 
-      fetch(`https://phase4project-xp0u.onrender.com/events/${eventId}`, {
+      fetch(`/api/events/${eventId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedFormData),
+        credentials: "include", // Ensures session cookies are included
+
       })
         .then((response) => response.json())
         .then((updatedEvent) => {
@@ -157,7 +167,7 @@ function EventList() {
 
   // Handle deleting an event
   const handleDeleteClick = (eventId) => {
-    fetch(`https://phase4project-xp0u.onrender.com/events/${eventId}`, {
+    fetch(`/api/events/${eventId}`, {
       method: "DELETE",
     })
       .then(() => {
@@ -396,6 +406,9 @@ function EventList() {
                       {event.artists.map((artist) => artist.name).join(", ")}
                     </td>
                     <td>
+                    {(isAdmin || event.created_by?.id === user?.user_id) && (
+                      <>
+
                       <button
                         className="editbutton"
                         onClick={() => handleEditClick(event)}
@@ -408,6 +421,8 @@ function EventList() {
                       >
                         Delete
                       </button>
+                      </>
+                    )}
                     </td>
                   </>
                 )}

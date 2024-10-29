@@ -2,10 +2,16 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AttendeeList.css";
+import { useAuth } from '../AuthContext'; // Import useAuth to access user data
+
 
 function AttendeeList() {
+  const { user } = useAuth(); // Retrieve the current user from context
+  console.log(user);  // Check the output
+
   const [attendees, setAttendees] = useState([]);
   const [events, setEvents] = useState([]);
+  
   const [eventTypes, setEventTypes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
@@ -33,7 +39,7 @@ function AttendeeList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https://phase4project-xp0u.onrender.com/venues")
+    fetch("/api/venues")
       .then((response) => response.json())
       .then((data) => setVenues(data))
       .catch((error) => console.error("Error fetching venues:", error));
@@ -41,7 +47,7 @@ function AttendeeList() {
 
   useEffect(() => {
     // Fetch artists
-    fetch("https://phase4project-xp0u.onrender.com/artists")
+    fetch("/api/artists")
       .then((response) => response.json())
       .then((data) => {
         setArtists(data);
@@ -53,8 +59,8 @@ function AttendeeList() {
 
   useEffect(() => {
     const url = searchTerm
-      ? `https://phase4project-xp0u.onrender.com/attendees/search?name=${searchTerm}`
-      : "https://phase4project-xp0u.onrender.com/attendees";
+      ? `/api/attendees/search?name=${searchTerm}`
+      : "/api/attendees";
 
     fetch(url)
       .then((response) => response.json())
@@ -101,12 +107,12 @@ function AttendeeList() {
         console.error("Error fetching attendees:", error);
       });
 
-    fetch("https://phase4project-xp0u.onrender.com/events")
+    fetch("/api/events")
       .then((response) => response.json())
       .then((data) => setEvents(data))
       .catch((error) => console.error("Error fetching events:", error));
 
-    fetch("https://phase4project-xp0u.onrender.com/event-types")
+    fetch("/api/event-types")
       .then((response) => response.json())
       .then((data) => {
         console.log("Fetched event types:", data); // Debugging log
@@ -116,7 +122,7 @@ function AttendeeList() {
   }, [searchTerm]);
 
   const handleDelete = (id) => {
-    fetch(`https://phase4project-xp0u.onrender.com/attendees/${id}`, {
+    fetch(`/api/attendees/${id}`, {
       method: "DELETE",
     })
       .then((response) => {
@@ -328,7 +334,7 @@ function AttendeeList() {
 
     console.log("Data sent to backend:", JSON.stringify(updatedAttendee, null, 2));
 
-    fetch(`https://phase4project-xp0u.onrender.com/attendees/${id}`, {
+    fetch(`/api/attendees/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -764,23 +770,25 @@ function AttendeeList() {
                   </td>
 
                   <td data-label="Actions:">
-                    {editingId === attendee.id ? (
-                      <>
-                        <button
-                          className="Saveme"
-                          onClick={() => handleSave(attendee.id)}
-                        >
-                          Save
-                        </button>
-                        <button className="Cancelme" onClick={handleCancel}>
-                          Cancel
-                        </button>
-                      </>
-                    ) : (
+                {editingId === attendee.id ? (
+                  <>
+                    <button
+                      className="Saveme"
+                      onClick={() => handleSave(attendee.id)}
+                    >
+                      Save
+                    </button>
+                    <button className="Cancelme" onClick={handleCancel}>
+                      Cancel
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    {(user.role === "admin" || attendee.created_by_id === user.user_id) && (
                       <>
                         <button
                           className="editbutton"
-                          onClick={() => handleEdit(attendee)}
+                          onClick={() => handleEditClick(attendee)}
                         >
                           Edit
                         </button>
@@ -792,7 +800,9 @@ function AttendeeList() {
                         </button>
                       </>
                     )}
-                  </td>
+                  </>
+                )}
+              </td>
                 </tr>
               ))}
             </tbody>

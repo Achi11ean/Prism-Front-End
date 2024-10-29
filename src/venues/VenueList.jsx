@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './VenueList.css';
+import { useAuth } from '../AuthContext'; // Import useAuth to access user data
 
 function VenueList() {
+  const { user } = useAuth(); // Retrieve the current user from context
+  const isAdmin = user?.user_type === 'admin';
+
   const [venues, setVenues] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [editingVenueId, setEditingVenueId] = useState(null);
@@ -21,8 +25,8 @@ function VenueList() {
 
   useEffect(() => {
     const url = searchTerm
-      ? `https://phase4project-xp0u.onrender.com/venues/search?name=${searchTerm}`
-      : 'https://phase4project-xp0u.onrender.com/venues';
+      ? `/api/venues/search?name=${searchTerm}`
+      : '/api/venues';
 
     fetch(url)
       .then((response) => {
@@ -74,10 +78,18 @@ function VenueList() {
       return;
     }
 
-    fetch(`https://phase4project-xp0u.onrender.com/venues/${venueId}`, {
+    const venueToSubmit = {
+      ...editFormData, // Use editFormData to get the current values
+      user_id: user.user_id // This should not be null or undefined
+  };
+
+
+    fetch(`/api/venues/${venueId}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(editFormData),
+      credentials: "include", // Ensures session cookies are included
+
     })
       .then((response) => response.json())
       .then((updatedVenue) => {
@@ -92,7 +104,7 @@ function VenueList() {
   };
 
   const handleDeleteClick = (venueId) => {
-    fetch(`https://phase4project-xp0u.onrender.com/venues/${venueId}`, {
+    fetch(`/api/venues/${venueId}`, {
       method: 'DELETE',
     })
       .then(() => {
@@ -230,8 +242,12 @@ function VenueList() {
                     )}
                   </td>
                   <td data-label="Actions:">
-                    <button className="editbutton" onClick={() => handleEditClick(venue)}>Edit</button>
-                    <button className="deletebutton" onClick={() => handleDeleteClick(venue.id)}>Delete</button>
+                  {(isAdmin || venue.created_by?.id === user?.user_id) && (
+                      <>
+                        <button className="editbutton" onClick={() => handleEditClick(venue)}>Edit</button>
+                        <button className="deletebutton" onClick={() => handleDeleteClick(venue.id)}>Delete</button>
+                      </>
+                    )}
                   </td>
                 </>
               )}

@@ -2,8 +2,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CreateAttendee.css"; // Ensure you have this CSS file
+import { useAuth } from "../AuthContext"; // Import useAuth to access user data
 
 function CreateAttendee() {
+  const { user } = useAuth(); // Retrieve the current user from context
+  console.log(user);  // Check the output
+
   const [newAttendee, setNewAttendee] = useState({
     first_name: "",
     last_name: "",
@@ -13,7 +17,8 @@ function CreateAttendee() {
     favorite_artist_ids: [],
     favorite_event_ids: [],
     social_media: [],
-    favorite_venues: [],
+    favorite_venues: []
+    
   });
   const [eventTypes, setEventTypes] = useState([]);
   const [artists, setArtists] = useState([]);
@@ -26,22 +31,22 @@ function CreateAttendee() {
 
   // Fetch available event types, artists, events, and venues on component load
   useEffect(() => {
-    fetch("https://phase4project-xp0u.onrender.com/event-types")
+    fetch("/api/event-types")
       .then((response) => response.json())
       .then((data) => setEventTypes(data))
       .catch((error) => console.error("Error fetching event types:", error));
 
-    fetch("https://phase4project-xp0u.onrender.com/artists")
+    fetch("/api/artists")
       .then((response) => response.json())
       .then((data) => setArtists(data))
       .catch((error) => console.error("Error fetching artists:", error));
 
-    fetch("https://phase4project-xp0u.onrender.com/events")
+    fetch("/api/events")
       .then((response) => response.json())
       .then((data) => setEvents(data))
       .catch((error) => console.error("Error fetching events:", error));
 
-    fetch("https://phase4project-xp0u.onrender.com/venues")
+    fetch("/api/venues")
       .then((response) => response.json())
       .then((data) => setVenues(data))
       .catch((error) => console.error("Error fetching venues:", error));
@@ -165,12 +170,15 @@ function CreateAttendee() {
     const attendeeToSubmit = {
       ...newAttendee,
       social_media: socialMediaObject,
+      created_by_id: user.user_id // Include the user's ID for tracking
+
     };
 
-    fetch("https://phase4project-xp0u.onrender.com/attendees", {
+    fetch("/api/attendees", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(attendeeToSubmit),
+      credentials: "include",
     })
       .then((response) => response.json())
       .then(() => {

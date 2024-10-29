@@ -21,11 +21,14 @@ import CreateTour from './tours/CreateTour';  // Import CreateTour component
 
 import SignIn from './signin/SignIn.jsx';
 import SignOut from './signin/SignOut.jsx';
-
+import { AuthProvider } from './AuthContext';  // Import AuthProvider
+import AdminUserList from './AdminUserList.jsx';
 import './App.css'
 
 function App() {
   return (
+    <AuthProvider>  {/* Wrap the entire application in AuthProvider */}
+
     <div className="App"> 
       <NavBar />
       <Routes>
@@ -52,8 +55,12 @@ function App() {
         {/* SignIn-related routes */}
         <Route path="/signin" element={<SignIn />} /> {/* SignIn Route */}
         <Route path="/signout" element={<SignOut />} /> {/* SignOut Route */}
+        <Route path="/admin/users" element={<AdminUserList />} />  {/* New route for AdminUserList */}
+
       </Routes>
     </div>
+    </AuthProvider>
+
   )
 }
 

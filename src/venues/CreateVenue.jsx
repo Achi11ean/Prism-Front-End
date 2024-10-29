@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';  // To navigate after submission
 import './CreateVenue.css';
+import { useAuth } from '../AuthContext'; // Import useAuth to access user data
 
 function CreateVenue() {
+    const { user } = useAuth(); // Retrieve the current user from context
     const [newVenue, setNewVenue] = useState({
         name: '',
         organizer: '',
@@ -31,19 +33,26 @@ function CreateVenue() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
+    
         // Validate email before submitting
         if (!validateEmail(newVenue.email)) {
             setEmailError('Please enter a valid email address.');
             return; // Stop submission if the email is invalid
         }
-
-        fetch('https://phase4project-xp0u.onrender.com/venues', {
+    
+        // Prepare the data to be submitted, including the creator's ID
+        const venueToSubmit = {
+            ...newVenue,
+            user_id: user.user_id
+        };
+    
+        fetch('/api/venues', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(newVenue),
+            body: JSON.stringify(venueToSubmit), // Use venueToSubmit here
+            credentials: "include", // Include session credentials
         })
             .then((response) => response.json())
             .then(() => {

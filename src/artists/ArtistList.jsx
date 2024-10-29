@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ArtistList.css"; // Import your CSS file
+import { useAuth } from '../AuthContext'; // Adjust path as needed
 
 function ArtistList() {
   const [artists, setArtists] = useState([]);
@@ -17,14 +18,18 @@ function ArtistList() {
   const [events, setEvents] = useState([]); // For holding events
   const [errorMessage, setErrorMessage] = useState("");
   const [displayLimit, setDisplayLimit] = useState(5); // Limit number of artists displayed by default
+  const { user, isSignedIn, setIsSignedIn } = useAuth();
 
+  const isAdmin = user?.user_type === 'admin';
   const navigate = useNavigate();
-
+  console.log("isAdmin:", isAdmin);
+  console.log("user:", user);
+  console.log('artsits are: ', artists)
   // Fetch artists and events from the backend
   useEffect(() => {
     const url = searchTerm
-      ? `https://phase4project-xp0u.onrender.com/artists/search?name=${searchTerm}`
-      : "https://phase4project-xp0u.onrender.com/artists";
+      ? `/api/artists/search?name=${searchTerm}`
+      : "/api/artists";
 
     fetch(url)
       .then((response) => {
@@ -45,9 +50,10 @@ function ArtistList() {
         setErrorMessage("No Matching Criteria.");
         console.error("Error fetching artists:", error);
       });
+      console.log("isSignedIn in AuthProvider:", isSignedIn);
 
     // Fetch available events for selection
-    fetch("https://phase4project-xp0u.onrender.com/events")
+    fetch("/api/events")
       .then((response) => response.json())
       .then((data) => setEvents(data))
       .catch((error) => console.error("Error fetching events:", error));
@@ -84,10 +90,12 @@ function ArtistList() {
       event_ids: editFormData.event_ids.map(Number), // Convert to numbers
     };
 
-    fetch(`https://phase4project-xp0u.onrender.com/artists/${artistId}`, {
+    fetch(`/api/artists/${artistId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedFormData), // Send the updated form data
+      credentials: "include", // Ensures session cookies are included
+
     })
       .then((response) => {
         if (!response.ok) {
@@ -116,8 +124,9 @@ function ArtistList() {
 
   // Handle deleting an artist
   const handleDeleteClick = (artistId) => {
-    fetch(`https://phase4project-xp0u.onrender.com/artists/${artistId}`, {
+    fetch(`/api/artists/${artistId}?user_id=${user.user_id}`, {
       method: "DELETE",
+      credentials: 'include'
     })
       .then(() => {
         setArtists(artists.filter((artist) => artist.id !== artistId));
@@ -202,6 +211,7 @@ function ArtistList() {
                         onChange={handleEditChange}
                       />
                     </td>
+                    
                     <td>
                       <input
                         className="inputartists"
@@ -280,6 +290,8 @@ function ArtistList() {
                                   setEditFormData({
                                     ...editFormData,
                                     event_ids: updatedEventIds,
+                                    user_id: user.user_id
+
                                   });
                                 }}
                               />
@@ -318,20 +330,25 @@ function ArtistList() {
                             .join(", ")
                         : "No Favorites"}
                     </td>
+
                     <td>
-                      <button
-                        className="editbutton"
-                        onClick={() => handleEditClick(artist)}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        className="deletebutton"
-                        onClick={() => handleDeleteClick(artist.id)}
-                      >
-                        Delete
-                      </button>
-                    </td>
+            {(isAdmin || artist.created_by?.id === user?.user_id) && (
+              <>
+                <button
+                  className="editbutton"
+                  onClick={() => handleEditClick(artist)}
+                >
+                  Edit
+                </button>
+                <button
+                  className="deletebutton"
+                  onClick={() => handleDeleteClick(artist.id)}
+                >
+                  Delete
+                </button>
+              </>
+            )}
+          </td>
                   </>
                 )}
               </tr>

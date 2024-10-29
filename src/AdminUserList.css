@@ -1,0 +1,106 @@
+body {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+h2 {
+    color: #ffffff;
+    border-bottom: 8px solid #007bff;
+    border-radius: 20px;
+    padding-bottom: 0px;
+}
+
+h3 {
+    color: pink;
+}
+
+/* Metrics section */
+.metrics {
+    background-color: #4758b7;
+    border: 1px solid #e1e1e1;
+    border-radius: 45px;
+    padding: 15px;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    text-align: left;
+    text-align: center;
+    font-weight: 700;
+
+}
+
+.metrics p {
+    margin: 10px 0;
+}
+
+/* User list table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #ffffffe8;
+    color:black;
+    margin-bottom: 3rem;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Select dropdown */
+select {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Error message */
+.error {
+    color: red;
+    margin-top: 10px;
+}
+.unorderedList {
+    text-decoration: none;
+}
+.deleteUser {
+    font-size: 13px;
+    /* You can add additional styles here if needed */
+    background-color: red;
+    padding: 7px;
+    margin-left: 10px;
+    font-weight: 700;
+    color: white; /* Example: change text color to red */
+    cursor: pointer; /* Change the cursor to indicate it's clickable */
+    text-decoration: underline; /* Optional: underline the text */
+}
+.search {
+    display: flex; /* Center contents horizontally */
+    justify-content: center; /* Align to center */
+    margin: 20px 0; /* Margin above and below */
+    background-color: yellow;
+    width: 60rem;
+    font-size: 2rem;
+    text-align: center;
+    color:black;
+    border: 4px solid rgb(0, 225, 255);
+}
+
+
+
+
+ul {
+    list-style: none;
+}

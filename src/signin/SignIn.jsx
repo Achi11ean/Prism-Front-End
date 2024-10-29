@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../AuthContext";
 import "./signin.css";
 
 function SignIn() {
@@ -11,6 +12,7 @@ function SignIn() {
   });
   const [errors, setErrors] = useState({}); // State for handling errors
   const [showPassword, setShowPassword] = useState(false); // State for password visibility
+  const { setIsSignedIn, signIn } = useAuth(); // Use the auth context
   const navigate = useNavigate();
 
   const handleToggle = () => {
@@ -113,8 +115,8 @@ function SignIn() {
     }
 
     const url = isSignUp
-      ? "https://phase4project-xp0u.onrender.com/signup"
-      : "https://phase4project-xp0u.onrender.com/signin";
+      ? "/api/signup"
+      : "/api/signin";
 
     fetch(url, {
       method: "POST",
@@ -127,10 +129,36 @@ function SignIn() {
         if (data.error) {
           alert(data.error);
         } else {
+          setIsSignedIn(true); // Ensure you're setting this to true
+
+          signIn({
+            user_id: data.id, // Change to data.id
+            username: data.username,
+            user_type: data.user_type,
+            last_login: data.last_login // Optional, if you want to store it
+          });
           const userType = data.user_type; // Use the user_type from backend response
+
           // Redirect based on user_type
           if (isSignUp) {
             // Redirect to "create" page for the user type if signing up
+            fetch(`/api/complete-profile/${data.id}`, {
+              method: "PATCH",
+              credentials: "include",
+          })
+          .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to mark profile as complete');
+            }
+            return response.json();
+        })
+        .then(profileData => {
+          console.log('Profile marked as complete:', profileData);
+          // Optionally handle UI updates or navigate
+      })
+      .catch(error => {
+          console.error('Error marking profile as complete:', error);
+      });
             switch (userType) {
               case "artist":
                 navigate("/create-artist");
