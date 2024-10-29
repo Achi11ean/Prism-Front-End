@@ -26,6 +26,7 @@ function AttendeeList() {
     social_media: [],
     favorite_venues: [],
   });
+  const isAdmin = user?.user_type === 'admin';
 
   const [searchTerm, setSearchTerm] = useState(""); // For attendee search
   const [eventSearchTerm, setEventSearchTerm] = useState(""); // For favorite events search
@@ -124,6 +125,8 @@ function AttendeeList() {
   const handleDelete = (id) => {
     fetch(`/api/attendees/${id}`, {
       method: "DELETE",
+      credentials: 'include'
+
     })
       .then((response) => {
         if (!response.ok) {
@@ -200,7 +203,7 @@ function AttendeeList() {
     }));
   };
 
-  const handleEdit = (attendee) => {
+  const handleEditClick = (attendee) => {
     setEditingId(attendee.id);
     setEditData({
       first_name: attendee.first_name,
@@ -340,6 +343,8 @@ function AttendeeList() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(updatedAttendee),
+      credentials: "include", // Ensures session cookies are included
+
     })
       .then((response) => {
         if (!response.ok) {
@@ -784,7 +789,7 @@ function AttendeeList() {
                   </>
                 ) : (
                   <>
-                    {(user.role === "admin" || attendee.created_by_id === user.user_id) && (
+            {(isAdmin || attendee.created_by?.id === user?.user_id) && (
                       <>
                         <button
                           className="editbutton"

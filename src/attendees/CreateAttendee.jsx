@@ -6,7 +6,7 @@ import { useAuth } from "../AuthContext"; // Import useAuth to access user data
 
 function CreateAttendee() {
   const { user } = useAuth(); // Retrieve the current user from context
-  console.log(user);  // Check the output
+  console.log('USER IN CREATE ATTENDEE IS: ', user)
 
   const [newAttendee, setNewAttendee] = useState({
     first_name: "",
