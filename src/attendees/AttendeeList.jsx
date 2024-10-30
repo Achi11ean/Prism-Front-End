@@ -40,7 +40,7 @@ function AttendeeList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("/api/venues")
+    fetch("https://phase4project-xp0u.onrender.com/venues")
       .then((response) => response.json())
       .then((data) => setVenues(data))
       .catch((error) => console.error("Error fetching venues:", error));
@@ -48,7 +48,7 @@ function AttendeeList() {
 
   useEffect(() => {
     // Fetch artists
-    fetch("/api/artists")
+    fetch("https://phase4project-xp0u.onrender.com/artists")
       .then((response) => response.json())
       .then((data) => {
         setArtists(data);
@@ -60,8 +60,8 @@ function AttendeeList() {
 
   useEffect(() => {
     const url = searchTerm
-      ? `/api/attendees/search?name=${searchTerm}`
-      : "/api/attendees";
+      ? `https://phase4project-xp0u.onrender.com/attendees/search?name=${searchTerm}`
+      : "https://phase4project-xp0u.onrender.com/attendees";
 
     fetch(url)
       .then((response) => response.json())
@@ -108,12 +108,12 @@ function AttendeeList() {
         console.error("Error fetching attendees:", error);
       });
 
-    fetch("/api/events")
+    fetch("https://phase4project-xp0u.onrender.com/events")
       .then((response) => response.json())
       .then((data) => setEvents(data))
       .catch((error) => console.error("Error fetching events:", error));
 
-    fetch("/api/event-types")
+    fetch("https://phase4project-xp0u.onrender.com/event-types")
       .then((response) => response.json())
       .then((data) => {
         console.log("Fetched event types:", data); // Debugging log
@@ -123,7 +123,7 @@ function AttendeeList() {
   }, [searchTerm]);
 
   const handleDelete = (id) => {
-    fetch(`/api/attendees/${id}`, {
+    fetch(`https://phase4project-xp0u.onrender.com/attendees/${id}`, {
       method: "DELETE",
       credentials: 'include'
 
@@ -337,7 +337,7 @@ function AttendeeList() {
 
     console.log("Data sent to backend:", JSON.stringify(updatedAttendee, null, 2));
 
-    fetch(`/api/attendees/${id}`, {
+    fetch(`https://phase4project-xp0u.onrender.com/attendees/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

@@ -28,8 +28,8 @@ function ArtistList() {
   // Fetch artists and events from the backend
   useEffect(() => {
     const url = searchTerm
-      ? `/api/artists/search?name=${searchTerm}`
-      : "/api/artists";
+      ? `https://phase4project-xp0u.onrender.com/artists/search?name=${searchTerm}`
+      : "https://phase4project-xp0u.onrender.com/artists";
 
     fetch(url)
       .then((response) => {
@@ -53,7 +53,7 @@ function ArtistList() {
       console.log("isSignedIn in AuthProvider:", isSignedIn);
 
     // Fetch available events for selection
-    fetch("/api/events")
+    fetch("https://phase4project-xp0u.onrender.com/events")
       .then((response) => response.json())
       .then((data) => setEvents(data))
       .catch((error) => console.error("Error fetching events:", error));
@@ -90,7 +90,7 @@ function ArtistList() {
       event_ids: editFormData.event_ids.map(Number), // Convert to numbers
     };
 
-    fetch(`/api/artists/${artistId}`, {
+    fetch(`https://phase4project-xp0u.onrender.com/artists/${artistId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedFormData), // Send the updated form data
@@ -124,7 +124,7 @@ function ArtistList() {
 
   // Handle deleting an artist
   const handleDeleteClick = (artistId) => {
-    fetch(`/api/artists/${artistId}?user_id=${user.user_id}`, {
+    fetch(`https://phase4project-xp0u.onrender.com/artists/${artistId}?user_id=${user.user_id}`, {
       method: "DELETE",
       credentials: 'include'
     })
