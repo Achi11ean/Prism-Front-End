@@ -7,7 +7,9 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://phase4project-xp0u.onrender.com/'
+        target: 'https://phase4project-xp0u.onrender.com/',
+        changeOrigin: true,
+
       }
     }
   }
