@@ -40,7 +40,7 @@ function AttendeeList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https://phase4project-xp0u.onrender.com/venues")
+    fetch("https://phase4project-xp0u.onrender.com/api/venues")
       .then((response) => response.json())
       .then((data) => setVenues(data))
       .catch((error) => console.error("Error fetching venues:", error));
@@ -48,7 +48,7 @@ function AttendeeList() {
 
   useEffect(() => {
     // Fetch artists
-    fetch("https://phase4project-xp0u.onrender.com/artists")
+    fetch("https://phase4project-xp0u.onrender.com/api/artists")
       .then((response) => response.json())
       .then((data) => {
         setArtists(data);
@@ -60,8 +60,8 @@ function AttendeeList() {
 
   useEffect(() => {
     const url = searchTerm
-      ? `https://phase4project-xp0u.onrender.com/attendees/search?name=${searchTerm}`
-      : "https://phase4project-xp0u.onrender.com/attendees";
+      ? `https://phase4project-xp0u.onrender.com/api/attendees/search?name=${searchTerm}`
+      : "https://phase4project-xp0u.onrender.com/api/attendees";
 
     fetch(url)
       .then((response) => response.json())
@@ -108,12 +108,12 @@ function AttendeeList() {
         console.error("Error fetching attendees:", error);
       });
 
-    fetch("https://phase4project-xp0u.onrender.com/events")
+    fetch("https://phase4project-xp0u.onrender.com/api/events")
       .then((response) => response.json())
       .then((data) => setEvents(data))
       .catch((error) => console.error("Error fetching events:", error));
 
-    fetch("https://phase4project-xp0u.onrender.com/event-types")
+    fetch("https://phase4project-xp0u.onrender.com/api/event-types")
       .then((response) => response.json())
       .then((data) => {
         console.log("Fetched event types:", data); // Debugging log
@@ -123,7 +123,7 @@ function AttendeeList() {
   }, [searchTerm]);
 
   const handleDelete = (id) => {
-    fetch(`https://phase4project-xp0u.onrender.com/attendees/${id}`, {
+    fetch(`https://phase4project-xp0u.onrender.com/api/attendees/${id}`, {
       method: "DELETE",
       credentials: 'include'
 
@@ -337,7 +337,7 @@ function AttendeeList() {
 
     console.log("Data sent to backend:", JSON.stringify(updatedAttendee, null, 2));
 
-    fetch(`https://phase4project-xp0u.onrender.com/attendees/${id}`, {
+    fetch(`https://phase4project-xp0u.onrender.com/api/attendees/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
