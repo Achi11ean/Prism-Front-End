@@ -46,7 +46,7 @@ function CreateVenue() {
             user_id: user.user_id
         };
     
-        fetch('https://phase4project-xp0u.onrender.com/api/venues', {
+        fetch('/api/venues', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

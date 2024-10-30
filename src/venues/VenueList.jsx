@@ -25,8 +25,8 @@ function VenueList() {
 
   useEffect(() => {
     const url = searchTerm
-      ? `https://phase4project-xp0u.onrender.com/api/venues/search?name=${searchTerm}`
-      : 'https://phase4project-xp0u.onrender.com/api/venues';
+      ? `/api/venues/search?name=${searchTerm}`
+      : '/api/venues';
 
     fetch(url)
       .then((response) => {
@@ -84,7 +84,7 @@ function VenueList() {
   };
 
 
-    fetch(`https://phase4project-xp0u.onrender.com/api/venues/${venueId}`, {
+    fetch(`/api/venues/${venueId}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(editFormData),
@@ -104,7 +104,7 @@ function VenueList() {
   };
 
   const handleDeleteClick = (venueId) => {
-    fetch(`https://phase4project-xp0u.onrender.com/api/venues/${venueId}`, {
+    fetch(`/api/venues/${venueId}`, {
       method: 'DELETE',
     })
       .then(() => {
