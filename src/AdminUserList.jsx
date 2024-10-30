@@ -14,7 +14,7 @@ const AdminUserList = () => {
   useEffect(() => {
     const fetchAdminData = async () => {
       try {
-        const response = await fetch(`/api/admin/dashboard`, {
+        const response = await fetch(`https://phase4project-xp0u.onrender.com/api/admin/dashboard`, {
           credentials: 'include',
         });
 
@@ -67,7 +67,7 @@ const AdminUserList = () => {
   const fetchUsers = async (username) => {
     setLoading(true);
     try {
-      const response = await fetch(`/api/search-users?username=${username}`, {
+      const response = await fetch(`https://phase4project-xp0u.onrender.com/api/search-users?username=${username}`, {
         credentials: 'include',
       });
 
@@ -86,7 +86,7 @@ const AdminUserList = () => {
 
   const updateUserRole = async (userId, newRole) => {
     try {
-      const response = await fetch(`/api/users/${userId}/role`, {
+      const response = await fetch(`https://phase4project-xp0u.onrender.com/api/users/${userId}/role`, {
         method: 'PATCH',
         credentials: 'include',
         headers: {
@@ -113,7 +113,7 @@ const AdminUserList = () => {
   const deleteUser = async (userId) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
       try {
-        const response = await fetch(`/api/users/${userId}`, {
+        const response = await fetch(`https://phase4project-xp0u.onrender.com/api/users/${userId}`, {
           method: 'DELETE',
           credentials: 'include',
         });
