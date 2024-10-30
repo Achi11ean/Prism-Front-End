@@ -31,22 +31,22 @@ function CreateAttendee() {
 
   // Fetch available event types, artists, events, and venues on component load
   useEffect(() => {
-    fetch("/api/event-types")
+    fetch("https://phase4project-xp0u.onrender.com//event-types")
       .then((response) => response.json())
       .then((data) => setEventTypes(data))
       .catch((error) => console.error("Error fetching event types:", error));
 
-    fetch("/api/artists")
+    fetch("https://phase4project-xp0u.onrender.com//artists")
       .then((response) => response.json())
       .then((data) => setArtists(data))
       .catch((error) => console.error("Error fetching artists:", error));
 
-    fetch("/api/events")
+    fetch("https://phase4project-xp0u.onrender.com//events")
       .then((response) => response.json())
       .then((data) => setEvents(data))
       .catch((error) => console.error("Error fetching events:", error));
 
-    fetch("/api/venues")
+    fetch("https://phase4project-xp0u.onrender.com//venues")
       .then((response) => response.json())
       .then((data) => setVenues(data))
       .catch((error) => console.error("Error fetching venues:", error));
@@ -174,7 +174,7 @@ function CreateAttendee() {
 
     };
 
-    fetch("/api/attendees", {
+    fetch("https://phase4project-xp0u.onrender.com//attendees", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(attendeeToSubmit),
