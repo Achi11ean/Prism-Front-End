@@ -104,3 +104,51 @@ select {
 ul {
     list-style: none;
 }
+@media (max-width: 450px) {
+    body {
+        padding: 10px; /* Reduce padding for smaller screens */
+        width: 90%;
+    }
+
+    .adminDashboard {
+        padding-bottom: 10px;
+        font-size: 1rem; /* Adjust font size for better readability */
+        width: 90%;
+
+    }
+
+    .Metrics {
+        color: lightcoral; /* Adjust color if needed for small screens */
+    }
+
+    .metrics {
+        font-size: 1rem; /* Reduce font size to fit better */
+        padding: 10px;
+        margin-bottom: 15px;
+        width: 90%;
+
+    }
+
+    table {
+        width: 90%; /* Ensure table fits within the viewport */
+        font-size: 0.9rem; /* Adjust font size */
+        width: 100%;
+
+    }
+
+    th, td {
+        padding: 8px; /* Reduce padding for a compact layout */
+    }
+
+    .deleteUser {
+        font-size: 0.8rem; /* Smaller font size */
+        padding: 5px; /* Adjust padding */
+    }
+
+    .search {
+        width: 90%; /* Make the search bar fit screen */
+
+        font-size: 1.5rem; /* Adjust font size */
+        padding: 10px;
+    }
+}
