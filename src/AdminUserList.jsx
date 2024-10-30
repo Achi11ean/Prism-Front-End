@@ -14,7 +14,7 @@ const AdminUserList = () => {
   useEffect(() => {
     const fetchAdminData = async () => {
       try {
-        const response = await fetch(`https://phase4project-xp0u.onrender.com/admin/dashboard`, {
+        const response = await fetch(`/api/admin/dashboard`, {
           credentials: 'include',
         });
 
@@ -67,7 +67,7 @@ const AdminUserList = () => {
   const fetchUsers = async (username) => {
     setLoading(true);
     try {
-      const response = await fetch(`https://phase4project-xp0u.onrender.com/search-users?username=${username}`, {
+      const response = await fetch(`/api/search-users?username=${username}`, {
         credentials: 'include',
       });
 
@@ -86,7 +86,7 @@ const AdminUserList = () => {
 
   const updateUserRole = async (userId, newRole) => {
     try {
-      const response = await fetch(`https://phase4project-xp0u.onrender.com/users/${userId}/role`, {
+      const response = await fetch(`/api/users/${userId}/role`, {
         method: 'PATCH',
         credentials: 'include',
         headers: {
@@ -113,7 +113,7 @@ const AdminUserList = () => {
   const deleteUser = async (userId) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
       try {
-        const response = await fetch(`https://phase4project-xp0u.onrender.com/users/${userId}`, {
+        const response = await fetch(`/api/users/${userId}`, {
           method: 'DELETE',
           credentials: 'include',
         });
@@ -140,10 +140,10 @@ const AdminUserList = () => {
 
   return (
     <div>
-      <h2>Admin Dashboard</h2>
+      <h2 className="adminDashboard">Admin Dashboard</h2>
       {metrics && (
         <div className="metrics">
-          <h3>Metrics</h3>
+          <h3 className="Metrics">Metrics</h3>
           <p>Total Active Users (Last 30 Days): {metrics.active_users_last_30_days}</p>
           <p>New Registrations (Last 30 Days): {metrics.new_registrations_last_30_days}</p>
           <h4>Daily Logins (Last 7 Days)</h4>
@@ -154,7 +154,7 @@ const AdminUserList = () => {
           </ul>
         </div>
       )}
-      <h2>User List</h2>
+      <h2 className="adminDashboard">User List</h2>
       <input
         className="search"
         type="text"

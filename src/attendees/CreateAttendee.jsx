@@ -31,22 +31,22 @@ function CreateAttendee() {
 
   // Fetch available event types, artists, events, and venues on component load
   useEffect(() => {
-    fetch("https://phase4project-xp0u.onrender.com/event-types")
+    fetch("/api/event-types")
       .then((response) => response.json())
       .then((data) => setEventTypes(data))
       .catch((error) => console.error("Error fetching event types:", error));
 
-    fetch("https://phase4project-xp0u.onrender.com/artists")
+    fetch("/api/artists")
       .then((response) => response.json())
       .then((data) => setArtists(data))
       .catch((error) => console.error("Error fetching artists:", error));
 
-    fetch("https://phase4project-xp0u.onrender.com/events")
+    fetch("/api/events")
       .then((response) => response.json())
       .then((data) => setEvents(data))
       .catch((error) => console.error("Error fetching events:", error));
 
-    fetch("https://phase4project-xp0u.onrender.com/venues")
+    fetch("/api/venues")
       .then((response) => response.json())
       .then((data) => setVenues(data))
       .catch((error) => console.error("Error fetching venues:", error));
@@ -174,7 +174,7 @@ function CreateAttendee() {
 
     };
 
-    fetch("https://phase4project-xp0u.onrender.com/attendees", {
+    fetch("/api/attendees", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(attendeeToSubmit),
@@ -355,6 +355,7 @@ function CreateAttendee() {
                     <label>
                       Rating:
                       <select
+                        className="ratings"
                         value={
                           newAttendee.favorite_venues.find(
                             (fv) => fv.venue_id === venue.id
@@ -365,7 +366,7 @@ function CreateAttendee() {
                         }
                       >
                         {[1, 2, 3, 4, 5].map((val) => (
-                          <option key={val} value={val}>
+                          <option  key={val} value={val} className="ratings">
                             {val}
                           </option>
                         ))}

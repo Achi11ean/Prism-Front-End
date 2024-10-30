@@ -46,7 +46,7 @@
 .create-attendee-container select {
     width: 100%; /* Make inputs longer */
     padding: 15px; /* Padding for inputs */
-    font-size: 2rem; /* Font size for input text */
+    font-size: 2.5rem; /* Font size for input text */
     margin-bottom: 20px; /* Space between inputs */
     border: 2px solid #ff6f61; /* Coral border */
     border-radius: 20px; /* Rounded input corners */
@@ -69,11 +69,12 @@
 .create-attendee-container select {
     width: 100%; /* Full width dropdown */
     padding: 15px; /* Padding for dropdown */
-    font-size: 2.5em; /* Font size for select text */
+    font-size: 1.4em; /* Font size for select text */
     margin-bottom: 20px; /* Space between dropdowns */
     background: linear-gradient(45deg, #ff6b6b, #ffdd00); /* Gradient background from pink to yellow */
     border: 3px solid #ff5722; /* Coral border */
     border-radius: 20px; /* More rounded corners */
+    text-align: center;
     box-sizing: border-box; /* Include padding in width */
     color: #3e2723; /* Darker text color for contrast */
     appearance: none; /* Remove default dropdown styling for custom look */
@@ -161,7 +162,7 @@
     .create-attendee-container textarea,
     .create-attendee-container select {
       width:90%; /* Adjust input width */
-      font-size: 1em; /* Adjust font size */
+      font-size: 2em; /* Adjust font size */
       text-align: center;
       margin-left: 15px;
       border: 2px solid #f57c00; /* Orange border */
@@ -215,4 +216,8 @@
         background: linear-gradient(45deg, rgb(9, 238, 219),rgb(85, 225, 63));
         text-align: center;
     }
+  }
+
+  .ratings {
+    font-size: 12px;
   }

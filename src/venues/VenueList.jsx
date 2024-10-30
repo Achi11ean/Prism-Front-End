@@ -25,8 +25,8 @@ function VenueList() {
 
   useEffect(() => {
     const url = searchTerm
-      ? `https://phase4project-xp0u.onrender.com/venues/search?name=${searchTerm}`
-      : 'https://phase4project-xp0u.onrender.com/venues';
+      ? `/api/venues/search?name=${searchTerm}`
+      : '/api/venues';
 
     fetch(url)
       .then((response) => {
@@ -84,7 +84,7 @@ function VenueList() {
   };
 
 
-    fetch(`https://phase4project-xp0u.onrender.com/venues/${venueId}`, {
+    fetch(`/api/venues/${venueId}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(editFormData),
@@ -104,7 +104,7 @@ function VenueList() {
   };
 
   const handleDeleteClick = (venueId) => {
-    fetch(`https://phase4project-xp0u.onrender.com/venues/${venueId}`, {
+    fetch(`/api/venues/${venueId}`, {
       method: 'DELETE',
     })
       .then(() => {
@@ -122,7 +122,9 @@ function VenueList() {
       <h2>Venue List</h2>
 
       {/* Create button */}
+      {(isAdmin || user?.user_type === 'venue') && (
       <button className="Createvenue" onClick={() => navigate("/create-venue")}>Create Venue</button>
+      )}
       {/* Search input */}
       <input
         className='search-venue'

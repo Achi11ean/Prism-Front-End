@@ -5,14 +5,14 @@ body {
     padding: 20px;
 }
 
-h2 {
+.adminDashboard {
     color: #ffffff;
     border-bottom: 8px solid #007bff;
     border-radius: 20px;
     padding-bottom: 0px;
 }
 
-h3 {
+.Metrics {
     color: pink;
 }
 
