@@ -16,7 +16,7 @@ function SignOut() {
       isSignOutPerformed.current = true; // Mark that sign out is performed
 
       try {
-        const response = await fetch('https://phase4project-xp0u.onrender.com//signout', {
+        const response = await fetch('https://phase4project-xp0u.onrender.com/signout', {
           method: 'POST',
           credentials: 'include', // Important for sending cookies/session data
           headers: {

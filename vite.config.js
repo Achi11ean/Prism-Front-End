@@ -6,8 +6,8 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      'https://phase4project-xp0u.onrender.com/': {
-        target: 'https://phase4project-xp0u.onrender.com/',
+      'https://phase4project-xp0u.onrender.com': {
+        target: 'https://phase4project-xp0u.onrender.com',
         changeOrigin: true,
 
       }
