@@ -35,7 +35,7 @@ body {
 }
 
 /* User list table */
-table {
+.admintable {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
@@ -43,7 +43,13 @@ table {
     color:black;
     margin-bottom: 3rem;
 }
-
+.admintable tbody {
+    display: block; /* Stack table rows as blocks */
+    width: 100%;
+    flex-direction: row;
+    display: flex;
+    grid-template-columns: minmax(150px, 1fr) minmax(200px, 2fr); /* Define grid columns */
+}
 th, td {
     padding: 12px;
     text-align: left;
@@ -52,13 +58,54 @@ th, td {
 
 th {
     background-color: #007bff;
-    color: white;
-    text-align: center;
+    text-align: right;
+    text-align: right;
+    flex: 3;
+    display: inline-block;
+    margin-left: 4px;
+    margin-bottom: 13px;
+
+    font-size:22.5px;
+    border-bottom-right-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
+
+.admintable tr {
+    display: flex;
+    flex-direction: column; /* Stack rows vertically */
+    background-color: pink;
+    padding: 10px;
+  }
+
+.admintable thead {
+    display:vertical;
+}
+
+
 
 tr:hover {
     background-color: #f1f1f1;
 }
+
+.admintable td {
+    display: block; /* Stack cells vertically */
+    width: 13rem;
+    padding: 5px;
+    font-family: 'Geneva';
+    height:40px;
+    border: 1px solid red;
+    font-size: 14.5px;
+    overflow-y: auto; /* Enable horizontal scrolling */
+    border-radius: 12px;
+    text-align: left;
+    white-space: normal; /* Allow wrapping */
+    text-align: right; /* Align content to the right for smaller screens */
+    background-color: rgba(255, 248, 148, 0.875);
+    color: #41024c;
+    word-wrap: break-word; /* Allow wrapping of long content */
+    border: 1px solid #6200ff;
+    margin-bottom: 16.5px;
+  }
 
 /* Select dropdown */
 select {
@@ -107,7 +154,7 @@ ul {
 @media (max-width: 450px) {
     body {
         padding: 10px; /* Reduce padding for smaller screens */
-        width: 90%;
+        width: 100%;
     }
 
     .adminDashboard {
@@ -125,14 +172,27 @@ ul {
         font-size: 1rem; /* Reduce font size to fit better */
         padding: 10px;
         margin-bottom: 15px;
-        width: 90%;
+        width: 80%;
 
     }
-
-    table {
-        width: 90%; /* Ensure table fits within the viewport */
-        font-size: 0.9rem; /* Adjust font size */
-        width: 100%;
+    .tableContainer {
+        max-height: fit-content;
+        overflow-x: auto;
+        overflow-y: auto;
+        overflow-x: hidden; /* Prevent horizontal scrolling */
+        border: 1px solid #f761b1;
+        border-radius: 40px; /* Rounded corners for a nice look */
+        max-width: 24rem; /* Max width for the event list container */
+  
+    }
+    .admintable {
+        overflow-x: auto; /* Enable horizontal scrolling */
+        overflow-y: 400px; /* Enable horizontal scrolling */
+        align-items: center;
+        border-radius: 20px;
+        justify-content: center;
+        display: flex; /* Stack table cells vertically */
+        width: 100%; /* Make sure the table takes up full width */
 
     }
 

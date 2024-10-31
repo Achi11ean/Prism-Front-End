@@ -162,7 +162,8 @@ const AdminUserList = () => {
         value={searchUsername}
         onChange={handleSearchChange} // Use the handler for input changes
       />
-      <table>
+      <div className="tableContainer">
+      <table className="admintable">
         <thead>
           <tr>
             <th>ID</th>
@@ -201,6 +202,7 @@ const AdminUserList = () => {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 };
