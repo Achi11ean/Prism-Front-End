@@ -104,41 +104,23 @@ select {
 ul {
     list-style: none;
 }
-@media (max-width: 450px) {
-    body {
-        padding: 10px; /* Reduce padding for smaller screens */
-        width: 100%;
-    }
 
-    .adminDashboard {
-        padding-bottom: 10px;
-        font-size: 1rem; /* Adjust font size for better readability */
-        width: 90%;
 
-    }
-
-    .Metrics {
-        color: lightcoral; /* Adjust color if needed for small screens */
-    }
-
-    .metrics {
-        font-size: 1rem; /* Reduce font size to fit better */
-        padding: 10px;
-        margin-bottom: 15px;
-        width: 80%;
-
-    }
+@media only screen and (max-width: 450px) {
+    /* Style adjustments for the artist-list-container */
     .tableContainer {
-        max-height: fit-content;
-        overflow-x: auto;
-        background-color: white;
-        overflow-y: auto;
-        overflow-x: hidden; /* Prevent horizontal scrolling */
-        border: 1px solid #f761b1;
-        border-radius: 40px; /* Rounded corners for a nice look */
-        max-width: 24rem; /* Max width for the event list container */
-  
+      padding: 10px;
+      overflow-x: auto;
+      max-width: 24rem; /* Make it full width for smaller screens */
+      margin: 20px auto;
+      border-radius: 20px;
+      box-shadow: 10px 10px 10px rgba(239, 236, 236, 0.895);
     }
+  
+
+
+
+  
     .admintable {
         display: block;
         overflow-x: auto; /* Enable horizontal scrolling */
@@ -150,94 +132,85 @@ ul {
         align-items: center;
         justify-content: center;
         overflow-y: auto; /* Enable horizontal scrolling */
-
     }
-    .admintable thead {
-        display: vertical; /* Hide the header on small screens */
-      }
-
-
-    .admintable tr {
-        display: flex;
-        overflow-x: auto;
-        overflow-y: auto;
-        flex-direction: column; /* Stack rows vertically */
-        background-color: rgb(255, 255, 255);
-        padding: 10px;
-      }
-    
-
-    .admintable td {
-        display: block; /* Stack cells vertically */
-        width: 13rem;
-        padding: 5px;
-        overflow-x: auto;
-        font-family: 'Geneva';
-        height:45px;
-        border: 1px solid red;
-        font-size: 14.5px;
-        overflow-y: auto; /* Enable horizontal scrolling */
-        border-radius: 12px;
-        text-align: left;
-        white-space: normal; /* Allow wrapping */
-        background-color: rgba(202, 255, 207, 0.875);
-        color: #41024c;
-        word-wrap: break-word; /* Allow wrapping of long content */
-        border: 1px solid #6200ff;
-        margin-bottom: 10px;
-      }
-    
-    .admintable td:before {
-        content: attr(data-label); /* Use the header as a label for each cell */
-        font-weight: bold;
-        font-size: 18px;
-        
-        text-align: left;
-        color: #ff0000; /* Make the labels stand out */
-        display: inline-block;
-        padding-right: 10px;
-        flex:1
-    }
-
-    .admintable tbody {
-        display: block; /* Stack table rows as blocks */
-        width: 100%;
-        flex-direction: row;
-        display: flex; 
-        overflow-x: auto;
-        grid-template-columns: minmax(150px, 1fr) minmax(200px, 2fr); /* Define grid columns */
-
-    }
-
-
     .admintable th {        
-        text-align: right;
-        text-align: right;
+        text-align: center;
         flex: 3;
         min-height: 30px;
         display: inline-block;
-        margin-left: 4px;
         margin-bottom: 18px;
         width:100%;
         font-size:15px;
         border-bottom-right-radius: 10px;
-        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
 
     }
-
-    th, td {
-        padding: 8px; /* Reduce padding for a compact layout */
+    .admintable thead {
+      display: vertical; /* Hide the header on small screens */
     }
+  
+    .admintable tbody {
+      width: 100%;
+      flex-direction: row;
+      display: flex; 
+      overflow-x: auto;
+      grid-template-columns: minmax(150px, 1fr) minmax(200px, 2fr); /* Define grid columns */
 
-    .deleteUser {
-        font-size: 0.8rem; /* Smaller font size */
-        padding: 5px; /* Adjust padding */
     }
+  
+    .admintable tr {
+      display: flex;
+      flex-direction: column; /* Stack rows vertically */
+      padding: 10px;
+    }
+  
+    .admintable td {
+      display: block; /* Stack cells vertically */
+      width: 13rem;
+      padding: 5px;
+      overflow-x: auto;
+      font-family: 'Geneva';
+      height:45px;
+      border: 1px solid red;
+      font-size: 14.5px;
+      border-radius: 12px;
+      text-align: left;
+      white-space: normal; /* Allow wrapping */
+      background-color: rgba(255, 248, 148, 0.875);
+      color: #41024c;
+      word-wrap: break-word; /* Allow wrapping of long content */
+      border: 1px solid #6200ff;
+      margin-bottom: 15px;
+      margin-left: 20px;
+    }
+  
+    /* Use data-label to display table headers on small screens */
+    .admintable td:before {
+      content: attr(data-label); /* Use the header as a label for each cell */
+      font-weight: bold;
+      font-size: 18px;
+      
+      text-align: left;
+      color: #ff0000; /* Make the labels stand out */
+      display: inline-block;
+      padding-right: 10px;
+      flex:1
+    }
+  
+    /* Style buttons for smaller screens */
 
+    /* Style for the search input */
     .search {
-        width: 90%; /* Make the search bar fit screen */
+      font-size: 25px;
+      padding: 10px;
+      text-align: center; /* Center text in input */
 
-        font-size: 1.5rem; /* Adjust font size */
-        padding: 10px;
+      width: 24rem; /* Full width for smaller screens */
+      margin-bottom: 20px;
     }
-}
+ 
+
+
+
+
+  }

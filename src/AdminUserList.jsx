@@ -178,12 +178,12 @@ const AdminUserList = () => {
         <tbody>
           {users.map(user => (
             <tr key={user.id}>
-              <td>{user.id}</td>
-              <td>{user.username}</td>
-              <td>{user.user_type}</td>
-              <td>{user.profile_completed ? 'Yes' : 'No'}</td>
-              <td>{formatDate(user.created_at)}</td>
-              <td>{formatDate(user.last_login)}</td>
+              <td data-label="User ID:">{user.id}</td>
+              <td data-label="User Name:">{user.username}</td>
+              <td data-label="User Type:">{user.user_type}</td>
+              <td data-label="Profile Completed?:">{user.profile_completed ? 'Yes' : 'No'}</td>
+              <td data-label="Created On:">{formatDate(user.created_at)}</td>
+              <td data-label="Last Login:">{formatDate(user.last_login)}</td>
               <td>
                 <select
                   defaultValue={user.user_type}
