@@ -115,8 +115,8 @@ function SignIn() {
     }
 
     const url = isSignUp
-      ? "https://phase4project-xp0u.onrender.com/api/signup"
-      : "https://phase4project-xp0u.onrender.com/api/signin";
+      ? "/api/signup"
+      : "/api/signin";
 
     fetch(url, {
       method: "POST",
@@ -142,7 +142,7 @@ function SignIn() {
           // Redirect based on user_type
           if (isSignUp) {
             // Redirect to "create" page for the user type if signing up
-            fetch(`https://phase4project-xp0u.onrender.com/api/complete-profile/${data.id}`, {
+            fetch(`/api/complete-profile/${data.id}`, {
               method: "PATCH",
               credentials: "include",
           })

@@ -39,8 +39,8 @@ function TourList() {
   // Fetch tours, events, venues, and artists from the backend
   useEffect(() => {
     const url = searchTerm
-      ? `https://phase4project-xp0u.onrender.com/api/tours/search?name=${searchTerm}`
-      : "https://phase4project-xp0u.onrender.com/api/tours";
+      ? `/api/tours/search?name=${searchTerm}`
+      : "/api/tours";
 
     fetch(url)
       .then((response) => {
@@ -63,18 +63,18 @@ function TourList() {
       });
 
     // Fetch available events for selection
-    fetch("https://phase4project-xp0u.onrender.com/api/events")
+    fetch("/api/events")
       .then((response) => response.json())
       .then((data) => setEvents(data))
       .catch((error) => console.error("Error fetching events:", error));
 
     // Fetch venues and artists
-    fetch("https://phase4project-xp0u.onrender.com/api/venues")
+    fetch("/api/venues")
       .then((response) => response.json())
       .then((data) => setVenues(data))
       .catch((error) => console.error("Error fetching venues:", error));
 
-    fetch("https://phase4project-xp0u.onrender.com/api/artists")
+    fetch("/api/artists")
       .then((response) => response.json())
       .then((data) => setArtists(data))
       .catch((error) => console.error("Error fetching artists:", error));
@@ -141,7 +141,7 @@ const handleSaveClick = (tourId) => {
   if (window.confirm(confirmMessage)) {
     console.log("Updating tour:", updatedFormData);
 
-    fetch(`https://phase4project-xp0u.onrender.com/api/tours/${tourId}`, {
+    fetch(`/api/tours/${tourId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedFormData),
@@ -181,7 +181,7 @@ const handleSaveClick = (tourId) => {
 
   // Handle deleting a tour
   const handleDeleteClick = (tourId) => {
-    fetch(`https://phase4project-xp0u.onrender.com/api/tours/${tourId}`, {
+    fetch(`/api/tours/${tourId}`, {
       method: "DELETE",
     })
       .then(() => {

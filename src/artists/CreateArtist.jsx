@@ -19,7 +19,7 @@ function CreateArtist() {
   console.log('USER IN CREATE ARTIST IS: ', user)
   // Fetch available events from the backend
   useEffect(() => {
-    fetch("https://phase4project-xp0u.onrender.com/api/events")
+    fetch("/api/events")
       .then((response) => response.json())
       .then((data) => setEvents(data))
       .catch((error) => console.error("Error fetching events:", error));
@@ -45,7 +45,7 @@ function CreateArtist() {
       user_id: user.user_id
     };
 
-    fetch("https://phase4project-xp0u.onrender.com/api/artists", {
+    fetch("/api/artists", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(artistToSubmit), // Use artistToSubmit here
