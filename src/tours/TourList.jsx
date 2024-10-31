@@ -5,7 +5,7 @@ import { useAuth } from '../AuthContext'; // Import useAuth to access user data
 
 
 function TourList() {
-  const { user } = useAuth(); // Make sure you're getting the user context
+  const { user, isSignedIn } = useAuth(); // Make sure you're getting the user context
   const isAdmin = user?.user_type === 'admin';
   const [tours, setTours] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -125,7 +125,7 @@ const handleSaveClick = (tourId) => {
     description: editFormData.description,
     social_media_handles: editFormData.social_media_handles,
     event_ids: updatedEventIds,
-    user_id: user.user_id // This should not be null or undefined
+    user_id: user.user_id
 
   };
 
@@ -145,6 +145,8 @@ const handleSaveClick = (tourId) => {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedFormData),
+      credentials: "include", // Ensures session cookies are included
+
     })
       .then((response) => {
         if (!response.ok) {
@@ -181,8 +183,10 @@ const handleSaveClick = (tourId) => {
 
   // Handle deleting a tour
   const handleDeleteClick = (tourId) => {
-    fetch(`https://phase4project-xp0u.onrender.com/api/tours/${tourId}`, {
+    fetch(`https://phase4project-xp0u.onrender.com/api/tours/${tourId}?user_id=${user.user_id}`, {
       method: "DELETE",
+      credentials: 'include'
+
     })
       .then(() => {
         setTours(tours.filter((tour) => tour.id !== tourId));

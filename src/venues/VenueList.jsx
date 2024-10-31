@@ -4,7 +4,7 @@ import './VenueList.css';
 import { useAuth } from '../AuthContext'; // Import useAuth to access user data
 
 function VenueList() {
-  const { user } = useAuth(); // Retrieve the current user from context
+  const { user, isSignedIn } = useAuth(); // Retrieve the current user from context
   const isAdmin = user?.user_type === 'admin';
 
   const [venues, setVenues] = useState([]);
@@ -56,7 +56,9 @@ function VenueList() {
       organizer: venue.organizer,
       email: venue.email,
       earnings: venue.earnings,
-      description: venue.description
+      description: venue.description,
+      user_id: user.user_id
+
     });
   };
 
@@ -87,7 +89,7 @@ function VenueList() {
     fetch(`https://phase4project-xp0u.onrender.com/api/venues/${venueId}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(editFormData),
+      body: JSON.stringify(venueToSubmit),
       credentials: "include", // Ensures session cookies are included
 
     })
@@ -95,6 +97,7 @@ function VenueList() {
       .then((updatedVenue) => {
         setVenues(venues.map((venue) => (venue.id === venueId ? updatedVenue : venue)));
         setEditingVenueId(null);
+        setEditFormData({}); // Reset form data after saving
       })
       .catch((error) => console.error('Error updating venue:', error));
   };
@@ -104,7 +107,7 @@ function VenueList() {
   };
 
   const handleDeleteClick = (venueId) => {
-    fetch(`https://phase4project-xp0u.onrender.com/api/venues/${venueId}`, {
+    fetch(`https://phase4project-xp0u.onrender.com/api/venues/${venueId}?user_id=${user.user_id}`, {
       method: 'DELETE',
     })
       .then(() => {

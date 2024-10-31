@@ -6,7 +6,7 @@ import { useAuth } from '../AuthContext'; // Import useAuth to access user data
 
 
 function AttendeeList() {
-  const { user } = useAuth(); // Retrieve the current user from context
+  const { user, isSignedIn } = useAuth(); // Retrieve the current user from context
   console.log(user);  // Check the output
   const [attendees, setAttendees] = useState([]);
   const [events, setEvents] = useState([]);
@@ -123,7 +123,7 @@ function AttendeeList() {
   }, [searchTerm]);
 
   const handleDelete = (id) => {
-    fetch(`https://phase4project-xp0u.onrender.com/api/attendees/${id}`, {
+    fetch(`https://phase4project-xp0u.onrender.com/api/attendees/${id}?user_id=${user.user_id}`, {
       method: "DELETE",
       credentials: 'include'
 
@@ -333,10 +333,9 @@ function AttendeeList() {
       favorite_artist_ids: editData.favorite_artist_ids,
       social_media: socialMediaObject,
       favorite_venues: favoriteVenues, // Use the adjusted favorite venues
+      user_id: user.user_id
+
     };
-
-    console.log("Data sent to backend:", JSON.stringify(updatedAttendee, null, 2));
-
     fetch(`https://phase4project-xp0u.onrender.com/api/attendees/${id}`, {
       method: "PATCH",
       headers: {
