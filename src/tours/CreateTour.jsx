@@ -25,17 +25,17 @@ function CreateTour() {
 
   // Fetch available events, venues, and artists from the backend
   useEffect(() => {
-    fetch('/api/events')
+    fetch('https://phase4project-xp0u.onrender.com/api/events')
       .then(response => response.json())
       .then(data => setEvents(data))
       .catch(error => console.error('Error fetching events:', error));
 
-    fetch('/api/venues')
+    fetch('https://phase4project-xp0u.onrender.com/api/venues')
       .then(response => response.json())
       .then(data => setVenues(data))
       .catch(error => console.error('Error fetching venues:', error));
 
-    fetch('/api/artists')
+    fetch('https://phase4project-xp0u.onrender.com/api/artists')
       .then(response => response.json())
       .then(data => setArtists(data))
       .catch(error => console.error('Error fetching artists:', error));
@@ -57,7 +57,7 @@ function CreateTour() {
 
     };
     // Submit tour creation request to the backend
-    fetch('/api/tours', {
+    fetch('https://phase4project-xp0u.onrender.com/api/tours', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updatedFormData),
