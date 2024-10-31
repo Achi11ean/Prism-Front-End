@@ -111,7 +111,7 @@ ul {
     .tableContainer {
       padding: 10px;
       overflow-x: auto;
-      max-width: 24rem; /* Make it full width for smaller screens */
+      max-width: 25rem; /* Make it full width for smaller screens */
       margin: 20px auto;
       border-radius: 20px;
       box-shadow: 10px 10px 10px rgba(239, 236, 236, 0.895);

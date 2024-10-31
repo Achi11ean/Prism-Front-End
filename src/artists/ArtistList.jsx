@@ -87,7 +87,8 @@ function ArtistList() {
         .split(",")
         .map((song) => song.trim())
         .join(","), // Convert array to string
-      event_ids: editFormData.event_ids.map(Number), // Convert to numbers
+      event_ids: editFormData.event_ids.map(Number), // Convert to numbers,
+      user_id: user.user_id
     };
 
     fetch(`https://phase4project-xp0u.onrender.com/api/artists/${artistId}`, {

@@ -170,7 +170,7 @@ function CreateAttendee() {
     const attendeeToSubmit = {
       ...newAttendee,
       social_media: socialMediaObject,
-      created_by_id: user.user_id // Include the user's ID for tracking
+      user_id: user.user_id
 
     };
 

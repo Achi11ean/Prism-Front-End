@@ -8,10 +8,8 @@ import { useAuth } from '../AuthContext'; // Import useAuth to access user data
 function AttendeeList() {
   const { user } = useAuth(); // Retrieve the current user from context
   console.log(user);  // Check the output
-
   const [attendees, setAttendees] = useState([]);
   const [events, setEvents] = useState([]);
-  
   const [eventTypes, setEventTypes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
@@ -27,7 +25,6 @@ function AttendeeList() {
     favorite_venues: [],
   });
   const isAdmin = user?.user_type === 'admin';
-
   const [searchTerm, setSearchTerm] = useState(""); // For attendee search
   const [eventSearchTerm, setEventSearchTerm] = useState(""); // For favorite events search
   const [artistSearchTerm, setArtistSearchTerm] = useState(""); // For favorite artists search
@@ -38,6 +35,9 @@ function AttendeeList() {
   const [venueSearchTerm, setVenueSearchTerm] = useState("");
 
   const navigate = useNavigate();
+  console.log("isAdmin:", isAdmin);
+  console.log("user:", user);
+  console.log('attendees are: ', attendees)
 
   useEffect(() => {
     fetch("https://phase4project-xp0u.onrender.com/api/venues")
