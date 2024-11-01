@@ -167,7 +167,7 @@ function EventList() {
 
   // Handle deleting an event
   const handleDeleteClick = (eventId) => {
-    fetch(`https://phase4project-xp0u.onrender.com/api/events/${eventId}`, {
+    fetch(`https://phase4project-xp0u.onrender.com/api/events/${eventId}?user_id=${user.user_id}`, {
       method: "DELETE",
     })
       .then(() => {
