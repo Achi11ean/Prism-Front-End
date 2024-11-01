@@ -113,7 +113,7 @@ const AdminUserList = () => {
   const deleteUser = async (userId) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
       try {
-        const response = await fetch(`https://phase4project-xp0u.onrender.com/api/users/${userId}`, {
+        const response = await fetch(`https://phase4project-xp0u.onrender.com/api/users/${userId}?user_id=${user.user_id}`, {
           method: 'DELETE',
           credentials: 'include',
         });
