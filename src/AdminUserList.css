@@ -177,7 +177,7 @@ ul {
       text-align: left;
       white-space: normal; /* Allow wrapping */
       background-color: rgba(255, 248, 148, 0.875);
-      color: #41024c;
+      color: #000000;
       word-wrap: break-word; /* Allow wrapping of long content */
       border: 1px solid #6200ff;
       margin-bottom: 15px;
@@ -189,7 +189,7 @@ ul {
       content: attr(data-label); /* Use the header as a label for each cell */
       font-weight: bold;
       font-size: 18px;
-      
+    
       text-align: left;
       color: #ff0000; /* Make the labels stand out */
       display: inline-block;
@@ -211,6 +211,13 @@ ul {
  
 
 
-
+    .adminDashboard {
+        color: #01b723;
+        border-bottom: 8px solid #007bff;
+        border-radius: 20px;
+        padding-bottom: 0px;
+        text-align: center;
+    }
+    
 
   }

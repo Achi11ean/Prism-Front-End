@@ -166,7 +166,7 @@ function ArtistList() {
       {/* Create button */}
       {(isAdmin || user?.user_type === 'artist') && (
 
-      <button className="Create" onClick={() => navigate("/create-artist")}>
+      <button className="CreateArtist" onClick={() => navigate("/create-artist")}>
         Create Artist
       </button>
       )}
