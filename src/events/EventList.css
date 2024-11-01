@@ -20,7 +20,7 @@
   border: 4px solid lime; /* Bright lime border color */
   border-radius: 80px; /* Rounded corners */
   padding: 10px; /* Padding for the header */
-  background: linear-gradient(45deg, yellow, orange, red); /* Gradient background */
+  background: linear-gradient(45deg,rgb(55, 255, 242), yellow, orange, red); /* Gradient background */
 }
 
 /* Style for the table */
@@ -253,11 +253,11 @@
     text-decoration: underline dotted cyan; /* Underline style */
     border: 4px solid lime; /* Bright lime border color */
     border-radius: 80px; /* Rounded corners */
-    background: linear-gradient(45deg, yellow, orange, red); /* Gradient background */
+    background: linear-gradient(45deg,rgb(55, 255, 242), yellow, orange, red); /* Gradient background */
   }
 
   .event-list-container {
-    background-color: rgba(255, 218, 185, 0.662); /* Light peach background with transparency */
+    background-color: rgba(91, 255, 170, 0.662); /* Light peach background with transparency */
     padding: 20px;
     max-width:24rem; /* Max width for the event list container */
     margin: 40px auto; /* Center the container horizontally */
@@ -269,22 +269,26 @@
     overflow-y: 400px; /* Enable horizontal scrolling */
     align-items: center;
     border-radius: 20px;
-    justify-content: center;
+    background-color: pink;
     display: flex; /* Stack table cells vertically */
     width: 100%; /* Make sure the table takes up full width */
+    border-collapse: collapse;
   }
-  .event-table th {        
+  .event-table th {       
+    color:rgb(0, 42, 255); 
     text-align: right;
     margin-right: 0px;
     flex: 3;
     display: inline-block;
     margin-left: 4px;
-    font-size:20px;
+    font-size:2.5rem;
     padding-top: 2px;
     padding-bottom: 2px;
-    margin-bottom:  28.5px;
+    /* margin-bottom:  28.5px; */
     border-bottom-right-radius: 10px;
     border-bottom-right-radius: 10px;
+    background: linear-gradient(45deg,rgb(55, 255, 242), yellow, orange, red); /* Gradient background */
+
 
 }
 .event-table thead {
@@ -295,10 +299,8 @@
   display: block; /* Stack table rows as blocks */
   width: 100%;
   padding: 5px;
-  margin-bottom: 30px; /* Space between rows */
   flex-direction: row;
   display: flex;
-  margin-top: 10px;
   grid-template-columns: minmax(150px, 1fr) minmax(200px, 2fr); /* Define grid columns */
 
 }
@@ -314,9 +316,9 @@
   width: 10rem;
   padding: 5px;
   font-family: 'Geneva';
-  height:30px;
+  height:3.5rem;
   border: 1px solid red;
-  font-size: 14.5px;
+  font-size: 1rem;
   overflow-y: auto; /* Enable horizontal scrolling */
   border-radius: 12px;
   text-align: left;
@@ -326,7 +328,6 @@
   color: #41024c;
   word-wrap: break-word; /* Allow wrapping of long content */
   border: 1px solid #6200ff;
-  margin-bottom: 23px;
 }
 
 .event-table td:before {
@@ -358,7 +359,7 @@
   font-size: 25px;
   padding: 10px;
   text-align: center; /* Center text in input */
-
+  border-color:white;
   width: 24rem; /* Full width for smaller screens */
   margin-bottom: 20px;
 }
