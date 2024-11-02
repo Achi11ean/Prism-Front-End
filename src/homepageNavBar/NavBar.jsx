@@ -42,7 +42,7 @@ function NavBar() {
                         {user && user.user_type === 'admin' && ( // Conditional rendering for admin link
 
                         <li>
-                        <Link to="/admin/users">Manage Users</Link>
+                        <Link to="/admin/users">Admin</Link>
                         </li>
                         )}
                     </>

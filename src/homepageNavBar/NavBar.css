@@ -66,6 +66,68 @@ nav a:hover {
     border-radius: 5px;
     margin: 10px;
 }
+
+@media only screen and (max-width: 950px) {
+    nav {
+        background: linear-gradient(45deg, rgb(246, 78, 78),  rgb(254, 254, 135), rgb(45, 202, 255), violet);
+        width: 80%;
+        box-sizing: border-box;
+        /* position: sticky; */
+        top: 0;
+        z-index: 10;
+        border-top: 8px solid rgb(255, 255, 255);
+        border-bottom: 8px solid rgb(255, 255, 255);
+    }
+    
+    nav ul {
+        display: flex;
+        justify-content: space-around;
+        list-style: none;
+        align-items: center;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+    }
+    
+    /* nav li {
+        margin: 0 15px;
+    }
+     */
+    nav a {
+        text-decoration: none;
+        font-family: cursive;
+        border-radius: 10px;
+        color: black;
+        font-size: 1rem;
+        display: block; /* Ensures the clickable area of the links is larger */
+        
+    }
+    
+    nav a:hover {
+        color: rgb(255, 255, 255);
+        
+    }
+    
+    .signin {
+        font-size: 20px;
+        border-radius: 40px;
+        background-color: rgb(199, 247, 144);
+        color: rgb(0, 0, 0);
+        padding: 5px;
+    }
+    .signout {
+        font-size: 20px;
+        width: 5rem;
+        background-color: rgb(254, 121, 121);
+        color: rgb(0, 0, 0);
+        padding: 5px;
+    
+    }
+    
+
+}
+
+
 @media only screen and (max-width: 450px) {
     .menu-toggle {
         display: block; /* Show the toggle button when screen is 450px or less */
@@ -105,3 +167,4 @@ nav a:hover {
         font-family: cursive;
     }
 }
+
