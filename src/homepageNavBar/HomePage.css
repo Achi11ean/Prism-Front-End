@@ -15,11 +15,48 @@
         drop-shadow(0 0 16px orange) 
         drop-shadow(0 0 18px red);
 }
+.usertype {
+    font-weight: bold;
+    text-decoration: underline;
+    color:white;
+    margin-left: 20rem;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.643);
+    width:40rem;
+    padding:1rem;
+    border: 1px solid white;
+    border-radius: 45px;
 
-.homepage p {
+
+
+}
+.usersection {
+    overflow-x: auto; /* Enable horizontal scrolling */
+    max-height: 15rem;
+    font-size: 1.3rem;
+    color:white;
+    width:40rem;
+    padding:1rem;
+    border: 1px solid white;
+    border-radius: 45px;
+    background-color: rgba(0, 0, 0, 0.643);
+    margin-left:20rem;
+}
+.explained {
+    overflow-x: auto; /* Enable horizontal scrolling */
+    max-height: 15rem;
+    font-size: 1.3rem;
+    color:white;
+    width:40rem;
+    padding:1rem;
+    border: 1px solid white;
+    border-radius: 45px;
+    margin-left: 20rem;
+    background-color: rgba(0, 0, 0, 0.643);
+}
+.light {
     color: rgb(255, 255, 255);
     font-size: 3.2em;
-    margin-bottom: 290px;
     background: linear-gradient(45deg, pink, rgb(9, 238, 219),rgb(85, 225, 63), rgb(255, 54, 255));
     width: fit-content;
     margin-left: 180px;
@@ -36,6 +73,10 @@
 
 }
 
+.additional-info {
+    text-align: center;
+}
+
 #rainbow {
     font-size: 300px;
     background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
@@ -43,10 +84,35 @@
     -webkit-text-fill-color: transparent; /* Makes the inside of the text transparent, showing the gradient */
     display: inline-block;
     font-family:'Times New Roman', Times, serif;
-;
-    
+}
+.toggle-buttons {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-right: 5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
 }
+
+.toggle-buttons:hover {
+    background: linear-gradient(135deg, #2575fc, #6a11cb);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+}
+
+.toggle-buttons:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
 
 .homepage h1 {
     font-size: 8rem;
@@ -128,5 +194,53 @@ h2 {
 
     #welcome {
         font-size: 40px; /* Reduce font size for better fit */
+    }
+    .usertype {
+        font-weight: bold;
+        text-decoration: underline;
+        color:white;
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.643);
+        width:40rem;
+        padding:1rem;
+        border: 1px solid white;
+        border-radius: 45px;
+        font-size: 16px;
+        margin-left:5rem;
+    
+    
+    }
+    .usersection {
+        overflow-x: auto; /* Enable horizontal scrolling */
+        max-height: 15rem;
+        font-size: 1.3rem;
+        color:white;
+        width:40rem;
+        padding:1rem;
+        border: 1px solid white;
+        border-radius: 45px;
+        background-color: rgba(0, 0, 0, 0.643);
+        font-size: 12px;
+        text-align: left;
+        margin-left:5rem;
+
+    }
+    .explained {
+        overflow-x: auto; /* Enable horizontal scrolling */
+        max-height: 15rem;
+        font-size: 1.3rem;
+        color:white;
+        width:40rem;
+        padding:1rem;
+        border: 1px solid white;
+        border-radius: 45px;
+        background-color: rgba(0, 0, 0, 0.643);
+        font-size: 12px;
+        text-align: left;
+
+    }
+    .additional-info {
+        text-align: center;
+        font-size: 12px;
     }
 }
