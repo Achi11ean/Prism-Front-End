@@ -7,7 +7,7 @@ body, html {
 
 /* Apply the background image to the entire page */
 .App {
-    background-image: url('./assets/desktop-wallpaper-crowd-of-party-people-crowd-of-party-people-vector-background-scalable-to-any-size-also-includes-high-resolution-jpeg.jpg'); /* Replace with your image path */
+    background-image: url('./assets/prism2.webp'); /* Replace with your image path */
     background-size: cover; 
     background-position: center; 
     min-height: 100vh;
