@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import './HomePage.css';
-
+import CalendarComponent from '../Calendar';
 function HomePage() {
     const [isExpanded, setIsExpanded] = useState(false);
+
+
+
     const [expandedSections, setExpandedSections] = useState({
         venue: false,
         artist: false,
@@ -27,7 +30,11 @@ function HomePage() {
         <div className="homepage">
             <span id="rainbow2"><h1 id="rainbow">PRISM</h1></span>
             <p className="light">Transforming talent into a spectrum of experience</p>
-
+            {/* Calendar Component */}
+            <div className="calendar-section">
+                <h2>Upcoming Events and Tours</h2>
+                <CalendarComponent />
+            </div>
             <button onClick={toggleExpand} className="toggle-buttons">
                 {isExpanded ? 'Hide Information' : 'Show More Information'}
             </button>

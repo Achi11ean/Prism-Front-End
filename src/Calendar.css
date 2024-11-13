@@ -1,0 +1,101 @@
+/* Calendar.css */
+
+/* Container styling */
+.custom-calendar-container {
+    height: 80vh;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #2a2a2e;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    color: #f0f0f0;
+  }
+  
+  /* Calendar styling */
+  .custom-calendar {
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  /* Event styling */
+  .custom-calendar .rbc-event {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .custom-calendar .rbc-event:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.6);
+  }
+  
+  /* Day styling */
+  .custom-calendar .rbc-day-bg {
+    background-color: #1f1f22;
+  }
+  
+  .custom-calendar .rbc-today {
+    background-color: #38383d !important;
+    border-radius: 5px;
+  }
+  
+  /* Header styling */
+  .custom-calendar .rbc-toolbar {
+    color: #f0f0f0;
+    margin-bottom: 10px;
+  }
+  
+  .custom-calendar .rbc-toolbar button {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .custom-calendar .rbc-toolbar button:hover {
+    background-color: #66bb6a;
+  }
+  
+  /* Navigation buttons */
+  .custom-calendar .rbc-btn-group button {
+    background-color: #4caf50;
+    color: #fff;
+    border-radius: 5px;
+    margin: 0 5px;
+  }
+  
+  .custom-calendar .rbc-btn-group button:hover {
+    background-color: #66bb6a;
+  }
+  
+  /* Month view styling */
+  .custom-calendar .rbc-month-view {
+    background-color: #2a2a2e;
+  }
+  
+  .custom-calendar .rbc-month-row {
+    border-bottom: 1px solid #444;
+  }
+  
+  .custom-calendar .rbc-off-range-bg {
+    background-color: #3a3a3d;
+  }
+  
+  /* Event title styling */
+  .custom-calendar .rbc-event-content {
+    font-weight: bold;
+  }
+  
+  /* Selected event styling */
+  .custom-calendar .rbc-selected {
+    background-color: #66bb6a;
+    box-shadow: 0 4px 10px rgba(102, 187, 106, 0.5);
+  }
+  
