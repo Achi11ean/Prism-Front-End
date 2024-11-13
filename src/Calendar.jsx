@@ -12,21 +12,40 @@ const CalendarComponent = () => {
   // Fetch calendar data from the backend
   const fetchCalendarData = async () => {
     try {
-      const response = await fetch('/api/calendar');
+      console.log("Fetching calendar data...");
+      const response = await fetch('/api/calendar', { credentials: 'include' });
+      
+      console.log("Response status:", response.status);
+      if (!response.ok) {
+        console.error("Failed to fetch data. Status:", response.status);
+        return;
+      }
+
       const data = await response.json();
+      console.log("Raw data from API:", data);
 
       // Map data to calendar format
-      const mappedData = data.map((item) => ({
-        id: item.id,
-        title: item.title,
-        start: new Date(item.start), // ISO format date string
-        end: new Date(item.end),     // ISO format date string
-        type: item.type,
-        description: item.description,
-        location: item.location || 'N/A',
-        time: item.time || '',
-      }));
+      const mappedData = data.map((item) => {
+        const startDate = new Date(item.start);
+        const endDate = new Date(item.end);
+        
+        console.log("Processing item:", item);
+        console.log("Parsed start date:", startDate);
+        console.log("Parsed end date:", endDate);
 
+        return {
+          id: item.id,
+          title: item.title,
+          start: startDate,
+          end: endDate,
+          type: item.type,
+          description: item.description,
+          location: item.location || 'N/A',
+          time: item.time || '',
+        };
+      });
+
+      console.log("Mapped data for calendar:", mappedData);
       setEvents(mappedData);
     } catch (error) {
       console.error('Error fetching calendar data:', error);
@@ -36,14 +55,15 @@ const CalendarComponent = () => {
   useEffect(() => {
     fetchCalendarData();
   }, []);
-    // Log events state for debugging
-    useEffect(() => {
-        console.log("Events state:", events); // Add this line
-      }, [events]);
-    
+
+  // Log events state for debugging
+  useEffect(() => {
+    console.log("Current events state:", events);
+  }, [events]);
 
   // Handle event click
   const handleSelectEvent = (event) => {
+    console.log("Event selected:", event);
     alert(`Selected Event:\n\nTitle: ${event.title}\nTime: ${event.time}\nDescription: ${event.description}`);
   };
 
