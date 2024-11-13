@@ -13,7 +13,7 @@ const CalendarComponent = () => {
   const fetchCalendarData = async () => {
     try {
       console.log("Fetching calendar data...");
-      const response = await fetch('/api/calendar', { credentials: 'include' });
+      const response = await fetch('https://phase4project-xp0u.onrender.com/api/calendar', { credentials: 'include' });
       
       console.log("Response status:", response.status);
       if (!response.ok) {
