@@ -201,12 +201,12 @@ h2 {
         color:white;
         cursor: pointer;
         background-color: rgba(0, 0, 0, 0.643);
-        width:20rem;
+        width:40rem;
         padding:1rem;
         border: 1px solid white;
         border-radius: 45px;
         font-size: 16px;
-        margin-left:2rem;
+        margin-left:5rem;
     
     
     }
@@ -215,7 +215,7 @@ h2 {
         max-height: 15rem;
         font-size: 1.3rem;
         color:white;
-        width:20rem;
+        width:40rem;
         padding:1rem;
         border: 1px solid white;
         border-radius: 45px;
@@ -230,7 +230,7 @@ h2 {
         max-height: 15rem;
         font-size: 1.3rem;
         color:white;
-        width:10rem;
+        width:40rem;
         padding:1rem;
         border: 1px solid white;
         border-radius: 45px;
@@ -242,20 +242,5 @@ h2 {
     .additional-info {
         text-align: center;
         font-size: 12px;
-    }
-    .toggle-buttons {
-        margin-top: 20px;
-        padding: 10px 20px;
-        font-size: 1rem;
-        font-weight: bold;
-        color: #fff;
-        background: linear-gradient(135deg, #6a11cb, #2575fc);
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        margin-right: 0rem;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    
     }
 }
